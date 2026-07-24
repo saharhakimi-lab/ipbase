@@ -611,35 +611,38 @@
                     </div>
                     
                     <!-- IP Structure Visualization -->
-                    <div class="visual-display-box">
-                        <h4 style="font-size: 11px; text-transform: uppercase; color: #94a3b8; text-align: center; margin-bottom: 12px;">מבנה כתובת IPv4 לוגי</h4>
-                        <div class="octet-grid">
-                            <div class="octet-item">
-                                <span class="octet-title">אוקטטה 1</span>
-                                <span class="octet-num">192</span>
-                                <span class="octet-bin">11000000</span>
-                            </div>
-                            <div class="octet-item">
-                                <span class="octet-title">אוקטטה 2</span>
-                                <span class="octet-num">168</span>
-                                <span class="octet-bin">10101000</span>
-                            </div>
-                            <div class="octet-item" style="border-color: var(--warning);">
-                                <span class="octet-title">אוקטטה 3</span>
-                                <span class="octet-num" style="color: var(--warning);">1</span>
-                                <span class="octet-bin">00000001</span>
-                            </div>
-                            <div class="octet-item" style="border-color: var(--warning);">
-                                <span class="octet-title">אוקטטה 4</span>
-                                <span class="octet-num" style="color: var(--warning);">10</span>
-                                <span class="octet-bin">00001010</span>
-                            </div>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; font-size: 11px; margin-top: 16px; border-top: 1px solid #1e293b; padding-top: 12px;">
-                            <span style="color: #2dd4bf;">← מזהה הרשת (Net ID)</span>
-                            <span style="color: #fbbf24;">מזהה המארח (Host ID) →</span>
-                        </div>
-                    </div>
+<div class="visual-display-box">
+    <h4 style="font-size: 11px; text-transform: uppercase; color: #94a3b8; text-align: center; margin-bottom: 12px;">מבנה כתובת IPv4 לוגי (דוגמה עבור Class C עם /24)</h4>
+    <div class="octet-grid">
+        <!-- Net ID (3 אוקטטות משמאל) -->
+        <div class="octet-item" style="border-color: #38bdf8;">
+            <span class="octet-title">אוקטטה 1</span>
+            <span class="octet-num">192</span>
+            <span class="octet-bin">11000000</span>
+        </div>
+        <div class="octet-item" style="border-color: #38bdf8;">
+            <span class="octet-title">אוקטטה 2</span>
+            <span class="octet-num">168</span>
+            <span class="octet-bin">10101000</span>
+        </div>
+        <div class="octet-item" style="border-color: #38bdf8;">
+            <span class="octet-title">אוקטטה 3</span>
+            <span class="octet-num">1</span>
+            <span class="octet-bin">00000001</span>
+        </div>
+        <!-- Host ID (אוקטטה ימנית) -->
+        <div class="octet-item" style="border-color: var(--warning);">
+            <span class="octet-title">אוקטטה 4</span>
+            <span class="octet-num" style="color: var(--warning);">10</span>
+            <span class="octet-bin">00001010</span>
+        </div>
+    </div>
+    <div style="display: flex; justify-content: space-between; font-size: 11px; margin-top: 16px; border-top: 1px solid #1e293b; padding-top: 12px;" dir="ltr">
+        <span style="color: #38bdf8;">← מזהה הרשת (Net ID - 24 ביטים)</span>
+        <span style="color: #fbbf24;">מזהה המארח (Host ID - 8 ביטים) →</span>
+    </div>
+</div>
+
                 </div>
             </div>
 
