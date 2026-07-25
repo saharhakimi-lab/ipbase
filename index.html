@@ -1,1542 +1,500 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מדריך אינטראקטיבי: כתובות IP, בסיסי ספירה והמרות</title>
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Tailwind CSS (לצורך מחלקות העיצוב של חלונית העזרה) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <style>
-        /* Modern CSS Variables & Reset */
-        :root {
-            /* רקע שמנת חדש */
-            --bg-cream: #fbf9f1;
-            --card-cream: #f3efe0;
-            --border-cream: #eae5d9;
-
-            --primary: #0f766e;
-            --primary-light: #f0fdfa;
-            --primary-border: #99f6e4;
-            --secondary: #0369a1;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --success: #10b981;
-            --error: #ef4444;
-            --warning: #f59e0b;
-
-            /* צבעים ייעודיים למזהה רשת ומזהה מארח */
-            --net-id-color: #38bdf8;
-            --host-id-color: #fbbf24;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            background-color: var(--bg-cream); /* רקע שמנת */
-            color: #1e293b;
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Container */
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 16px;
-        }
-
-        /* Header בעיצוב בולט ומעניין */
-        header {
-            background: #ffffff;
-            border-bottom: 2px solid var(--border-cream);
-            padding: 24px 0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-        }
-
-        .header-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-        }
-
-        @media (min-width: 768px) {
-            .header-content {
-                flex-direction: row;
-            }
-        }
-
-        .header-title-area {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        /* אווטאר מטורלל בהטיה של 30 מעלות */
-        .crazy-avatar {
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            object-fit: cover;
-            transform: rotate(30deg); /* הטיה של 30 מעלות בדיוק */
-            border: 3px solid #ef4444;
-            box-shadow: 0 6px 12px rgba(239, 68, 68, 0.25);
-            transition: transform 0.3s ease;
-        }
-
-        .crazy-avatar:hover {
-            transform: rotate(0deg) scale(1.1);
-        }
-
-        .main-title {
-            font-size: 26px;
-            font-weight: 900;
-            background: linear-gradient(135deg, #ef4444, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .header-badges {
-            display: flex;
-            gap: 8px;
-        }
-
-        .badge {
-            background-color: #fee2e2;
-            border: 1px solid #fca5a5;
-            color: #991b1b;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 6px 12px;
-            border-radius: 9999px;
-        }
-
-        .badge-success {
-            background-color: #d1fae5;
-            border-color: #6ee7b7;
-            color: #065f46;
-        }
-
-        /* Nav Tabs */
-        .nav-tabs-container {
-            background-color: white;
-            border-bottom: 1px solid var(--border-cream);
-            position: sticky;
-            top: 0;
-            z-index: 40;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        nav {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding: 4px 0;
-        }
-
-        .tab-btn {
-            background: none;
-            border: none;
-            outline: none;
-            padding: 14px 16px;
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--gray);
-            cursor: pointer;
-            white-space: nowrap;
-            transition: all 0.2s;
-            border-bottom: 3px solid transparent;
-        }
-
-        .tab-btn:hover {
-            color: #1e293b;
-        }
-
-        .tab-btn.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-        }
-
-        /* Main Content */
-        main {
-            flex-grow: 1;
-            padding: 32px 0;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Cards and Panels */
-        .card {
-            background-color: white;
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-            border: 1px solid var(--border-cream);
-            margin-bottom: 24px;
-        }
-
-        .card-title {
-            font-size: 20px;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
-        }
-
-        @media (min-width: 992px) {
-            .grid-2 {
-                grid-template-columns: 1.2fr 1fr;
-            }
-        }
-
-        /* Lists & Alerts */
-        .alert-info {
-            background-color: var(--primary-light);
-            border-right: 4px solid var(--primary);
-            padding: 16px;
-            border-radius: 0 8px 8px 0;
-            font-size: 14px;
-            color: #0f2d2a;
-        }
-
-        .alert-warning {
-            background-color: #fffbeb;
-            border: 1px solid #fef3c7;
-            padding: 16px;
-            border-radius: 12px;
-            color: #78350f;
-        }
-
-        /* Visual Box Inside Card */
-        .visual-display-box {
-            background-color: var(--dark);
-            color: white;
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .octet-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            direction: ltr;
-        }
-
-        .octet-item {
-            background-color: #020617;
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid #334155;
-        }
-
-        .octet-title {
-            font-size: 10px;
-            color: var(--gray);
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .octet-num {
-            font-size: 18px;
-            font-weight: 800;
-            color: #38bdf8;
-            font-family: monospace;
-        }
-
-        .octet-bin {
-            font-size: 9px;
-            color: #64748b;
-            font-family: monospace;
-            display: block;
-            margin-top: 4px;
-        }
-
-        /* Tables */
-        .table-responsive {
-            overflow-x: auto;
-            width: 100%;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: right;
-            font-size: 13px;
-        }
-
-        th {
-            background-color: var(--dark);
-            color: white;
-            padding: 12px;
-            font-weight: 700;
-        }
-
-        td {
-            padding: 12px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        tr:hover td {
-            background-color: #f8fafc;
-        }
-
-        /* IP Classes grid */
-        .rfc-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-            margin-top: 12px;
-        }
-
-        @media (min-width: 768px) {
-            .rfc-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        .rfc-box {
-            background-color: white;
-            border: 1px solid #fde68a;
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-            font-family: monospace;
-        }
-
-        /* Binary clicker grid */
-        .bit-container {
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
-            gap: 8px;
-            text-align: center;
-            direction: ltr;
-        }
-
-        .bit-column {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .weight-label {
-            font-size: 11px;
-            color: #94a3b8;
-            font-family: monospace;
-            font-weight: 700;
-        }
-
-        .bit-btn {
-            background-color: #1e293b;
-            border: 1px solid #334155;
-            color: #94a3b8;
-            width: 100%;
-            height: 48px;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: all 0.2s;
-            outline: none;
-        }
-
-        .bit-btn.active {
-            background-color: var(--success);
-            color: white;
-            border-color: #059669;
-            box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
-        }
-
-        .formula-box {
-            background-color: #020617;
-            border-radius: 8px;
-            padding: 16px;
-            text-align: center;
-            font-family: monospace;
-            border: 1px solid #1e293b;
-        }
-
-        /* Interactive Bit Grid Simulator */
-        .bitgrid-row {
-            display: flex;
-            direction: ltr;
-            align-items: center;
-            gap: 3px;
-            flex-wrap: wrap;
-        }
-
-        .bit-box {
-            width: 24px;
-            height: 24px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 5px;
-            font-weight: 800;
-            font-family: monospace;
-            font-size: 11px;
-            color: white;
-            box-shadow: 0 0 8px rgba(56, 189, 248, 0.15);
-        }
-
-        .bit-sep {
-            color: #475569;
-            font-weight: 800;
-            font-size: 13px;
-            margin: 0 1px;
-        }
-
-        .bitgrid-legend-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 3px;
-            display: inline-block;
-        }
-
-        /* Free conversions inputs */
-        .calc-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-        }
-
-        @media (min-width: 768px) {
-            .calc-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .input-group label {
-            font-size: 12px;
-            font-weight: 700;
-            color: #475569;
-        }
-
-        .input-group input {
-            padding: 10px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 700;
-            font-family: monospace;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .input-group input:focus {
-            border-color: var(--primary);
-        }
-
-        /* Generator Area */
-        .generator-card {
-            background: linear-gradient(135deg, #f0fdfa 0%, #ecfeff 100%);
-            border: 1px solid var(--primary-border);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 24px;
-        }
-
-        .practice-question-box {
-            background-color: white;
-            border: 1px solid #cbd5e1;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 16px;
-            font-weight: 700;
-            margin: 16px 0;
-        }
-
-        .btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 13px;
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn:hover {
-            background-color: #0d5e56;
-        }
-
-        .btn-dark {
-            background-color: var(--dark);
-        }
-
-        .btn-dark:hover {
-            background-color: #1e293b;
-        }
-
-        .feedback-msg {
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 700;
-            margin-top: 12px;
-        }
-
-        /* Quiz */
-        .quiz-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .quiz-question {
-            background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px;
-        }
-
-        .quiz-answers {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-top: 12px;
-        }
-
-        .answer-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background-color: white;
-            border: 1px solid #cbd5e1;
-            padding: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            font-size: 13px;
-        }
-
-        .answer-label:hover {
-            background-color: #f1f5f9;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: #94a3b8;
-            padding: 24px 0;
-            text-align: center;
-            font-size: 12px;
-            margin-top: auto;
-            border-top: 1px solid #1e293b;
-        }
-
-        .font-mono {
-            font-family: monospace;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>כתובות IP, בסיסי ספירה והמרות</title>
+  <style>
+    :root {
+      --primary-color: #0d9488;
+      --bg-color: #fcfbf7;
+      --card-bg: #ffffff;
+      --dark-card-bg: #0b132b;
+      --border-color: #e2e8f0;
+      --text-main: #334155;
+      --net-id-color: #38bdf8;
+      --host-id-color: #f59e0b;
+      --bot-blue: #0284c7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      direction: rtl;
+      padding: 20px;
+      padding-bottom: 80px;
+    }
+
+    /* Header */
+    header {
+      max-width: 1000px;
+      margin: 0 auto 20px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      padding: 15px 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .header-title h1 {
+      color: #6366f1;
+      font-size: 1.5rem;
+    }
+
+    /* Avatar בכותרת */
+    .avatar-container {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid #ef4444;
+      flex-shrink: 0;
+    }
+
+    .avatar-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .tags {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tag {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .tag-green { background: #dcfce7; color: #166534; }
+    .tag-pink { background: #ffe4e6; color: #9f1239; }
+
+    /* Navigation */
+    nav {
+      max-width: 1000px;
+      margin: 0 auto 25px auto;
+      display: flex;
+      justify-content: space-around;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 10px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #64748b;
+      font-weight: 500;
+      padding: 5px 10px;
+    }
+
+    nav a.active {
+      color: var(--primary-color);
+      border-bottom: 3px solid var(--primary-color);
+      font-weight: bold;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      border: 1px solid #f1f5f9;
+    }
+
+    .card-h2 {
+      color: var(--primary-color);
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-p {
+      line-height: 1.6;
+      margin-bottom: 15px;
+      color: #475569;
+    }
+
+    .highlight-box {
+      background-color: #f0fdf4;
+      border-right: 4px solid #16a34a;
+      padding: 16px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .highlight-box ul {
+      margin-top: 10px;
+      margin-right: 20px;
+    }
+
+    .highlight-box li {
+      margin-bottom: 6px;
+    }
+
+    /* Dark Diagram Card */
+    .dark-card {
+      background-color: var(--dark-card-bg);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 20px;
+    }
+
+    .dark-card-title {
+      text-align: center;
+      color: #94a3b8;
+      font-size: 0.9em;
+      margin-bottom: 20px;
+    }
+
+    .octets-container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      direction: ltr;
+    }
+
+    .octet-box {
+      flex: 1;
+      border: 1px solid #1e293b;
+      background-color: #111827;
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .octet-box.highlight {
+      border-color: var(--host-id-color);
+      background-color: #1f1912;
+    }
+
+    .octet-title {
+      color: #94a3b8;
+      font-size: 0.85em;
+      margin-bottom: 8px;
+    }
+
+    .octet-value {
+      font-size: 1.8em;
+      font-weight: bold;
+      color: var(--net-id-color);
+      margin-bottom: 8px;
+    }
+
+    .octet-box.highlight .octet-value {
+      color: var(--host-id-color);
+    }
+
+    .octet-binary {
+      font-family: monospace;
+      color: #64748b;
+      font-size: 0.85em;
+    }
+
+    .legend-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      font-size: 0.9em;
+      direction: rtl;
+    }
+
+    .net-id-text { color: var(--net-id-color); }
+    .host-id-text { color: var(--host-id-color); }
+
+    /* Interactive Simulator Card */
+    .sim-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .sim-legend {
+      display: flex;
+      gap: 15px;
+      font-size: 0.85rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .dot-host { background-color: var(--host-id-color); }
+    .dot-net { background-color: var(--net-id-color); }
+
+    .ip-inputs {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .input-group label {
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+
+    .input-field {
+      background: #000000;
+      border: 1px solid #334155;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 1.1rem;
+    }
+
+    /* Bit Grid */
+    .bit-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      direction: ltr;
+      margin-bottom: 15px;
+    }
+
+    .bit-box {
+      width: 26px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      font-family: monospace;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .bit-net { background-color: #0284c7; color: white; }
+    .bit-host { background-color: #d97706; color: white; }
+    .bit-mask { background-color: #334155; color: #94a3b8; }
+
+    /* כפתור הבוט הצף */
+    .floating-bot {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: var(--bot-blue);
+      color: white;
+      padding: 8px 16px 8px 8px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+      cursor: pointer;
+      z-index: 1000;
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    .bot-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #fff;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid white;
+    }
+
+    .bot-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Header עם האווטאר המטורלל והכותרת הבולטת -->
-    <header>
-        <div class="container header-content">
-            <div class="header-title-area">
-                <!-- האווטאר המטורלל מ-Google Drive בהטיה של 30 מעלות -->
-                <img src="https://lh3.googleusercontent.com/d/1BHxytxfATgrv3wpk_8slqpRX08p2Dzml" alt="אווטאר מטורלל" class="crazy-avatar">
-                
-                <div>
-                    <h1 class="main-title">כתובות IP, בסיסי ספירה והמרות</h1>
-                    <p style="font-size: 13px; color: var(--gray);">המדריך האינטראקטיבי והעצמאי לחלוטין לתלמידים</p>
-                </div>
-            </div>
-            <div class="header-badges">
-                <span class="badge">CCNA / סייבר ותקשורת</span>
-                <span class="badge badge-success">גרסה יציבה לחלוטין</span>
-            </div>
-        </div>
-    </header>
+  <!-- Header -->
+  <header>
+    <div class="tags">
+      <span class="tag tag-green">גרסה יציבה לחלוטין</span>
+      <span class="tag tag-pink">CCNA / סייבר ותקשורת</span>
+    </div>
+    
+    <div class="header-title">
+      <h1>כתובות IP, בסיסי ספירה והמרות</h1>
+      <!-- אוואטר בכותרת מתוך הקישור לגוגל דרייב -->
+      <div class="avatar-container">
+        <img src="https://lh3.googleusercontent.com/d/1BHxytxfATgrv3wpk_8slqpRX08p2Dzml" alt="פרופיל">
+      </div>
+    </div>
+  </header>
 
-    <!-- Nav Tabs -->
-    <div class="nav-tabs-container">
-        <div class="container">
-            <nav>
-                <button onclick="switchTab('ip-theory')" id="tab-ip-theory" class="tab-btn active">1. עולם כתובות ה-IP</button>
-                <button onclick="switchTab('binary-theory')" id="tab-binary-theory" class="tab-btn">2. בינארי והקסדצימלי</button>
-                <button onclick="switchTab('converter')" id="tab-converter" class="tab-btn">3. ממיר ומחשבון אינטראקטיבי</button>
-                <button onclick="switchTab('quiz')" id="tab-quiz" class="tab-btn">4. בוחן ידע ותרגול</button>
-            </nav>
+  <!-- Navigation -->
+  <nav>
+    <a href="#" class="active">1. עולם כתובות ה-IP</a>
+    <a href="#">2. בינארי והקסדצימלי</a>
+    <a href="#">3. ממיר ומחשבון אינטראקטיבי</a>
+    <a href="#">4. בוחן ידע ותרגול</a>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+
+    <!-- Section 1: Explanation -->
+    <div class="card">
+      <h2 class="card-h2">■ מהי כתובת IP (גרסה 4)?</h2>
+      
+      <p class="card-p">
+        כתובת <strong>IP (Internet Protocol)</strong> היא מזהה ייחודי של מכשיר (מחשב, שרת, נתב, מדפסת) ברשת תקשורת. היא מאפשרת ניתוב והעברה של חבילות מידע ממקור ליעד.
+      </p>
+
+      <p class="card-p">
+        כתובת IPv4 מורכבת מ-<strong>32 סיביות (Bits)</strong>, המיוצגות לרוב על ידי <strong>4 מספרים עשרוניים</strong> המופרדים בנקודה. כל מספר כזה מייצג קבוצה של 8 ביטים שנקראת <strong>אוקטטה (Octet)</strong>.
+      </p>
+
+      <div class="highlight-box">
+        <strong>חלוקת הכתובת לשני חלקים:</strong>
+        <ul>
+          <li><strong>מזהה המארח (Host ID):</strong> מזהה את המכשיר הספציפי בתוך אותה הרשת.</li>
+          <li><strong>מזהה הרשת (Net ID):</strong> מזהה את הרשת המקומית שבה נמצא המכשיר.</li>
+        </ul>
+      </div>
+
+      <!-- IPv4 Structure Diagram -->
+      <div class="dark-card">
+        <div class="dark-card-title">
+          מבנה כתובת IPv4 לוגי (דוגמה עבור CLASS C עם 24/)
         </div>
+
+        <div class="octets-container">
+          <!-- Octet 1 -->
+          <div class="octet-box">
+            <div class="octet-title">אוקטט 1</div>
+            <div class="octet-value">192</div>
+            <div class="octet-binary">11000000</div>
+          </div>
+
+          <!-- Octet 2 -->
+          <div class="octet-box">
+            <div class="octet-title">אוקטט 2</div>
+            <div class="octet-value">168</div>
+            <div class="octet-binary">10101000</div>
+          </div>
+
+          <!-- Octet 3 -->
+          <div class="octet-box">
+            <div class="octet-title">אוקטט 3</div>
+            <div class="octet-value">1</div>
+            <div class="octet-binary">00000001</div>
+          </div>
+
+          <!-- Octet 4 (Host) -->
+          <div class="octet-box highlight">
+            <div class="octet-title">אוקטט 4 (Host ID)</div>
+            <div class="octet-value">10</div>
+            <div class="octet-binary">00001010</div>
+          </div>
+        </div>
+
+        <div class="legend-container">
+          <div class="net-id-text">→ (ביטים 24 - Net ID) מזהה הרשת</div>
+          <div class="host-id-text">(ביטים 8 - Host ID) מזהה המארח ←</div>
+        </div>
+      </div>
     </div>
 
-    <!-- Main Content Area -->
-    <main class="container">
-
-        <!-- Tab 1: IP Address Theory -->
-        <section id="content-ip-theory" class="tab-content active">
-            
-            <!-- What is an IP -->
-            <div class="card">
-                <h2 class="card-title">
-                    <span style="color: var(--primary);">■</span> מהי כתובת IP (גרסה 4)?
-                </h2>
-                <div class="grid-2">
-                    <div style="display: flex; flex-direction: column; gap: 16px;">
-                        <p style="font-size: 15px; color: #475569;">
-                            כתובת <strong>IP (Internet Protocol)</strong> היא מזהה ייחודי של מכשיר (מחשב, שרת, נתב, מדפסת) ברשת תקשורת[span_3](start_span)[span_3](end_span). היא מאפשרת ניתוב והעברה של חבילות מידע ממקור ליעד[span_4](start_span)[span_4](end_span).
-                        </p>
-                        <p style="font-size: 15px; color: #475569;">
-                            כתובת IPv4 מורכבת מ-<strong>32 סיביות (Bits)</strong>, המיוצגות לרוב על ידי <strong>4 מספרים עשרוניים</strong> המופרדים בנקודה[span_5](start_span)[span_5](end_span). כל מספר כזה מייצג קבוצה של 8 ביטים שנקראת <strong>אוקטטה (Octet)</strong>[span_6](start_span)[span_6](end_span).
-                        </p>
-                        <div class="alert-info">
-                            <strong>חלוקת הכתובת לשני חלקים (הכיוונים שהתחלפו):</strong>
-                            <ul style="list-style-type: disc; margin-right: 20px; margin-top: 8px; font-size: 13px;">
-                                <li><strong>מזהה המארח (Host ID):</strong> מזהה את המכשיר הספציפי בתוך אותה הרשת.</li>
-                                <li><strong>מזהה הרשת (Net ID):</strong> מזהה את הרשת המקומית שבה נמצא המכשיר.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <!-- IP Structure Visualization - כיוונים מתוקנים -->
-                    <div class="visual-display-box">
-                        <h4 style="font-size: 11px; text-transform: uppercase; color: #94a3b8; text-align: center; margin-bottom: 12px;">מבנה כתובת IPv4 לוגי (דוגמה עבור Class C עם /24)[span_7](start_span)[span_7](end_span)</h4>
-                        <div class="octet-grid">
-                            <!-- Host ID Octet FIRST -->
-                            <div class="octet-item" style="border-color: var(--warning);">
-                                <span class="octet-title">אוקטטה 1 (Host ID)</span>
-                                <span class="octet-num" style="color: var(--warning);">10</span>
-                                <span class="octet-bin">00001010</span>
-                            </div>
-                            <!-- Net ID Octets -->
-                            <div class="octet-item" style="border-color: #38bdf8;">
-                                <span class="octet-title">אוקטטה 2</span>
-                                <span class="octet-num">1</span>
-                                <span class="octet-bin">00000001</span>
-                            </div>
-                            <div class="octet-item" style="border-color: #38bdf8;">
-                                <span class="octet-title">אוקטטה 3</span>
-                                <span class="octet-num">168</span>
-                                <span class="octet-bin">10101000</span>
-                            </div>
-                            <div class="octet-item" style="border-color: #38bdf8;">
-                                <span class="octet-title">אוקטטה 4</span>
-                                <span class="octet-num">192</span>
-                                <span class="octet-bin">11000000</span>
-                            </div>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; font-size: 11px; margin-top: 16px; border-top: 1px solid #1e293b; padding-top: 12px;" dir="ltr">
-                            <span style="color: #fbbf24;">← מזהה המארח (Host ID - 8 ביטים)</span>
-                            <span style="color: #38bdf8;">מזהה הרשת (Net ID - 24 ביטים) →</span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Interactive Bit Grid Simulator -->
-            <div class="card">
-                <div class="visual-display-box">
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid #1e293b; padding-bottom: 14px;">
-                        <div style="display: flex; gap: 18px; font-size: 12px; color: #cbd5e1;">
-                            <span style="display: flex; align-items: center; gap: 6px;">
-                                <span class="bitgrid-legend-dot" style="background: var(--warning);"></span> חלק המארח (Host)
-                            </span>
-                            <span style="display: flex; align-items: center; gap: 6px;">
-                                <span class="bitgrid-legend-dot" style="background: #38bdf8; border-radius: 50%;"></span> חלק הרשת (Network)
-                            </span>
-                        </div>
-                        <h3 style="font-size: 15px; font-weight: 800; color: white;">סימולטור סיביות אינטראקטיבי (Bit Grid)</h3>
-                    </div>
-
-                    <!-- Inputs -->
-                    <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 22px; align-items: end;">
-                        <div class="input-group" style="flex: 1; min-width: 180px;">
-                            <label style="color: #94a3b8; font-size: 11px;">כתובת IP</label>
-                            <input type="text" id="bitgrid-ip" value="192.168.1.10" oninput="updateBitGrid()" style="width: 100%; background-color: #020617; border: 1px solid #334155; color: white; padding: 10px 12px; border-radius: 8px; font-family: monospace; text-align: left;" dir="ltr">
-                        </div>
-                        <div class="input-group" style="width: 140px;">
-                            <label style="color: #94a3b8; font-size: 11px;">אורך מסכה (CIDR) /</label>
-                            <input type="number" id="bitgrid-cidr" value="24" min="0" max="32" oninput="updateBitGrid()" style="width: 100%; background-color: #020617; border: 1px solid #334155; color: white; padding: 10px 12px; border-radius: 8px; font-family: monospace; text-align: left;" dir="ltr">
-                        </div>
-                    </div>
-
-                    <div style="font-size: 11px; color: #94a3b8; margin-bottom: 8px;">כתובת ה-IP בבינארית:</div>
-                    <div id="bitgrid-ip-row" class="bitgrid-row" style="margin-bottom: 20px;"></div>
-
-                    <div style="font-size: 11px; color: #94a3b8; margin-bottom: 8px;">מסכת הרשת בבינארית:</div>
-                    <div id="bitgrid-mask-row" class="bitgrid-row" style="margin-bottom: 20px;"></div>
-
-                    <div style="border-top: 1px solid #1e293b; padding-top: 18px;">
-                        <div style="font-size: 11px; color: #94a3b8; margin-bottom: 8px;">תוצאת פעולת ה-AND (כתובת הרשת):</div>
-                        <div id="bitgrid-and-row" class="bitgrid-row"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Public vs Private IP (RFC 1918) -->
-            <div class="card">
-                <h3 class="card-title">
-                    <span style="color: var(--primary);">■</span> כתובת IP ציבורית (Public) מול פרטית (Private)[span_8](start_span)[span_8](end_span)
-                </h3>
-                <div style="display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 16px;">
-                    <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 16px; border-radius: 8px;">
-                        <span style="background-color: var(--secondary); color: white; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; display: inline-block; margin-bottom: 8px;">IP ציבורי (Public IP)</span>
-                        <p style="font-size: 12px; color: #475569;">
-                            כתובות ייחודיות ברחבי העולם המנותבות ברשת האינטרנט הגלובלית[span_9](start_span)[span_9](end_span). כל אתר אינטרנט או שרת ציבורי חייב IP ציבורי כדי שנוכל לגשת אליו מכל מקום[span_10](start_span)[span_10](end_span).
-                        </p>
-                    </div>
-                    <div style="background-color: var(--primary-light); border: 1px solid var(--primary-border); padding: 16px; border-radius: 8px;">
-                        <span style="background-color: var(--primary); color: white; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; display: inline-block; margin-bottom: 8px;">IP פרטי (Private IP)</span>
-                        <p style="font-size: 12px; color: #0d5e56;">
-                            כתובות המשמשות בתוך הרשתות הביתיות או הארגוניות הפנימיות שלנו[span_11](start_span)[span_11](end_span). הן <strong>אינן מנותבות באינטרנט</strong>, ומאפשרות למכשירים בבית לתקשר ביניהם[span_12](start_span)[span_12](end_span). כדי לצאת לאינטרנט, הנתב מבצע תרגום כתובות שנקרא <strong>NAT</strong>[span_13](start_span)[span_13](end_span).
-                        </p>
-                    </div>
-                </div>
-
-                <!-- RFC 1918 Table -->
-                <div class="alert-warning">
-                    <h4 style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">טווחי הכתובות הפרטיות לפי תקן RFC 1918[span_14](start_span)[span_14](end_span)</h4>
-                    <p style="font-size: 12px; margin-bottom: 8px;">כתובות אלו מיועדות אך ורק לשימוש פנימי ואינן מופיעות ברשת האינטרנט:[span_15](start_span)[span_15](end_span)</p>
-                    <div class="rfc-grid">
-                        <div class="rfc-box">
-                            <span style="font-size: 10px; color: #64748b; display: block;">Class A</span>
-                            <strong>10.0.0.0</strong> - <strong>10.255.255.255</strong>
-                        </div>
-                        <div class="rfc-box">
-                            <span style="font-size: 10px; color: #64748b; display: block;">Class B</span>
-                            <strong>172.16.0.0</strong> - <strong>172.31.255.255</strong>
-                        </div>
-                        <div class="rfc-box">
-                            <span style="font-size: 10px; color: #64748b; display: block;">Class C</span>
-                            <strong>192.168.0.0</strong> - <strong>192.168.255.255</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- IP Classes (A, B, C, D, E) -->
-            <div class="card" style="overflow: hidden; padding: 0;">
-                <div style="background-color: var(--dark); color: white; padding: 20px;">
-                    <h3 style="font-size: 18px; font-weight: 800;">מחלקות של כתובות IP (IP Address Classes)[span_16](start_span)[span_16](end_span)</h3>
-                    <p style="font-size: 12px; color: #94a3b8; margin-top: 4px;">בחלוקה ההיסטורית, הרשתות חולקו למחלקות קבועות מראש:[span_17](start_span)[span_17](end_span)</p>
-                </div>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th style="border-bottom: 2px solid #334155;">מחלקה</th>
-                                <th style="border-bottom: 2px solid #334155;">טווח אוקטטה ראשונה (עשרוני)</th>
-                                <th style="border-bottom: 2px solid #334155;">מסכת ברירת מחדל</th>
-                                <th style="border-bottom: 2px solid #334155;">שימוש ייעודי</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td style="font-weight: 700;">Class A</td>
-                                <td class="font-mono">1 - 127</td>
-                                <td class="font-mono">255.0.0.0 (/8)</td>
-                                <td>ארגונים ענקיים (מעט רשתות, המון מכשירים בכל רשת)[span_18](start_span)[span_18](end_span)</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: 700;">Class B</td>
-                                <td class="font-mono">128 - 191</td>
-                                <td class="font-mono">255.255.0.0 (/16)</td>
-                                <td>ארגונים בינוניים-גדולים[span_19](start_span)[span_19](end_span)</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: 700;">Class C</td>
-                                <td class="font-mono">192 - 223</td>
-                                <td class="font-mono">255.255.255.0 (/24)</td>
-                                <td>רשתות קטנות וביתיות[span_20](start_span)[span_20](end_span)</td>
-                            </tr>
-                            <tr style="background-color: #f8fafc;">
-                                <td style="font-weight: 700; color: var(--primary);">Class D</td>
-                                <td class="font-mono" style="color: var(--primary);">224 - 239</td>
-                                <td>אין מסכה מוגדרת</td>
-                                <td style="font-weight: 600;">שידורי מולטיקאסט (Multicast)[span_21](start_span)[span_21](end_span)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-        </section>
-
-        <!-- Tab 2: Binary, Decimal, Hex Theory -->
-        <section id="content-binary-theory" class="tab-content hidden">
-            
-            <!-- Bases Intro -->
-            <div class="card">
-                <h2 class="card-title">
-                    <span style="color: var(--primary);">■</span> בסיסי הספירה: עשרוני, בינארי והקסדצימלי[span_22](start_span)[span_22](end_span)
-                </h2>
-                <div style="display: grid; grid-template-columns: 1fr; gap: 16px;">
-                    <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; padding: 16px; border-radius: 8px;">
-                        <h3 style="font-weight: 700; font-size: 14px; margin-bottom: 6px;">בסיס עשרוני (Decimal - Base 10)[span_23](start_span)[span_23](end_span)</h3>
-                        <p style="font-size: 12px; color: #475569;">
-                            הבסיס היומיומי של בני האדם[span_24](start_span)[span_24](end_span). משתמש ב-10 ספרות: <strong>0, 1, 2, 3, 4, 5, 6, 7, 8, 9</strong>[span_25](start_span)[span_25](end_span). הערך של כל ספרה נקבע לפי מיקומה (אחדות, עשרות, מאות...)[span_26](start_span)[span_26](end_span).
-                        </p>
-                    </div>
-                    <div style="background-color: var(--primary-light); border: 1px solid var(--primary-border); padding: 16px; border-radius: 8px;">
-                        <h3 style="font-weight: 700; font-size: 14px; margin-bottom: 6px; color: var(--primary);">בסיס בינארי (Binary - Base 2)[span_27](start_span)[span_27](end_span)</h3>
-                        <p style="font-size: 12px; color: #0d5e56;">
-                            שפת המחשבים[span_28](start_span)[span_28](end_span). משתמש ב-2 ספרות בלבד: <strong>0 ו-1</strong> (דולק/כבוי, יש זרם/אין זרם)[span_29](start_span)[span_29](end_span). הערך של כל ספרה נקבע לפי חזקות של 2[span_30](start_span)[span_30](end_span).
-                        </p>
-                    </div>
-                    <div style="background-color: #f5f3ff; border: 1px solid #ddd6fe; padding: 16px; border-radius: 8px;">
-                        <h3 style="font-weight: 700; font-size: 14px; margin-bottom: 6px; color: #6d28d9;">בסיס הקסדצימלי (Hexadecimal - Base 16)[span_31](start_span)[span_31](end_span)</h3>
-                        <p style="font-size: 12px; color: #5b21b6;">
-                            בסיס המשתמש ב-16 תווים: <strong>0 עד 9</strong>, ולאחר מכן באותיות <strong>A, B, C, D, E, F</strong> לייצוג הערכים 10 עד 15[span_32](start_span)[span_32](end_span). משמש לקיצור כתובות ארוכות כמו IPv6 ו-MAC[span_33](start_span)[span_33](end_span).
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- How Binary Works -->
-            <div class="card">
-                <h3 class="card-title">
-                    <span style="color: var(--primary);">■</span> טבלת ה"משקלים" של אוקטטה בודדת[span_34](start_span)[span_34](end_span)
-                </h3>
-                <p style="font-size: 14px; color: #475569; margin-bottom: 16px;">
-                    כדי להמיר מספר בינארי של 8 ביטים לעשרוני, כל מה שאנחנו צריכים זה להכיר את טבלת <strong>המשקלים</strong> של כל ביט[span_35](start_span)[span_35](end_span). כל ביט משמאל לימין מקבל ערך כפול מהקודם לו:[span_36](start_span)[span_36](end_span)
-                </p>
-
-                <!-- Weights table representation -->
-                <div style="display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; text-align: center; direction: ltr;">
-                    <div style="background-color: var(--dark); color: white; padding: 8px; border-radius: 6px;">
-                        <span style="font-size: 9px; color: var(--gray); display: block;">ביט 7</span>
-                        <strong style="font-size: 14px; color: var(--success); font-family: monospace;">128</strong>
-                    </div>
-                    <div style="background-color: var(--dark); color: white; padding: 8px; border-radius: 6px;">
-                        <span style="font-size: 9px; color: var(--gray); display: block;">ביט 6</span>
-                        <strong style="font-size: 14px; color: var(--success); font-family: monospace;">64</strong>
-                    </div>
-                    <div style="background-color: var(--dark); color: white; padding: 8px; border-radius: 6px;">
-                        <span style="font-size: 9px; color: var(--gray); display: block;">ביט 5</span>
-                        <strong style="font-size: 14px; color: var(--success); font-family: monospace;">32</strong>
-                    </div>
-                    <div style="background-color: var(--dark); color: white; padding: 8px; border-radius: 6px;">
-                        <span style="font-size: 9px; color: var(--gray); display: block;">ביט 4</span>
-                        <strong style="font-size: 14px; color: var(--success); font-family: monospace;">16</strong>
-                    </div>
-                    <div style="background-color: var(--dark); color: white; padding: 8px; border-radius: 6px;">
-                        <span style="font-size: 9px; color: var(--gray); display: block;">ביט 3</span>
-                        <strong style="font-size: 14px; color: var(--success); font-family: monospace;">8</strong>
-                    </div>
-                    <div style="background-color: var(--dark); color: white; padding: 8px; border-radius: 6px;">
-                        <span style="font-size: 9px; color: var(--gray); display: block;">ביט 2</span>
-                        <strong style="font-size: 14px; color: var(--success); font-family: monospace;">4</strong>
-                    </div>
-                    <div style="background-color: var(--dark); color: white; padding: 8px; border-radius: 6px;">
-                        <span style="font-size: 9px; color: var(--gray); display: block;">ביט 1</span>
-                        <strong style="font-size: 14px; color: var(--success); font-family: monospace;">2</strong>
-                    </div>
-                    <div style="background-color: var(--dark); color: white; padding: 8px; border-radius: 6px;">
-                        <span style="font-size: 9px; color: var(--gray); display: block;">ביט 0</span>
-                        <strong style="font-size: 14px; color: var(--success); font-family: monospace;">1</strong>
-                    </div>
-                </div>
-
-                <div style="background-color: #f1f5f9; padding: 16px; border-radius: 8px; margin-top: 16px; font-size: 12px; line-height: 1.6;">
-                    <strong>איך מחשבים בפועל? שתי פעולות פשוטות:[span_37](start_span)[span_37](end_span)</strong>
-                    <ul style="list-style-type: disc; margin-right: 20px; margin-top: 6px;">
-                        <li><strong>מבינארי לעשרוני:</strong> סוכמים את המשקלים שמופיע מעליהם הספרה 1[span_38](start_span)[span_38](end_span).</li>
-                        <li><strong>מעשרוני לבינארי (חיסור):</strong> בודקים משמאל לימין איזה משקל נכנס במספר, רושמים 1, ומחסירים את המשקל[span_39](start_span)[span_39](end_span). במידה ולא נכנס - רושמים 0[span_40](start_span)[span_40](end_span).</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tab 3: Converter & Interactive calculator -->
-        <section id="content-converter" class="tab-content hidden">
-            
-            <!-- Bit Clicker Card -->
-            <div class="card">
-                <div style="margin-bottom: 16px;">
-                    <h2 class="card-title">1. ממיר בינארי-עשרוני ויזואלי[span_41](start_span)[span_41](end_span)</h2>
-                    <p style="font-size: 12px; color: var(--gray);">לחץ על הביטים (העיגולים) השונים כדי להדליק (1) או לכבות (0) אותם, וראה כיצד המספר העשרוני וההקסדצימלי מחושבים אוטומטית[span_42](start_span)[span_42](end_span)!</p>
-                </div>
-
-                <div style="background-color: var(--dark); padding: 24px; border-radius: 12px; display: flex; flex-direction: column; gap: 20px;">
-                    <div class="bit-container">
-                        <div class="bit-column">
-                            <span class="weight-label">128</span>
-                            <button onclick="toggleBit(7)" id="bit-7" class="bit-btn">0</button>
-                        </div>
-                        <div class="bit-column">
-                            <span class="weight-label">64</span>
-                            <button onclick="toggleBit(6)" id="bit-6" class="bit-btn">0</button>
-                        </div>
-                        <div class="bit-column">
-                            <span class="weight-label">32</span>
-                            <button onclick="toggleBit(5)" id="bit-5" class="bit-btn">0</button>
-                        </div>
-                        <div class="bit-column">
-                            <span class="weight-label">16</span>
-                            <button onclick="toggleBit(4)" id="bit-4" class="bit-btn">0</button>
-                        </div>
-                        <div class="bit-column">
-                            <span class="weight-label">8</span>
-                            <button onclick="toggleBit(3)" id="bit-3" class="bit-btn">0</button>
-                        </div>
-                        <div class="bit-column">
-                            <span class="weight-label">4</span>
-                            <button onclick="toggleBit(2)" id="bit-2" class="bit-btn">0</button>
-                        </div>
-                        <div class="bit-column">
-                            <span class="weight-label">2</span>
-                            <button onclick="toggleBit(1)" id="bit-1" class="bit-btn">0</button>
-                        </div>
-                        <div class="bit-column">
-                            <span class="weight-label">1</span>
-                            <button onclick="toggleBit(0)" id="bit-0" class="bit-btn">0</button>
-                        </div>
-                    </div>
-
-                    <div class="formula-box">
-                        <span style="font-size: 10px; color: var(--gray); display: block; margin-bottom: 4px;">תרגיל החיבור הפעיל:</span>
-                        <div id="calc-formula-view" style="color: white; font-size: 14px; font-weight: 700; min-height: 20px;">0</div>
-                        <div style="font-size: 20px; font-weight: 800; color: var(--success); margin-top: 12px;">
-                            ערך עשרוני: <span id="calc-decimal-result">0</span>
-                        </div>
-                        <div style="font-size: 11px; color: #a78bfa; margin-top: 4px;">
-                            הקסדצימלי: <span id="calc-hex-result">00</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Free Conversions Calculator -->
-            <div class="card">
-                <div style="margin-bottom: 16px;">
-                    <h2 class="card-title">2. מחשבון המרות חופשי[span_43](start_span)[span_43](end_span)</h2>
-                    <p style="font-size: 12px; color: var(--gray);">הקלד ערך באחד מהשדות הבאים, ושאר השדות יתעדכנו וימירו את עצמם אוטומטית[span_44](start_span)[span_44](end_span)!</p>
-                </div>
-
-                <div class="calc-grid" style="background-color: #f1f5f9; padding: 20px; border-radius: 12px; border: 1px solid #cbd5e1;">
-                    <div class="input-group">
-                        <label>עשרוני (Decimal: 0-255)</label>
-                        <input type="number" id="input-dec" value="192" min="0" max="255" oninput="convertFrom('dec')">
-                    </div>
-                    <div class="input-group">
-                        <label>בינארי (Binary: 8-bits)</label>
-                        <input type="text" id="input-bin" value="11000000" maxlength="8" oninput="convertFrom('bin')" style="text-align: left;" dir="ltr">
-                    </div>
-                    <div class="input-group">
-                        <label>הקסדצימלי (Hex: 00-FF)</label>
-                        <input type="text" id="input-hex" value="C0" maxlength="2" oninput="convertFrom('hex')" style="text-align: left;" dir="ltr">
-                    </div>
-                </div>
-            </div>
-
-        </section>
-
-        <!-- Tab 4: Quiz & Exercises -->
-        <section id="content-quiz" class="tab-content hidden">
-            
-            <!-- Practice Generator Card -->
-            <div class="generator-card">
-                <h3 style="font-size: 18px; font-weight: 800; color: #0f3d37; margin-bottom: 4px;">מחולל אימונים אינסופי (Practice Generator)[span_45](start_span)[span_45](end_span)</h3>
-                <p style="font-size: 11px; color: #0d5e56;">פתור שאלות המרה אקראיות וקבל משוב והסבר מפורט לדרך הפתרון בכל פעם מחדש[span_46](start_span)[span_46](end_span)!</p>
-
-                <div style="background-color: white; padding: 20px; border-radius: 12px; border: 1px solid var(--primary-border); margin-top: 16px; display: flex; flex-direction: column; gap: 16px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-size: 11px; color: var(--gray); font-family: monospace;">שאלה #<span id="practice-id">1</span></span>
-                        <button onclick="generateNewPractice()" class="btn">שאלה הבאה ←</button>
-                    </div>
-
-                    <div class="practice-question-box" id="practice-question-text">
-                        טוען שאלה...
-                    </div>
-
-                    <div style="display: flex; gap: 12px; flex-direction: column;">
-                        <input type="text" id="practice-answer-input" placeholder="הקלד את תשובתך כאן..." style="padding: 12px; border: 2px solid #cbd5e1; border-radius: 8px; text-align: center; font-weight: 700; font-family: monospace; font-size: 16px; outline: none;">
-                        <button onclick="checkPracticeAnswer()" class="btn btn-dark">בדוק את תשובתי</button>
-                    </div>
-
-                    <div id="practice-feedback" class="feedback-msg hidden"></div>
-                </div>
-            </div>
-
-            <!-- Standard Multiple Choice Quiz -->
-            <div class="quiz-container">
-                <div class="card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px;">
-                        <h3 style="font-size: 18px; font-weight: 800;">בוחן ידע עצמי ממוקד[span_47](start_span)[span_47](end_span)</h3>
-                        <span style="background-color: var(--primary-light); color: var(--primary); padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 700;">
-                            ניקוד: <span id="quiz-score">0 / 4</span>
-                        </span>
-                    </div>
-
-                    <div class="quiz-question quiz-q" data-correct="2">
-                        <span style="font-size: 10px; font-weight: 700; color: var(--primary);">שאלה 1 מתוך 4</span>
-                        <h4 style="font-size: 14px; font-weight: 700; margin-top: 4px;">איזו מהכתובות הבאות היא כתובת IP פרטית (Private) פנימית?[span_48](start_span)[span_48](end_span)</h4>
-                        <div class="quiz-answers">
-                            <label class="answer-label">
-                                <input type="radio" name="q1" value="0">
-                                <span>11.10.10.1</span>
-                            </label>
-                            <label class="answer-label">
-                                <input type="radio" name="q1" value="1">
-                                <span>172.32.5.5</span>
-                            </label>
-                            <label class="answer-label">
-                                <input type="radio" name="q1" value="2">
-                                <span>192.168.1.50</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="quiz-question quiz-q" data-correct="1">
-                        <span style="font-size: 10px; font-weight: 700; color: var(--primary);">שאלה 2 מתוך 4</span>
-                        <h4 style="font-size: 14px; font-weight: 700; margin-top: 4px;">לאיזו מחלקה (Class) שייכת כתובת ה-IP: 140.80.2.1 ?[span_49](start_span)[span_49](end_span)</h4>
-                        <div class="quiz-answers">
-                            <label class="answer-label">
-                                <input type="radio" name="q2" value="0">
-                                <span>Class A</span>
-                            </label>
-                            <label class="answer-label">
-                                <input type="radio" name="q2" value="1">
-                                <span>Class B</span>
-                            </label>
-                            <label class="answer-label">
-                                <input type="radio" name="q2" value="2">
-                                <span>Class C</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="quiz-question quiz-q" data-correct="3">
-                        <span style="font-size: 10px; font-weight: 700; color: var(--primary);">שאלה 3 מתוך 4</span>
-                        <h4 style="font-size: 14px; font-weight: 700; margin-top: 4px;">מהי המשמעות והתפקיד של מחלקה Class D (224-239)?[span_50](start_span)[span_50](end_span)</h4>
-                        <div class="quiz-answers">
-                            <label class="answer-label">
-                                <input type="radio" name="q3" value="0">
-                                <span>שימוש בתוך רשתות מקומיות קטנות במיוחד.</span>
-                            </label>
-                            <label class="answer-label">
-                                <input type="radio" name="q3" value="1">
-                                <span>בדיקה עצמית בלבד של המכשיר המקומי (Loopback).</span>
-                            </label>
-                            <label class="answer-label">
-                                <input type="radio" name="q3" value="2">
-                                <span>שמור לצורך ניסויים ומחקרים עתידיים.</span>
-                            </label>
-                            <label class="answer-label">
-                                <input type="radio" name="q3" value="3">
-                                <span>שידור מולטיקאסט (Multicast) - שליחת מידע לקבוצה מוגדרת בו-זמנית.[span_51](start_span)[span_51](end_span)</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="quiz-question quiz-q" data-correct="0">
-                        <span style="font-size: 10px; font-weight: 700; color: var(--primary);">שאלה 4 מתוך 4</span>
-                        <h4 style="font-size: 14px; font-weight: 700; margin-top: 4px;">איזה ערך עשרוני מיוצג על ידי ה-Nibble (חצי בית) הבינארי: 1010?[span_52](start_span)[span_52](end_span)</h4>
-                        <div class="quiz-answers">
-                            <label class="answer-label">
-                                <input type="radio" name="q4" value="0">
-                                <span>10 (שמיוצג גם בתו הקסדצימלי A)</span>
-                            </label>
-                            <label class="answer-label">
-                                <input type="radio" name="q4" value="1">
-                                <span>5</span>
-                            </label>
-                            <label class="answer-label">
-                                <input type="radio" name="q4" value="2">
-                                <span>12</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 24px;">
-                        <button onclick="resetQuiz()" id="btn-reset-quiz" class="btn btn-dark hidden">נסה שוב</button>
-                        <button onclick="submitQuiz()" id="btn-submit-quiz" class="btn">בדוק תשובות</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>מדריך אינטראקטיבי ללימוד כתובות IP והמרת בסיסי ספירה - נוצר בהתאמה מוחלטת לתלמידי CCNA וסייבר[span_53](start_span)[span_53](end_span)</p>
-            <p style="margin-top: 4px; font-size: 10px; opacity: 0.7;">Cisco, Cisco IOS, and Catalyst are trademarks of Cisco Systems, Inc.[span_54](start_span)[span_54](end_span)</p>
+    <!-- Section 2: Bit Grid Simulator -->
+    <div class="card dark-card">
+      <div class="sim-header">
+        <h3 style="color: #fff;">סימולטור סיביות אינטראקטיבי (Bit Grid)</h3>
+        <div class="sim-legend">
+          <div class="legend-item"><span class="dot dot-host"></span> חלק המארח (Host)</div>
+          <div class="legend-item"><span class="dot dot-net"></span> חלק הרשת (Network)</div>
         </div>
-    </footer>
+      </div>
 
-    <!-- כפתור עזרה צף קבוע בפינה התחתונה עם אווטר מובנה -->
-    <div class="fixed bottom-6 left-6 z-50 no-print">
-        <button id="openHelpModalBtn" class="flex items-center gap-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg shadow-cyan-500/20 transition-all duration-300 transform hover:scale-105 group border border-cyan-400/30">
-            <div class="w-8 h-8 rounded-full border border-white/40 overflow-hidden bg-slate-950 flex-shrink-0 shadow-inner">
-                <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר בוט עזרה" class="w-full h-full object-cover">
-            </div>
-            <span>בוט עזרה</span>
-        </button>
+      <div class="ip-inputs">
+        <div class="input-group" style="flex: 2;">
+          <label>כתובת IP</label>
+          <input type="text" class="input-field" value="192.168.1.10" readonly>
+        </div>
+        <div class="input-group" style="flex: 1;">
+          <label>אורך מסכה (CIDR)</label>
+          <input type="text" class="input-field" value="24" readonly>
+        </div>
+      </div>
+
+      <label style="color: #94a3b8; font-size: 0.8rem; display: block; margin-bottom: 8px;">כתובת ה-IP בבינארית:</label>
+      <div class="bit-grid">
+        <!-- Net Bits (24) -->
+        <div class="bit-box bit-net">1</div><div class="bit-box bit-net">1</div><div class="bit-box bit-net">0</div><div class="bit-box bit-net">0</div><div class="bit-box bit-net">0</div><div class="bit-box bit-net">0</div><div class="bit-box bit-net">0</div><div class="bit-box bit-net">0</div>
+        <span style="color:#64748b; margin:0 2px;">.</span>
+        <div class="bit-box bit-net">1</div><div class="bit-box bit-net">0</div><div class="bit-box bit-net">1</div><div class="bit-box bit-net">0</div><div class="bit-box bit-net">1</div><div class="bit-box bit-net">0</div><div class="bit-box bit-net">0</div><div class="bit-box bit-net">0</div>
+        <span style="color:#64748b; margin:0 2px;">.</span>
+        <div class="bit-box bit-net">0</div><div class="bit-box bit-net">0</div><div class="bit-box bit-net">0</div><div class="bit-box bit-net">0</div><div class="bit-box bit-net">0</div><div class="bit-box bit-net">0</div><div class="bit-box bit-net">0</div><div class="bit-box bit-net">1</div>
+        <span style="color:#64748b; margin:0 2px;">.</span>
+        <!-- Host Bits (8) -->
+        <div class="bit-box bit-host">0</div><div class="bit-box bit-host">0</div><div class="bit-box bit-host">0</div><div class="bit-box bit-host">0</div><div class="bit-box bit-host">1</div><div class="bit-box bit-host">0</div><div class="bit-box bit-host">1</div><div class="bit-box bit-host">0</div>
+      </div>
+
+      <label style="color: #94a3b8; font-size: 0.8rem; display: block; margin-bottom: 8px; margin-top: 15px;">מסכת הרשת בבינארית:</label>
+      <div class="bit-grid">
+        <div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div>
+        <span style="color:#64748b; margin:0 2px;">.</span>
+        <div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div>
+        <span style="color:#64748b; margin:0 2px;">.</span>
+        <div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div><div class="bit-box bit-mask">1</div>
+        <span style="color:#64748b; margin:0 2px;">.</span>
+        <div class="bit-box bit-mask" style="background:#1e293b;">0</div><div class="bit-box bit-mask" style="background:#1e293b;">0</div><div class="bit-box bit-mask" style="background:#1e293b;">0</div><div class="bit-box bit-mask" style="background:#1e293b;">0</div><div class="bit-box bit-mask" style="background:#1e293b;">0</div><div class="bit-box bit-mask" style="background:#1e293b;">0</div><div class="bit-box bit-mask" style="background:#1e293b;">0</div><div class="bit-box bit-mask" style="background:#1e293b;">0</div>
+      </div>
     </div>
 
-    <!-- חלונית עזרה צפה (Modal) -->
-    <div id="helpModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4 transition-all duration-300">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-sm w-full text-center relative shadow-2xl shadow-cyan-500/5 transform scale-95 transition-transform duration-300" id="helpModalContent">
-            <button id="closeHelpModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-slate-800">
-                <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
-            
-            <div class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-cyan-400/50 p-1 bg-slate-950 shadow-lg shadow-cyan-500/20 overflow-hidden">
-                <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="תמונת בוט עזרה" class="w-full h-full object-cover rounded-full">
-            </div>
+  </div>
 
-            <h3 class="text-lg font-black text-white mb-2">צריך עזרה במשימה?</h3>
-            <p class="text-sm text-slate-400 mb-6 leading-relaxed">בוט העזרה הרשמי של האקדמיה זמין כעת כדי לענות על שאלות, להסביר מושגים ולכוון אותך לפתרון המלא[span_55](start_span)[span_55](end_span)!</p>
-            
-            <a href="https://gemini.google.com/gem/167016ac4a4b/66c3b83daa7940ef?usp=sharing" target="_blank" class="w-full flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-black py-3 px-4 rounded-xl transition-all duration-200 shadow-lg shadow-cyan-500/10">
-                <span>הפעל את בוט העזרה</span>
-                <i data-lucide="external-link" class="w-4 h-4"></i>
-            </a>
-        </div>
+  <!-- חלונית/כפתור בוט עזרה הצף -->
+  <div class="floating-bot">
+    <div class="bot-avatar">
+      <img src="https://lh3.googleusercontent.com/d/1BHxytxfATgrv3wpk_8slqpRX08p2Dzml" alt="בוט עזרה">
     </div>
+    <span>בוט עזרה</span>
+  </div>
 
-    <!-- JavaScript Logic -->
-    <script>
-        // Global variables for Converter Clicker state
-        let currentBits = [0, 0, 0, 0, 0, 0, 0, 0];
-        const weights = [1, 2, 4, 8, 16, 32, 64, 128];
-
-        // Global variables for Endless Practice Generator
-        let currentPractice = {
-            id: 0,
-            type: '',
-            questionValue: 0,
-            correctAnswer: ''
-        };
-
-        // Tab Switching logic
-        function switchTab(tabId) {
-            try {
-                const contents = document.querySelectorAll('.tab-content');
-                for (let i = 0; i < contents.length; i++) {
-                    contents[i].style.display = 'none';
-                }
-
-                const target = document.getElementById('content-' + tabId);
-                if (target) {
-                    target.style.display = 'block';
-                }
-
-                const btns = document.querySelectorAll('.tab-btn');
-                for (let i = 0; i < btns.length; i++) {
-                    btns[i].className = 'tab-btn';
-                }
-
-                const activeBtn = document.getElementById('tab-' + tabId);
-                if (activeBtn) {
-                    activeBtn.className = 'tab-btn active';
-                }
-            } catch (err) {
-                console.error("Tab switch failed", err);
-            }
-        }
-
-        // Bit Clicker Toggle logic
-        function toggleBit(bitIndex) {
-            try {
-                const btn = document.getElementById('bit-' + bitIndex);
-                if (!btn) return;
-
-                if (currentBits[bitIndex] === 0) {
-                    currentBits[bitIndex] = 1;
-                    btn.innerText = "1";
-                    btn.className = "bit-btn active";
-                } else {
-                    currentBits[bitIndex] = 0;
-                    btn.innerText = "0";
-                    btn.className = "bit-btn";
-                }
-                updateBitCalculations();
-            } catch (err) {
-                console.error("Toggle bit failed", err);
-            }
-        }
-
-        function updateBitCalculations() {
-            try {
-                let decimalResult = 0;
-                let formulaParts = [];
-
-                for (let i = 7; i >= 0; i--) {
-                    if (currentBits[i] === 1) {
-                        decimalResult += weights[i];
-                        formulaParts.push(weights[i]);
-                    }
-                }
-
-                const formulaView = document.getElementById('calc-formula-view');
-                if (formulaView) {
-                    if (formulaParts.length > 0) {
-                        formulaView.innerText = formulaParts.join(' + ') + ' = ' + decimalResult;
-                    } else {
-                        formulaView.innerText = "0";
-                    }
-                }
-
-                const decResultEl = document.getElementById('calc-decimal-result');
-                if (decResultEl) {
-                    decResultEl.innerText = decimalResult;
-                }
-
-                const hexResultEl = document.getElementById('calc-hex-result');
-                if (hexResultEl) {
-                    let hexStr = decimalResult.toString(16).toUpperCase();
-                    if (hexStr.length < 2) hexStr = '0' + hexStr;
-                    hexResultEl.innerText = hexStr;
-                }
-            } catch (err) {
-                console.error("Update bit calculation failed", err);
-            }
-        }
-
-        function padBinary(binStr) {
-            return binStr.padStart(8, '0');
-        }
-
-        function padHex(hexStr) {
-            return hexStr.padStart(2, '0');
-        }
-
-        // Free conversions calculator logic
-        function convertFrom(baseType) {
-            try {
-                const decInput = document.getElementById('input-dec');
-                const binInput = document.getElementById('input-bin');
-                const hexInput = document.getElementById('input-hex');
-
-                if (!decInput || !binInput || !hexInput) return;
-
-                let value = 0;
-
-                if (baseType === 'dec') {
-                    let parsedVal = parseInt(decInput.value);
-                    if (isNaN(parsedVal) || parsedVal < 0) parsedVal = 0;
-                    if (parsedVal > 255) {
-                        parsedVal = 255;
-                        decInput.value = 255;
-                    }
-                    value = parsedVal;
-
-                    binInput.value = padBinary(value.toString(2));
-                    hexInput.value = padHex(value.toString(16).toUpperCase());
-                } 
-                else if (baseType === 'bin') {
-                    let sanitized = binInput.value.replace(/[^01]/g, '');
-                    if (sanitized.length > 8) sanitized = sanitized.substring(0, 8);
-                    binInput.value = sanitized;
-
-                    value = parseInt(sanitized, 2);
-                    if (isNaN(value)) value = 0;
-
-                    decInput.value = value;
-                    hexInput.value = padHex(value.toString(16).toUpperCase());
-                } 
-                else if (baseType === 'hex') {
-                    let sanitized = hexInput.value.replace(/[^0-9A-Fa-f]/g, '').toUpperCase();
-                    if (sanitized.length > 2) sanitized = sanitized.substring(0, 2);
-                    hexInput.value = sanitized;
-
-                    value = parseInt(sanitized, 16);
-                    if (isNaN(value)) value = 0;
-
-                    decInput.value = value;
-                    binInput.value = padBinary(value.toString(2));
-                }
-            } catch (err) {
-                console.error("Free conversion error", err);
-            }
-        }
-
-        // Endless Practice Generator Logic
-        function generateNewPractice() {
-            try {
-                const types = ['dec-to-bin', 'bin-to-dec', 'dec-to-hex', 'hex-to-dec'];
-                const randomType = types[Math.floor(Math.random() * types.length)];
-                const randomVal = Math.floor(Math.random() * 256);
-                
-                currentPractice.id++;
-                currentPractice.type = randomType;
-                currentPractice.questionValue = randomVal;
-
-                const qTextEl = document.getElementById('practice-question-text');
-                const inputAnswer = document.getElementById('practice-answer-input');
-                const feedbackEl = document.getElementById('practice-feedback');
-
-                if (!qTextEl || !inputAnswer || !feedbackEl) return;
-
-                inputAnswer.value = '';
-                feedbackEl.style.display = 'none';
-                feedbackEl.className = "feedback-msg hidden";
-                feedbackEl.innerHTML = '';
-
-                document.getElementById('practice-id').innerText = currentPractice.id;
-
-                if (randomType === 'dec-to-bin') {
-                    qTextEl.innerHTML = 'המר את המספר העשרוני <strong style="color: var(--primary);">' + randomVal + '</strong> לבסיס <strong>בינארי (8 ביטים)</strong>';
-                    currentPractice.correctAnswer = padBinary(randomVal.toString(2));
-                } 
-                else if (randomType === 'bin-to-dec') {
-                    const binaryStr = padBinary(randomVal.toString(2));
-                    qTextEl.innerHTML = 'המר את המספר הבינארי <strong style="color: var(--primary); font-family: monospace;">' + binaryStr + '</strong> לבסיס <strong>עשרוני</strong>';
-                    currentPractice.correctAnswer = randomVal.toString();
-                } 
-                else if (randomType === 'dec-to-hex') {
-                    qTextEl.innerHTML = 'המר את המספר העשרוני <strong style="color: var(--secondary);">' + randomVal + '</strong> לבסיס <strong>הקסדצימלי (Hex)</strong>';
-                    currentPractice.correctAnswer = padHex(randomVal.toString(16).toUpperCase());
-                } 
-                else {
-                    const hexStr = padHex(randomVal.toString(16).toUpperCase());
-                    qTextEl.innerHTML = 'המר את המספר ההקסדצימלי <strong style="color: var(--secondary); font-family: monospace;">' + hexStr + '</strong> לבסיס <strong>עשרוני</strong>';
-                    currentPractice.correctAnswer = randomVal.toString();
-                }
-            } catch (err) {
-                console.error("Generate practice question failed", err);
-            }
-        }
-
-        function checkPracticeAnswer() {
-            try {
-                const answerInput = document.getElementById('practice-answer-input');
-                const feedbackEl = document.getElementById('practice-feedback');
-                
-                if (!answerInput || !feedbackEl) return;
-
-                const inputVal = answerInput.value.trim().toUpperCase();
-                feedbackEl.style.display = "block";
-
-                let isCorrect = (inputVal === currentPractice.correctAnswer);
-                
-                if (currentPractice.type === 'dec-to-bin') {
-                    let strippedInput = inputVal.replace(/\s+/g, '');
-                    strippedInput = padBinary(strippedInput);
-                    isCorrect = (strippedInput === currentPractice.correctAnswer);
-                }
-
-                if (isCorrect) {
-                    feedbackEl.className = "p-3 rounded-lg text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 transition-all";
-                    feedbackEl.innerHTML = `✓ תשובה נכונה! כל הכבוד. (${currentPractice.correctAnswer})`;
-                } else {
-                    feedbackEl.className = "p-3 rounded-lg text-xs font-bold bg-rose-100 text-rose-800 border border-rose-200 transition-all";
-                    
-                    let explanation = '';
-                    const val = currentPractice.questionValue;
-                    
-                    if (currentPractice.type === 'dec-to-bin') {
-                        explanation = `דרך הפתרון: נפחית מהמספר ${val} את המשקלים הגבוהים ביותר (128, 64...): `;
-                        let currentNum = val;
-                        let formula = [];
-                        for(let i=7; i>=0; i--) {
-                            if (currentNum >= weights[i]) {
-                                formula.push(weights[i]);
-                                currentNum -= weights[i];
-                            }
-                        }
-                        explanation += `${formula.join('+')} והביטים שלהם הופכים ל-1. התשובה הנכונה היא: ${currentPractice.correctAnswer}`;
-                    } 
-                    else if (currentPractice.type === 'bin-to-dec') {
-                        explanation = `דרך הפתרון: חבר את ערכי המשקלים במקומות שמופיע בהם 1. התשובה הנכונה היא: ${currentPractice.correctAnswer}`;
-                    } 
-                    else if (currentPractice.type === 'dec-to-hex') {
-                        explanation = `דרך הפתרון: מחלקים את המספר ב-16 ומתרגמים את השארית לתו של הקסדצימלי. התשובה הנכונה היא: ${currentPractice.correctAnswer}`;
-                    } 
-                    else {
-                        explanation = `דרך הפתרון: מכפילים את הספרה השמאלית ב-16 ומוסיפים לה את הימנית. התשובה הנכונה היא: ${currentPractice.correctAnswer}`;
-                    }
-
-                    feedbackEl.innerHTML = `✗ שגוי! התשובה שרשמת: "${inputVal}".<br><span class="font-normal block mt-1">${explanation}</span>`;
-                }
-            } catch (err) {
-                console.error("Error checking practice", err);
-            }
-        }
-
-        // Multiple Choice Quiz
-        function submitQuiz() {
-            let score = 0;
-            const questions = document.querySelectorAll('.quiz-q');
-            
-            questions.forEach((q) => {
-                const correctAnswer = q.getAttribute('data-correct');
-                const checkedOption = q.querySelector('input[type="radio"]:checked');
-                
-                q.classList.remove('border-emerald-300', 'bg-emerald-50/50', 'border-rose-300', 'bg-rose-50/50');
-                const existingStatus = q.querySelector('.status-msg');
-                if (existingStatus) existingStatus.remove();
-
-                const statusDiv = document.createElement('div');
-                statusDiv.className = 'status-msg text-xs mt-3 font-semibold';
-
-                if (checkedOption) {
-                    const selectedValue = checkedOption.value;
-                    if (selectedValue === correctAnswer) {
-                        score++;
-                        q.classList.add('border-emerald-300', 'bg-emerald-50/50');
-                        statusDiv.className += ' text-emerald-700';
-                        statusDiv.innerHTML = 'תשובה נכונה! כל הכבוד.';
-                    } else {
-                        q.classList.add('border-rose-300', 'bg-rose-50/50');
-                        statusDiv.className += ' text-rose-700';
-                        statusDiv.innerHTML = `תשובה שגויה. התשובה הנכונה היא האופציה ה-${parseInt(correctAnswer)+1}.`;
-                    }
-                } else {
-                    q.classList.add('border-amber-300', 'bg-amber-50/50');
-                    statusDiv.className += ' text-amber-700';
-                    statusDiv.innerHTML = 'לא בחרת תשובה.';
-                }
-                q.appendChild(statusDiv);
-            });
-
-            document.getElementById('quiz-score').innerText = `${score} / 4`;
-            document.getElementById('btn-reset-quiz').classList.remove('hidden');
-            document.getElementById('btn-submit-quiz').classList.add('hidden');
-        }
-
-        function resetQuiz() {
-            document.querySelectorAll('input[type="radio"]').forEach(radio => {
-                radio.checked = false;
-            });
-            document.querySelectorAll('.quiz-q').forEach(q => {
-                q.className = "quiz-question quiz-q";
-                const status = q.querySelector('.status-msg');
-                if(status) status.remove();
-            });
-            document.getElementById('quiz-score').innerText = `0 / 4`;
-            document.getElementById('btn-reset-quiz').classList.add('hidden');
-            document.getElementById('btn-submit-quiz').classList.remove('hidden');
-        }
-
-        // Interactive Bit Grid Simulator
-        function ipToBinaryOctets(ipStr) {
-            const parts = ipStr.split('.').map(p => parseInt(p, 10));
-            const octets = [];
-            for (let i = 0; i < 4; i++) {
-                let val = parts[i];
-                if (isNaN(val) || val < 0) val = 0;
-                if (val > 255) val = 255;
-                octets.push(val.toString(2).padStart(8, '0'));
-            }
-            return octets.join('');
-        }
-
-        function maskFromCidr(cidr) {
-            let c = parseInt(cidr, 10);
-            if (isNaN(c) || c < 0) c = 0;
-            if (c > 32) c = 32;
-            return '1'.repeat(c) + '0'.repeat(32 - c);
-        }
-
-        function renderBitgridRow(containerId, bits, colorFn) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-            let html = '';
-            for (let i = 0; i < 32; i++) {
-                const bg = colorFn(i);
-                html += `<div class="bit-box" style="background-color: ${bg};">${bits[i]}</div>`;
-                if (i === 7 || i === 15 || i === 23) {
-                    html += `<span class="bit-sep">.</span>`;
-                }
-            }
-            container.innerHTML = html;
-        }
-
-        function updateBitGrid() {
-            try {
-                const ipInput = document.getElementById('bitgrid-ip');
-                const cidrInput = document.getElementById('bitgrid-cidr');
-                if (!ipInput || !cidrInput) return;
-
-                const ipBits = ipToBinaryOctets(ipInput.value.trim() || '192.168.1.10');
-                const maskBits = maskFromCidr(cidrInput.value);
-
-                let andBits = '';
-                for (let i = 0; i < 32; i++) {
-                    andBits += (ipBits[i] === '1' && maskBits[i] === '1') ? '1' : '0';
-                }
-
-                renderBitgridRow('bitgrid-ip-row', ipBits, (i) => maskBits[i] === '1' ? '#0369a1' : 'var(--warning)');
-                renderBitgridRow('bitgrid-mask-row', maskBits, () => '#334155');
-                renderBitgridRow('bitgrid-and-row', andBits, () => 'var(--success)');
-            } catch (err) {
-                console.error("Bit grid simulator error", err);
-            }
-        }
-
-        // Initialize on DOM load
-        document.addEventListener('DOMContentLoaded', () => {
-            updateBitCalculations();
-            convertFrom('dec');
-            generateNewPractice();
-            updateBitGrid();
-
-            if (window.lucide) {
-                lucide.createIcons();
-            }
-
-            const modal = document.getElementById('helpModal');
-            const modalContent = document.getElementById('helpModalContent');
-            const openBtn = document.getElementById('openHelpModalBtn');
-            const closeBtn = document.getElementById('closeHelpModalBtn');
-
-            if(openBtn && modal && modalContent && closeBtn) {
-                openBtn.addEventListener('click', () => {
-                    modal.classList.remove('hidden');
-                    setTimeout(() => modalContent.classList.remove('scale-95'), 10);
-                });
-
-                closeBtn.addEventListener('click', () => {
-                    modalContent.classList.add('scale-95');
-                    setTimeout(() => modal.classList.add('hidden'), 150);
-                });
-
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        modalContent.classList.add('scale-95');
-                        setTimeout(() => modal.classList.add('hidden'), 150);
-                    }
-                });
-            }
-        });
-    </script>
 </body>
 </html>
