@@ -13,6 +13,11 @@
     <style>
         /* Modern CSS Variables & Reset */
         :root {
+            /* רקע שמנת חדש */
+            --bg-cream: #fbf9f1;
+            --card-cream: #f3efe0;
+            --border-cream: #eae5d9;
+
             --primary: #0f766e;
             --primary-light: #f0fdfa;
             --primary-border: #99f6e4;
@@ -23,6 +28,10 @@
             --success: #10b981;
             --error: #ef4444;
             --warning: #f59e0b;
+
+            /* צבעים ייעודיים למזהה רשת ומזהה מארח */
+            --net-id-color: #38bdf8;
+            --host-id-color: #fbbf24;
         }
 
         * {
@@ -33,7 +42,7 @@
 
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            background-color: #f1f5f9;
+            background-color: var(--bg-cream); /* רקע שמנת */
             color: #1e293b;
             line-height: 1.6;
             min-height: 100vh;
@@ -49,12 +58,12 @@
             padding: 0 16px;
         }
 
-        /* Header עם רקע אדום בהיר */
+        /* Header בעיצוב בולט ומעניין */
         header {
-            background: linear-gradient(135deg, #f87171 0%, #fca5a5 100%);
-            color: #7f1d1d;
+            background: #ffffff;
+            border-bottom: 2px solid var(--border-cream);
             padding: 24px 0;
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
 
         .header-content {
@@ -74,29 +83,31 @@
         .header-title-area {
             display: flex;
             align-items: center;
-            gap: 12px;
-        }
-
-        .header-logo-box {
-            background-color: white;
-            color: #dc2626;
-            padding: 10px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            gap: 16px;
         }
 
         /* אווטאר מטורלל בהטיה של 30 מעלות */
         .crazy-avatar {
-            width: 52px;
-            height: 52px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             object-fit: cover;
-            transform: rotate(30deg);
-            border: 2px solid white;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+            transform: rotate(30deg); /* הטיה של 30 מעלות בדיוק */
+            border: 3px solid #ef4444;
+            box-shadow: 0 6px 12px rgba(239, 68, 68, 0.25);
+            transition: transform 0.3s ease;
+        }
+
+        .crazy-avatar:hover {
+            transform: rotate(0deg) scale(1.1);
+        }
+
+        .main-title {
+            font-size: 26px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ef4444, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .header-badges {
@@ -105,24 +116,25 @@
         }
 
         .badge {
-            background-color: rgba(127, 29, 29, 0.15);
-            border: 1px solid rgba(127, 29, 29, 0.3);
-            color: #7f1d1d;
+            background-color: #fee2e2;
+            border: 1px solid #fca5a5;
+            color: #991b1b;
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
             padding: 6px 12px;
             border-radius: 9999px;
         }
 
         .badge-success {
-            background-color: rgba(16, 185, 129, 0.2);
+            background-color: #d1fae5;
+            border-color: #6ee7b7;
             color: #065f46;
         }
 
         /* Nav Tabs */
         .nav-tabs-container {
             background-color: white;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid var(--border-cream);
             position: sticky;
             top: 0;
             z-index: 40;
@@ -176,10 +188,10 @@
         /* Cards and Panels */
         .card {
             background-color: white;
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            border: 1px solid var(--border-cream);
             margin-bottom: 24px;
         }
 
@@ -560,21 +572,16 @@
 </head>
 <body>
 
-    <!-- Header עם רקע אדום-בהיר ואווטאר מטורלל בהטיה של 30 מעלות -->
+    <!-- Header עם האווטאר המטורלל והכותרת הבולטת -->
     <header>
         <div class="container header-content">
             <div class="header-title-area">
-                <!-- האווטאר המטורלל מ-Google Drive -->
+                <!-- האווטאר המטורלל מ-Google Drive בהטיה של 30 מעלות -->
                 <img src="https://lh3.googleusercontent.com/d/1BHxytxfATgrv3wpk_8slqpRX08p2Dzml" alt="אווטאר מטורלל" class="crazy-avatar">
                 
-                <div class="header-logo-box">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
-                    </svg>
-                </div>
                 <div>
-                    <h1 style="font-size: 24px; font-weight: 800;">כתובות IP, בסיסי ספירה והמרות</h1>
-                    <p style="font-size: 13px; opacity: 0.9;">המדריך האינטראקטיבי והעצמאי לחלוטין לתלמידים</p>
+                    <h1 class="main-title">כתובות IP, בסיסי ספירה והמרות</h1>
+                    <p style="font-size: 13px; color: var(--gray);">המדריך האינטראקטיבי והעצמאי לחלוטין לתלמידים</p>
                 </div>
             </div>
             <div class="header-badges">
@@ -610,50 +617,50 @@
                 <div class="grid-2">
                     <div style="display: flex; flex-direction: column; gap: 16px;">
                         <p style="font-size: 15px; color: #475569;">
-                            כתובת <strong>IP (Internet Protocol)</strong> היא מזהה ייחודי של מכשיר (מחשב, שרת, נתב, מדפסת) ברשת תקשורת. היא מאפשרת ניתוב והעברה של חבילות מידע ממקור ליעד.
+                            כתובת <strong>IP (Internet Protocol)</strong> היא מזהה ייחודי של מכשיר (מחשב, שרת, נתב, מדפסת) ברשת תקשורת[span_3](start_span)[span_3](end_span). היא מאפשרת ניתוב והעברה של חבילות מידע ממקור ליעד[span_4](start_span)[span_4](end_span).
                         </p>
                         <p style="font-size: 15px; color: #475569;">
-                            כתובת IPv4 מורכבת מ-<strong>32 סיביות (Bits)</strong>, המיוצגות לרוב על ידי <strong>4 מספרים עשרוניים</strong> המופרדים בנקודה. כל מספר כזה מייצג קבוצה של 8 ביטים שנקראת <strong>אוקטטה (Octet)</strong>.
+                            כתובת IPv4 מורכבת מ-<strong>32 סיביות (Bits)</strong>, המיוצגות לרוב על ידי <strong>4 מספרים עשרוניים</strong> המופרדים בנקודה[span_5](start_span)[span_5](end_span). כל מספר כזה מייצג קבוצה של 8 ביטים שנקראת <strong>אוקטטה (Octet)</strong>[span_6](start_span)[span_6](end_span).
                         </p>
                         <div class="alert-info">
-                            <strong>חלוקת הכתובת לשני חלקים:</strong>
+                            <strong>חלוקת הכתובת לשני חלקים (הכיוונים שהתחלפו):</strong>
                             <ul style="list-style-type: disc; margin-right: 20px; margin-top: 8px; font-size: 13px;">
-                                <li><strong>מזהה הרשת (Net ID):</strong> מזהה את הרשת המקומית שבה נמצא המכשיר.</li>
                                 <li><strong>מזהה המארח (Host ID):</strong> מזהה את המכשיר הספציפי בתוך אותה הרשת.</li>
+                                <li><strong>מזהה הרשת (Net ID):</strong> מזהה את הרשת המקומית שבה נמצא המכשיר.</li>
                             </ul>
                         </div>
                     </div>
                     
-                    <!-- IP Structure Visualization -->
+                    <!-- IP Structure Visualization - כיוונים מתוקנים -->
                     <div class="visual-display-box">
-                        <h4 style="font-size: 11px; text-transform: uppercase; color: #94a3b8; text-align: center; margin-bottom: 12px;">מבנה כתובת IPv4 לוגי (דוגמה עבור Class C עם /24)</h4>
+                        <h4 style="font-size: 11px; text-transform: uppercase; color: #94a3b8; text-align: center; margin-bottom: 12px;">מבנה כתובת IPv4 לוגי (דוגמה עבור Class C עם /24)[span_7](start_span)[span_7](end_span)</h4>
                         <div class="octet-grid">
-                            <!-- Net ID -->
-                            <div class="octet-item" style="border-color: #38bdf8;">
-                                <span class="octet-title">אוקטטה 1</span>
-                                <span class="octet-num">192</span>
-                                <span class="octet-bin">11000000</span>
+                            <!-- Host ID Octet FIRST -->
+                            <div class="octet-item" style="border-color: var(--warning);">
+                                <span class="octet-title">אוקטטה 1 (Host ID)</span>
+                                <span class="octet-num" style="color: var(--warning);">10</span>
+                                <span class="octet-bin">00001010</span>
                             </div>
+                            <!-- Net ID Octets -->
                             <div class="octet-item" style="border-color: #38bdf8;">
                                 <span class="octet-title">אוקטטה 2</span>
+                                <span class="octet-num">1</span>
+                                <span class="octet-bin">00000001</span>
+                            </div>
+                            <div class="octet-item" style="border-color: #38bdf8;">
+                                <span class="octet-title">אוקטטה 3</span>
                                 <span class="octet-num">168</span>
                                 <span class="octet-bin">10101000</span>
                             </div>
                             <div class="octet-item" style="border-color: #38bdf8;">
-                                <span class="octet-title">אוקטטה 3</span>
-                                <span class="octet-num">1</span>
-                                <span class="octet-bin">00000001</span>
-                            </div>
-                            <!-- Host ID -->
-                            <div class="octet-item" style="border-color: var(--warning);">
                                 <span class="octet-title">אוקטטה 4</span>
-                                <span class="octet-num" style="color: var(--warning);">10</span>
-                                <span class="octet-bin">00001010</span>
+                                <span class="octet-num">192</span>
+                                <span class="octet-bin">11000000</span>
                             </div>
                         </div>
-                        <div style="display: flex; justify-space-between; font-size: 11px; margin-top: 16px; border-top: 1px solid #1e293b; padding-top: 12px;" dir="ltr">
-                            <span style="color: #38bdf8;">← מזהה הרשת (Net ID - 24 ביטים)</span>
-                            <span style="color: #fbbf24;">מזהה המארח (Host ID - 8 ביטים) →</span>
+                        <div style="display: flex; justify-content: space-between; font-size: 11px; margin-top: 16px; border-top: 1px solid #1e293b; padding-top: 12px;" dir="ltr">
+                            <span style="color: #fbbf24;">← מזהה המארח (Host ID - 8 ביטים)</span>
+                            <span style="color: #38bdf8;">מזהה הרשת (Net ID - 24 ביטים) →</span>
                         </div>
                     </div>
 
@@ -703,27 +710,27 @@
             <!-- Public vs Private IP (RFC 1918) -->
             <div class="card">
                 <h3 class="card-title">
-                    <span style="color: var(--primary);">■</span> כתובת IP ציבורית (Public) מול פרטית (Private)
+                    <span style="color: var(--primary);">■</span> כתובת IP ציבורית (Public) מול פרטית (Private)[span_8](start_span)[span_8](end_span)
                 </h3>
                 <div style="display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 16px;">
                     <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 16px; border-radius: 8px;">
                         <span style="background-color: var(--secondary); color: white; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; display: inline-block; margin-bottom: 8px;">IP ציבורי (Public IP)</span>
                         <p style="font-size: 12px; color: #475569;">
-                            כתובות ייחודיות ברחבי העולם המנותבות ברשת האינטרנט הגלובלית. כל אתר אינטרנט או שרת ציבורי חייב IP ציבורי כדי שנוכל לגשת אליו מכל מקום.
+                            כתובות ייחודיות ברחבי העולם המנותבות ברשת האינטרנט הגלובלית[span_9](start_span)[span_9](end_span). כל אתר אינטרנט או שרת ציבורי חייב IP ציבורי כדי שנוכל לגשת אליו מכל מקום[span_10](start_span)[span_10](end_span).
                         </p>
                     </div>
                     <div style="background-color: var(--primary-light); border: 1px solid var(--primary-border); padding: 16px; border-radius: 8px;">
                         <span style="background-color: var(--primary); color: white; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; display: inline-block; margin-bottom: 8px;">IP פרטי (Private IP)</span>
                         <p style="font-size: 12px; color: #0d5e56;">
-                            כתובות המשמשות בתוך הרשתות הביתיות או הארגוניות הפנימיות שלנו. הן <strong>אינן מנותבות באינטרנט</strong>, ומאפשרות למכשירים בבית לתקשר ביניהם. כדי לצאת לאינטרנט, הנתב מבצע תרגום כתובות שנקרא <strong>NAT</strong>.
+                            כתובות המשמשות בתוך הרשתות הביתיות או הארגוניות הפנימיות שלנו[span_11](start_span)[span_11](end_span). הן <strong>אינן מנותבות באינטרנט</strong>, ומאפשרות למכשירים בבית לתקשר ביניהם[span_12](start_span)[span_12](end_span). כדי לצאת לאינטרנט, הנתב מבצע תרגום כתובות שנקרא <strong>NAT</strong>[span_13](start_span)[span_13](end_span).
                         </p>
                     </div>
                 </div>
 
                 <!-- RFC 1918 Table -->
                 <div class="alert-warning">
-                    <h4 style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">טווחי הכתובות הפרטיות לפי תקן RFC 1918</h4>
-                    <p style="font-size: 12px; margin-bottom: 8px;">כתובות אלו מיועדות אך ורק לשימוש פנימי ואינן מופיעות ברשת האינטרנט:</p>
+                    <h4 style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">טווחי הכתובות הפרטיות לפי תקן RFC 1918[span_14](start_span)[span_14](end_span)</h4>
+                    <p style="font-size: 12px; margin-bottom: 8px;">כתובות אלו מיועדות אך ורק לשימוש פנימי ואינן מופיעות ברשת האינטרנט:[span_15](start_span)[span_15](end_span)</p>
                     <div class="rfc-grid">
                         <div class="rfc-box">
                             <span style="font-size: 10px; color: #64748b; display: block;">Class A</span>
@@ -744,8 +751,8 @@
             <!-- IP Classes (A, B, C, D, E) -->
             <div class="card" style="overflow: hidden; padding: 0;">
                 <div style="background-color: var(--dark); color: white; padding: 20px;">
-                    <h3 style="font-size: 18px; font-weight: 800;">מחלקות של כתובות IP (IP Address Classes)</h3>
-                    <p style="font-size: 12px; color: #94a3b8; margin-top: 4px;">בחלוקה ההיסטורית, הרשתות חולקו למחלקות קבועות מראש:</p>
+                    <h3 style="font-size: 18px; font-weight: 800;">מחלקות של כתובות IP (IP Address Classes)[span_16](start_span)[span_16](end_span)</h3>
+                    <p style="font-size: 12px; color: #94a3b8; margin-top: 4px;">בחלוקה ההיסטורית, הרשתות חולקו למחלקות קבועות מראש:[span_17](start_span)[span_17](end_span)</p>
                 </div>
                 <div class="table-responsive">
                     <table>
@@ -762,25 +769,25 @@
                                 <td style="font-weight: 700;">Class A</td>
                                 <td class="font-mono">1 - 127</td>
                                 <td class="font-mono">255.0.0.0 (/8)</td>
-                                <td>ארגונים ענקיים (מעט רשתות, המון מכשירים בכל רשת)</td>
+                                <td>ארגונים ענקיים (מעט רשתות, המון מכשירים בכל רשת)[span_18](start_span)[span_18](end_span)</td>
                             </tr>
                             <tr>
                                 <td style="font-weight: 700;">Class B</td>
                                 <td class="font-mono">128 - 191</td>
                                 <td class="font-mono">255.255.0.0 (/16)</td>
-                                <td>ארגונים בינוניים-גדולים</td>
+                                <td>ארגונים בינוניים-גדולים[span_19](start_span)[span_19](end_span)</td>
                             </tr>
                             <tr>
                                 <td style="font-weight: 700;">Class C</td>
                                 <td class="font-mono">192 - 223</td>
                                 <td class="font-mono">255.255.255.0 (/24)</td>
-                                <td>רשתות קטנות וביתיות</td>
+                                <td>רשתות קטנות וביתיות[span_20](start_span)[span_20](end_span)</td>
                             </tr>
                             <tr style="background-color: #f8fafc;">
                                 <td style="font-weight: 700; color: var(--primary);">Class D</td>
                                 <td class="font-mono" style="color: var(--primary);">224 - 239</td>
                                 <td>אין מסכה מוגדרת</td>
-                                <td style="font-weight: 600;">שידורי מולטיקאסט (Multicast)</td>
+                                <td style="font-weight: 600;">שידורי מולטיקאסט (Multicast)[span_21](start_span)[span_21](end_span)</td>
                             </tr>
                         </tbody>
                     </table>
@@ -795,25 +802,25 @@
             <!-- Bases Intro -->
             <div class="card">
                 <h2 class="card-title">
-                    <span style="color: var(--primary);">■</span> בסיסי הספירה: עשרוני, בינארי והקסדצימלי
+                    <span style="color: var(--primary);">■</span> בסיסי הספירה: עשרוני, בינארי והקסדצימלי[span_22](start_span)[span_22](end_span)
                 </h2>
                 <div style="display: grid; grid-template-columns: 1fr; gap: 16px;">
                     <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; padding: 16px; border-radius: 8px;">
-                        <h3 style="font-weight: 700; font-size: 14px; margin-bottom: 6px;">בסיס עשרוני (Decimal - Base 10)</h3>
+                        <h3 style="font-weight: 700; font-size: 14px; margin-bottom: 6px;">בסיס עשרוני (Decimal - Base 10)[span_23](start_span)[span_23](end_span)</h3>
                         <p style="font-size: 12px; color: #475569;">
-                            הבסיס היומיומי של בני האדם. משתמש ב-10 ספרות: <strong>0, 1, 2, 3, 4, 5, 6, 7, 8, 9</strong>. הערך של כל ספרה נקבע לפי מיקומה (אחדות, עשרות, מאות...).
+                            הבסיס היומיומי של בני האדם[span_24](start_span)[span_24](end_span). משתמש ב-10 ספרות: <strong>0, 1, 2, 3, 4, 5, 6, 7, 8, 9</strong>[span_25](start_span)[span_25](end_span). הערך של כל ספרה נקבע לפי מיקומה (אחדות, עשרות, מאות...)[span_26](start_span)[span_26](end_span).
                         </p>
                     </div>
                     <div style="background-color: var(--primary-light); border: 1px solid var(--primary-border); padding: 16px; border-radius: 8px;">
-                        <h3 style="font-weight: 700; font-size: 14px; margin-bottom: 6px; color: var(--primary);">בסיס בינארי (Binary - Base 2)</h3>
+                        <h3 style="font-weight: 700; font-size: 14px; margin-bottom: 6px; color: var(--primary);">בסיס בינארי (Binary - Base 2)[span_27](start_span)[span_27](end_span)</h3>
                         <p style="font-size: 12px; color: #0d5e56;">
-                            שפת המחשבים. משתמש ב-2 ספרות בלבד: <strong>0 ו-1</strong> (דולק/כבוי, יש זרם/אין זרם). הערך של כל ספרה נקבע לפי חזקות של 2.
+                            שפת המחשבים[span_28](start_span)[span_28](end_span). משתמש ב-2 ספרות בלבד: <strong>0 ו-1</strong> (דולק/כבוי, יש זרם/אין זרם)[span_29](start_span)[span_29](end_span). הערך של כל ספרה נקבע לפי חזקות של 2[span_30](start_span)[span_30](end_span).
                         </p>
                     </div>
                     <div style="background-color: #f5f3ff; border: 1px solid #ddd6fe; padding: 16px; border-radius: 8px;">
-                        <h3 style="font-weight: 700; font-size: 14px; margin-bottom: 6px; color: #6d28d9;">בסיס הקסדצימלי (Hexadecimal - Base 16)</h3>
+                        <h3 style="font-weight: 700; font-size: 14px; margin-bottom: 6px; color: #6d28d9;">בסיס הקסדצימלי (Hexadecimal - Base 16)[span_31](start_span)[span_31](end_span)</h3>
                         <p style="font-size: 12px; color: #5b21b6;">
-                            בסיס המשתמש ב-16 תווים: <strong>0 עד 9</strong>, ולאחר מכן באותיות <strong>A, B, C, D, E, F</strong> לייצוג הערכים 10 עד 15. משמש לקיצור כתובות ארוכות כמו IPv6 ו-MAC.
+                            בסיס המשתמש ב-16 תווים: <strong>0 עד 9</strong>, ולאחר מכן באותיות <strong>A, B, C, D, E, F</strong> לייצוג הערכים 10 עד 15[span_32](start_span)[span_32](end_span). משמש לקיצור כתובות ארוכות כמו IPv6 ו-MAC[span_33](start_span)[span_33](end_span).
                         </p>
                     </div>
                 </div>
@@ -822,10 +829,10 @@
             <!-- How Binary Works -->
             <div class="card">
                 <h3 class="card-title">
-                    <span style="color: var(--primary);">■</span> טבלת ה"משקלים" של אוקטטה בודדת
+                    <span style="color: var(--primary);">■</span> טבלת ה"משקלים" של אוקטטה בודדת[span_34](start_span)[span_34](end_span)
                 </h3>
                 <p style="font-size: 14px; color: #475569; margin-bottom: 16px;">
-                    כדי להמיר מספר בינארי של 8 ביטים לעשרוני, כל מה שאנחנו צריכים זה להכיר את טבלת <strong>המשקלים</strong> של כל ביט. כל ביט משמאל לימין מקבל ערך כפול מהקודם לו:
+                    כדי להמיר מספר בינארי של 8 ביטים לעשרוני, כל מה שאנחנו צריכים זה להכיר את טבלת <strong>המשקלים</strong> של כל ביט[span_35](start_span)[span_35](end_span). כל ביט משמאל לימין מקבל ערך כפול מהקודם לו:[span_36](start_span)[span_36](end_span)
                 </p>
 
                 <!-- Weights table representation -->
@@ -865,10 +872,10 @@
                 </div>
 
                 <div style="background-color: #f1f5f9; padding: 16px; border-radius: 8px; margin-top: 16px; font-size: 12px; line-height: 1.6;">
-                    <strong>איך מחשבים בפועל? שתי פעולות פשוטות:</strong>
+                    <strong>איך מחשבים בפועל? שתי פעולות פשוטות:[span_37](start_span)[span_37](end_span)</strong>
                     <ul style="list-style-type: disc; margin-right: 20px; margin-top: 6px;">
-                        <li><strong>מבינארי לעשרוני:</strong> סוכמים את המשקלים שמופיע מעליהם הספרה 1.</li>
-                        <li><strong>מעשרוני לבינארי (חיסור):</strong> בודקים משמאל לימין איזה משקל נכנס במספר, רושמים 1, ומחסירים את המשקל. במידה ולא נכנס - רושמים 0.</li>
+                        <li><strong>מבינארי לעשרוני:</strong> סוכמים את המשקלים שמופיע מעליהם הספרה 1[span_38](start_span)[span_38](end_span).</li>
+                        <li><strong>מעשרוני לבינארי (חיסור):</strong> בודקים משמאל לימין איזה משקל נכנס במספר, רושמים 1, ומחסירים את המשקל[span_39](start_span)[span_39](end_span). במידה ולא נכנס - רושמים 0[span_40](start_span)[span_40](end_span).</li>
                     </ul>
                 </div>
             </div>
@@ -880,8 +887,8 @@
             <!-- Bit Clicker Card -->
             <div class="card">
                 <div style="margin-bottom: 16px;">
-                    <h2 class="card-title">1. ממיר בינארי-עשרוני ויזואלי</h2>
-                    <p style="font-size: 12px; color: var(--gray);">לחץ על הביטים (העיגולים) השונים כדי להדליק (1) או לכבות (0) אותם, וראה כיצד המספר העשרוני וההקסדצימלי מחושבים אוטומטית!</p>
+                    <h2 class="card-title">1. ממיר בינארי-עשרוני ויזואלי[span_41](start_span)[span_41](end_span)</h2>
+                    <p style="font-size: 12px; color: var(--gray);">לחץ על הביטים (העיגולים) השונים כדי להדליק (1) או לכבות (0) אותם, וראה כיצד המספר העשרוני וההקסדצימלי מחושבים אוטומטית[span_42](start_span)[span_42](end_span)!</p>
                 </div>
 
                 <div style="background-color: var(--dark); padding: 24px; border-radius: 12px; display: flex; flex-direction: column; gap: 20px;">
@@ -936,8 +943,8 @@
             <!-- Free Conversions Calculator -->
             <div class="card">
                 <div style="margin-bottom: 16px;">
-                    <h2 class="card-title">2. מחשבון המרות חופשי</h2>
-                    <p style="font-size: 12px; color: var(--gray);">הקלד ערך באחד מהשדות הבאים, ושאר השדות יתעדכנו וימירו את עצמם אוטומטית!</p>
+                    <h2 class="card-title">2. מחשבון המרות חופשי[span_43](start_span)[span_43](end_span)</h2>
+                    <p style="font-size: 12px; color: var(--gray);">הקלד ערך באחד מהשדות הבאים, ושאר השדות יתעדכנו וימירו את עצמם אוטומטית[span_44](start_span)[span_44](end_span)!</p>
                 </div>
 
                 <div class="calc-grid" style="background-color: #f1f5f9; padding: 20px; border-radius: 12px; border: 1px solid #cbd5e1;">
@@ -963,8 +970,8 @@
             
             <!-- Practice Generator Card -->
             <div class="generator-card">
-                <h3 style="font-size: 18px; font-weight: 800; color: #0f3d37; margin-bottom: 4px;">מחולל אימונים אינסופי (Practice Generator)</h3>
-                <p style="font-size: 11px; color: #0d5e56;">פתור שאלות המרה אקראיות וקבל משוב והסבר מפורט לדרך הפתרון בכל פעם מחדש!</p>
+                <h3 style="font-size: 18px; font-weight: 800; color: #0f3d37; margin-bottom: 4px;">מחולל אימונים אינסופי (Practice Generator)[span_45](start_span)[span_45](end_span)</h3>
+                <p style="font-size: 11px; color: #0d5e56;">פתור שאלות המרה אקראיות וקבל משוב והסבר מפורט לדרך הפתרון בכל פעם מחדש[span_46](start_span)[span_46](end_span)!</p>
 
                 <div style="background-color: white; padding: 20px; border-radius: 12px; border: 1px solid var(--primary-border); margin-top: 16px; display: flex; flex-direction: column; gap: 16px;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -989,7 +996,7 @@
             <div class="quiz-container">
                 <div class="card">
                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px;">
-                        <h3 style="font-size: 18px; font-weight: 800;">בוחן ידע עצמי ממוקד</h3>
+                        <h3 style="font-size: 18px; font-weight: 800;">בוחן ידע עצמי ממוקד[span_47](start_span)[span_47](end_span)</h3>
                         <span style="background-color: var(--primary-light); color: var(--primary); padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 700;">
                             ניקוד: <span id="quiz-score">0 / 4</span>
                         </span>
@@ -997,7 +1004,7 @@
 
                     <div class="quiz-question quiz-q" data-correct="2">
                         <span style="font-size: 10px; font-weight: 700; color: var(--primary);">שאלה 1 מתוך 4</span>
-                        <h4 style="font-size: 14px; font-weight: 700; margin-top: 4px;">איזו מהכתובות הבאות היא כתובת IP פרטית (Private) פנימית?</h4>
+                        <h4 style="font-size: 14px; font-weight: 700; margin-top: 4px;">איזו מהכתובות הבאות היא כתובת IP פרטית (Private) פנימית?[span_48](start_span)[span_48](end_span)</h4>
                         <div class="quiz-answers">
                             <label class="answer-label">
                                 <input type="radio" name="q1" value="0">
@@ -1016,7 +1023,7 @@
 
                     <div class="quiz-question quiz-q" data-correct="1">
                         <span style="font-size: 10px; font-weight: 700; color: var(--primary);">שאלה 2 מתוך 4</span>
-                        <h4 style="font-size: 14px; font-weight: 700; margin-top: 4px;">לאיזו מחלקה (Class) שייכת כתובת ה-IP: 140.80.2.1 ?</h4>
+                        <h4 style="font-size: 14px; font-weight: 700; margin-top: 4px;">לאיזו מחלקה (Class) שייכת כתובת ה-IP: 140.80.2.1 ?[span_49](start_span)[span_49](end_span)</h4>
                         <div class="quiz-answers">
                             <label class="answer-label">
                                 <input type="radio" name="q2" value="0">
@@ -1035,7 +1042,7 @@
 
                     <div class="quiz-question quiz-q" data-correct="3">
                         <span style="font-size: 10px; font-weight: 700; color: var(--primary);">שאלה 3 מתוך 4</span>
-                        <h4 style="font-size: 14px; font-weight: 700; margin-top: 4px;">מהי המשמעות והתפקיד של מחלקה Class D (224-239)?</h4>
+                        <h4 style="font-size: 14px; font-weight: 700; margin-top: 4px;">מהי המשמעות והתפקיד של מחלקה Class D (224-239)?[span_50](start_span)[span_50](end_span)</h4>
                         <div class="quiz-answers">
                             <label class="answer-label">
                                 <input type="radio" name="q3" value="0">
@@ -1051,14 +1058,14 @@
                             </label>
                             <label class="answer-label">
                                 <input type="radio" name="q3" value="3">
-                                <span>שידור מולטיקאסט (Multicast) - שליחת מידע לקבוצה מוגדרת בו-זמנית.</span>
+                                <span>שידור מולטיקאסט (Multicast) - שליחת מידע לקבוצה מוגדרת בו-זמנית.[span_51](start_span)[span_51](end_span)</span>
                             </label>
                         </div>
                     </div>
 
                     <div class="quiz-question quiz-q" data-correct="0">
                         <span style="font-size: 10px; font-weight: 700; color: var(--primary);">שאלה 4 מתוך 4</span>
-                        <h4 style="font-size: 14px; font-weight: 700; margin-top: 4px;">איזה ערך עשרוני מיוצג על ידי ה-Nibble (חצי בית) הבינארי: 1010?</h4>
+                        <h4 style="font-size: 14px; font-weight: 700; margin-top: 4px;">איזה ערך עשרוני מיוצג על ידי ה-Nibble (חצי בית) הבינארי: 1010?[span_52](start_span)[span_52](end_span)</h4>
                         <div class="quiz-answers">
                             <label class="answer-label">
                                 <input type="radio" name="q4" value="0">
@@ -1088,8 +1095,8 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>מדריך אינטראקטיבי ללימוד כתובות IP והמרת בסיסי ספירה - נוצר בהתאמה מוחלטת לתלמידי CCNA וסייבר</p>
-            <p style="margin-top: 4px; font-size: 10px; opacity: 0.7;">Cisco, Cisco IOS, and Catalyst are trademarks of Cisco Systems, Inc.</p>
+            <p>מדריך אינטראקטיבי ללימוד כתובות IP והמרת בסיסי ספירה - נוצר בהתאמה מוחלטת לתלמידי CCNA וסייבר[span_53](start_span)[span_53](end_span)</p>
+            <p style="margin-top: 4px; font-size: 10px; opacity: 0.7;">Cisco, Cisco IOS, and Catalyst are trademarks of Cisco Systems, Inc.[span_54](start_span)[span_54](end_span)</p>
         </div>
     </footer>
 
@@ -1115,7 +1122,7 @@
             </div>
 
             <h3 class="text-lg font-black text-white mb-2">צריך עזרה במשימה?</h3>
-            <p class="text-sm text-slate-400 mb-6 leading-relaxed">בוט העזרה הרשמי של האקדמיה זמין כעת כדי לענות על שאלות, להסביר מושגים ולכוון אותך לפתרון המלא!</p>
+            <p class="text-sm text-slate-400 mb-6 leading-relaxed">בוט העזרה הרשמי של האקדמיה זמין כעת כדי לענות על שאלות, להסביר מושגים ולכוון אותך לפתרון המלא[span_55](start_span)[span_55](end_span)!</p>
             
             <a href="https://gemini.google.com/gem/167016ac4a4b/66c3b83daa7940ef?usp=sharing" target="_blank" class="w-full flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-black py-3 px-4 rounded-xl transition-all duration-200 shadow-lg shadow-cyan-500/10">
                 <span>הפעל את בוט העזרה</span>
