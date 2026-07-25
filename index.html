@@ -49,12 +49,12 @@
             padding: 0 16px;
         }
 
-        /* Header */
+        /* Header עם רקע אדום בהיר */
         header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
+            background: linear-gradient(135deg, #f87171 0%, #fca5a5 100%);
+            color: #7f1d1d;
             padding: 24px 0;
-            box-shadow: 0 4px 15px rgba(15, 118, 110, 0.2);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
         }
 
         .header-content {
@@ -79,7 +79,7 @@
 
         .header-logo-box {
             background-color: white;
-            color: var(--primary);
+            color: #dc2626;
             padding: 10px;
             border-radius: 8px;
             display: flex;
@@ -88,15 +88,26 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
+        /* אווטאר מטורלל בהטיה של 30 מעלות */
+        .crazy-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            object-fit: cover;
+            transform: rotate(30deg);
+            border: 2px solid white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+
         .header-badges {
             display: flex;
             gap: 8px;
         }
 
         .badge {
-            background-color: rgba(255, 255, 255, 0.2);
-            border: 1px border rgba(255, 255, 255, 0.3);
-            color: white;
+            background-color: rgba(127, 29, 29, 0.15);
+            border: 1px solid rgba(127, 29, 29, 0.3);
+            color: #7f1d1d;
             font-size: 11px;
             font-weight: 600;
             padding: 6px 12px;
@@ -105,7 +116,7 @@
 
         .badge-success {
             background-color: rgba(16, 185, 129, 0.2);
-            color: #d1fae5;
+            color: #065f46;
         }
 
         /* Nav Tabs */
@@ -549,10 +560,13 @@
 </head>
 <body>
 
-    <!-- Header -->
+    <!-- Header עם רקע אדום-בהיר ואווטאר מטורלל בהטיה של 30 מעלות -->
     <header>
         <div class="container header-content">
             <div class="header-title-area">
+                <!-- האווטאר המטורלל מ-Google Drive -->
+                <img src="https://lh3.googleusercontent.com/d/1BHxytxfATgrv3wpk_8slqpRX08p2Dzml" alt="אווטאר מטורלל" class="crazy-avatar">
+                
                 <div class="header-logo-box">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
@@ -611,37 +625,37 @@
                     </div>
                     
                     <!-- IP Structure Visualization -->
-<div class="visual-display-box">
-    <h4 style="font-size: 11px; text-transform: uppercase; color: #94a3b8; text-align: center; margin-bottom: 12px;">מבנה כתובת IPv4 לוגי (דוגמה עבור Class C עם /24)</h4>
-    <div class="octet-grid">
-        <!-- Net ID (3 אוקטטות משמאל) -->
-        <div class="octet-item" style="border-color: #38bdf8;">
-            <span class="octet-title">אוקטטה 1</span>
-            <span class="octet-num">192</span>
-            <span class="octet-bin">11000000</span>
-        </div>
-        <div class="octet-item" style="border-color: #38bdf8;">
-            <span class="octet-title">אוקטטה 2</span>
-            <span class="octet-num">168</span>
-            <span class="octet-bin">10101000</span>
-        </div>
-        <div class="octet-item" style="border-color: #38bdf8;">
-            <span class="octet-title">אוקטטה 3</span>
-            <span class="octet-num">1</span>
-            <span class="octet-bin">00000001</span>
-        </div>
-        <!-- Host ID (אוקטטה ימנית) -->
-        <div class="octet-item" style="border-color: var(--warning);">
-            <span class="octet-title">אוקטטה 4</span>
-            <span class="octet-num" style="color: var(--warning);">10</span>
-            <span class="octet-bin">00001010</span>
-        </div>
-    </div>
-    <div style="display: flex; justify-content: space-between; font-size: 11px; margin-top: 16px; border-top: 1px solid #1e293b; padding-top: 12px;" dir="ltr">
-        <span style="color: #38bdf8;">← מזהה הרשת (Net ID - 24 ביטים)</span>
-        <span style="color: #fbbf24;">מזהה המארח (Host ID - 8 ביטים) →</span>
-    </div>
-</div>
+                    <div class="visual-display-box">
+                        <h4 style="font-size: 11px; text-transform: uppercase; color: #94a3b8; text-align: center; margin-bottom: 12px;">מבנה כתובת IPv4 לוגי (דוגמה עבור Class C עם /24)</h4>
+                        <div class="octet-grid">
+                            <!-- Net ID -->
+                            <div class="octet-item" style="border-color: #38bdf8;">
+                                <span class="octet-title">אוקטטה 1</span>
+                                <span class="octet-num">192</span>
+                                <span class="octet-bin">11000000</span>
+                            </div>
+                            <div class="octet-item" style="border-color: #38bdf8;">
+                                <span class="octet-title">אוקטטה 2</span>
+                                <span class="octet-num">168</span>
+                                <span class="octet-bin">10101000</span>
+                            </div>
+                            <div class="octet-item" style="border-color: #38bdf8;">
+                                <span class="octet-title">אוקטטה 3</span>
+                                <span class="octet-num">1</span>
+                                <span class="octet-bin">00000001</span>
+                            </div>
+                            <!-- Host ID -->
+                            <div class="octet-item" style="border-color: var(--warning);">
+                                <span class="octet-title">אוקטטה 4</span>
+                                <span class="octet-num" style="color: var(--warning);">10</span>
+                                <span class="octet-bin">00001010</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-space-between; font-size: 11px; margin-top: 16px; border-top: 1px solid #1e293b; padding-top: 12px;" dir="ltr">
+                            <span style="color: #38bdf8;">← מזהה הרשת (Net ID - 24 ביטים)</span>
+                            <span style="color: #fbbf24;">מזהה המארח (Host ID - 8 ביטים) →</span>
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -776,7 +790,7 @@
         </section>
 
         <!-- Tab 2: Binary, Decimal, Hex Theory -->
-        <section id="content-binary-theory" class="tab-content hidden animate-fadeIn">
+        <section id="content-binary-theory" class="tab-content hidden">
             
             <!-- Bases Intro -->
             <div class="card">
@@ -861,7 +875,7 @@
         </section>
 
         <!-- Tab 3: Converter & Interactive calculator -->
-        <section id="content-converter" class="tab-content hidden animate-fadeIn">
+        <section id="content-converter" class="tab-content hidden">
             
             <!-- Bit Clicker Card -->
             <div class="card">
@@ -945,7 +959,7 @@
         </section>
 
         <!-- Tab 4: Quiz & Exercises -->
-        <section id="content-quiz" class="tab-content hidden animate-fadeIn">
+        <section id="content-quiz" class="tab-content hidden">
             
             <!-- Practice Generator Card -->
             <div class="generator-card">
@@ -1082,7 +1096,6 @@
     <!-- כפתור עזרה צף קבוע בפינה התחתונה עם אווטר מובנה -->
     <div class="fixed bottom-6 left-6 z-50 no-print">
         <button id="openHelpModalBtn" class="flex items-center gap-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg shadow-cyan-500/20 transition-all duration-300 transform hover:scale-105 group border border-cyan-400/30">
-            <!-- אווטר קטן בתוך הכפתור -->
             <div class="w-8 h-8 rounded-full border border-white/40 overflow-hidden bg-slate-950 flex-shrink-0 shadow-inner">
                 <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="אווטר בוט עזרה" class="w-full h-full object-cover">
             </div>
@@ -1090,15 +1103,13 @@
         </button>
     </div>
 
-    <!-- חלונית עזרה צפה (Modal) עם אווטר מורחב -->
+    <!-- חלונית עזרה צפה (Modal) -->
     <div id="helpModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4 transition-all duration-300">
         <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-sm w-full text-center relative shadow-2xl shadow-cyan-500/5 transform scale-95 transition-transform duration-300" id="helpModalContent">
-            <!-- כפתור סגירה X -->
             <button id="closeHelpModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-slate-800">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
             
-            <!-- אווטר התמונה בחלונית -->
             <div class="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-cyan-400/50 p-1 bg-slate-950 shadow-lg shadow-cyan-500/20 overflow-hidden">
                 <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="תמונת בוט עזרה" class="w-full h-full object-cover rounded-full">
             </div>
@@ -1106,7 +1117,6 @@
             <h3 class="text-lg font-black text-white mb-2">צריך עזרה במשימה?</h3>
             <p class="text-sm text-slate-400 mb-6 leading-relaxed">בוט העזרה הרשמי של האקדמיה זמין כעת כדי לענות על שאלות, להסביר מושגים ולכוון אותך לפתרון המלא!</p>
             
-            <!-- כפתור הפניה לקישור הבוט -->
             <a href="https://gemini.google.com/gem/167016ac4a4b/66c3b83daa7940ef?usp=sharing" target="_blank" class="w-full flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-black py-3 px-4 rounded-xl transition-all duration-200 shadow-lg shadow-cyan-500/10">
                 <span>הפעל את בוט העזרה</span>
                 <i data-lucide="external-link" class="w-4 h-4"></i>
@@ -1117,13 +1127,13 @@
     <!-- JavaScript Logic -->
     <script>
         // Global variables for Converter Clicker state
-        let currentBits = [0, 0, 0, 0, 0, 0, 0, 0]; // Index 0: Weight 1, Index 7: Weight 128
+        let currentBits = [0, 0, 0, 0, 0, 0, 0, 0];
         const weights = [1, 2, 4, 8, 16, 32, 64, 128];
 
         // Global variables for Endless Practice Generator
         let currentPractice = {
             id: 0,
-            type: '', // dec-to-bin, bin-to-dec, dec-to-hex, hex-to-dec
+            type: '',
             questionValue: 0,
             correctAnswer: ''
         };
@@ -1131,25 +1141,21 @@
         // Tab Switching logic
         function switchTab(tabId) {
             try {
-                // Hide all sections
                 const contents = document.querySelectorAll('.tab-content');
                 for (let i = 0; i < contents.length; i++) {
                     contents[i].style.display = 'none';
                 }
 
-                // Show target section
                 const target = document.getElementById('content-' + tabId);
                 if (target) {
                     target.style.display = 'block';
                 }
 
-                // Reset buttons state
                 const btns = document.querySelectorAll('.tab-btn');
                 for (let i = 0; i < btns.length; i++) {
                     btns[i].className = 'tab-btn';
                 }
 
-                // Set active button
                 const activeBtn = document.getElementById('tab-' + tabId);
                 if (activeBtn) {
                     activeBtn.className = 'tab-btn active';
@@ -1192,7 +1198,6 @@
                     }
                 }
 
-                // Update dynamic calculation formula view
                 const formulaView = document.getElementById('calc-formula-view');
                 if (formulaView) {
                     if (formulaParts.length > 0) {
@@ -1202,13 +1207,11 @@
                     }
                 }
 
-                // Update decimal output
                 const decResultEl = document.getElementById('calc-decimal-result');
                 if (decResultEl) {
                     decResultEl.innerText = decimalResult;
                 }
 
-                // Update hexadecimal output
                 const hexResultEl = document.getElementById('calc-hex-result');
                 if (hexResultEl) {
                     let hexStr = decimalResult.toString(16).toUpperCase();
@@ -1220,7 +1223,6 @@
             }
         }
 
-        // Pad Helpers
         function padBinary(binStr) {
             return binStr.padStart(8, '0');
         }
@@ -1284,7 +1286,7 @@
             try {
                 const types = ['dec-to-bin', 'bin-to-dec', 'dec-to-hex', 'hex-to-dec'];
                 const randomType = types[Math.floor(Math.random() * types.length)];
-                const randomVal = Math.floor(Math.random() * 256); // Range 0 to 255
+                const randomVal = Math.floor(Math.random() * 256);
                 
                 currentPractice.id++;
                 currentPractice.type = randomType;
@@ -1296,7 +1298,6 @@
 
                 if (!qTextEl || !inputAnswer || !feedbackEl) return;
 
-                // Reset state
                 inputAnswer.value = '';
                 feedbackEl.style.display = 'none';
                 feedbackEl.className = "feedback-msg hidden";
@@ -1317,7 +1318,7 @@
                     qTextEl.innerHTML = 'המר את המספר העשרוני <strong style="color: var(--secondary);">' + randomVal + '</strong> לבסיס <strong>הקסדצימלי (Hex)</strong>';
                     currentPractice.correctAnswer = padHex(randomVal.toString(16).toUpperCase());
                 } 
-                else { // hex-to-dec
+                else {
                     const hexStr = padHex(randomVal.toString(16).toUpperCase());
                     qTextEl.innerHTML = 'המר את המספר ההקסדצימלי <strong style="color: var(--secondary); font-family: monospace;">' + hexStr + '</strong> לבסיס <strong>עשרוני</strong>';
                     currentPractice.correctAnswer = randomVal.toString();
@@ -1383,7 +1384,7 @@
             }
         }
 
-        // --- Standard Multiple Choice Quiz ---
+        // Multiple Choice Quiz
         function submitQuiz() {
             let score = 0;
             const questions = document.querySelectorAll('.quiz-q');
@@ -1438,7 +1439,7 @@
             document.getElementById('btn-submit-quiz').classList.remove('hidden');
         }
 
-        // --- Interactive Bit Grid Simulator ---
+        // Interactive Bit Grid Simulator
         function ipToBinaryOctets(ipStr) {
             const parts = ipStr.split('.').map(p => parseInt(p, 10));
             const octets = [];
@@ -1501,12 +1502,10 @@
             generateNewPractice();
             updateBitGrid();
 
-            // טעינת אייקונים של Lucide
             if (window.lucide) {
                 lucide.createIcons();
             }
 
-            // סקריפט להפעלת חלונית העזרה הצפה
             const modal = document.getElementById('helpModal');
             const modalContent = document.getElementById('helpModalContent');
             const openBtn = document.getElementById('openHelpModalBtn');
