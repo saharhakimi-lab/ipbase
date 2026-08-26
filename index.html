@@ -87,6 +87,9 @@
         .grid-2 { display: grid; grid-template-columns: 1fr; gap: 24px; }
         @media (min-width: 992px) { .grid-2 { grid-template-columns: 1.2fr 1fr; } }
 
+        .grid-cards { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        @media (min-width: 768px) { .grid-cards { grid-template-columns: repeat(2, 1fr); } }
+
         .alert-info { background-color: var(--primary-light); border-right: 4px solid var(--primary); padding: 16px; border-radius: 0 8px 8px 0; font-size: 14px; color: #0f2d2a; }
         .alert-warning { background-color: #fffbeb; border: 1px solid #fef3c7; padding: 16px; border-radius: 12px; color: #78350f; }
 
@@ -136,8 +139,10 @@
         .btn:hover { background-color: #0d5e56; }
         .btn-dark { background-color: var(--dark); }
         .btn-dark:hover { background-color: #1e293b; }
+        .btn-teacher { background-color: #4f46e5; color: white; }
+        .btn-teacher:hover { background-color: #4338ca; }
 
-        /* Floating Crazy Bot Widget (+20% size and 12s rotation) */
+        /* Floating Crazy Bot Widget */
         @keyframes spinAround {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -230,7 +235,7 @@
             </div>
             <div class="header-badges">
                 <span class="badge">CCNA / סייבר ותקשורת</span>
-                <span class="badge badge-success">גרסה מלאה</span>
+                <span class="badge badge-success">גרסה מורחבת</span>
             </div>
         </div>
     </header>
@@ -240,9 +245,10 @@
         <div class="container">
             <nav>
                 <button onclick="switchTab('ip-theory')" id="tab-ip-theory" class="tab-btn active">1. עולם כתובות ה-IP</button>
-                <button onclick="switchTab('binary-theory')" id="tab-binary-theory" class="tab-btn">2. בינארי והקסדצימלי</button>
-                <button onclick="switchTab('converter')" id="tab-converter" class="tab-btn">3. ממיר וסימולטור AND</button>
-                <button onclick="switchTab('quiz')" id="tab-quiz" class="tab-btn">4. בוחן ידע ותרגול (10 תרגילים)</button>
+                <button onclick="switchTab('ip-analysis')" id="tab-ip-analysis" class="tab-btn">2. ניתוח כתובות IP וכתובות מיוחדות</button>
+                <button onclick="switchTab('binary-theory')" id="tab-binary-theory" class="tab-btn">3. בינארי והקסדצימלי</button>
+                <button onclick="switchTab('converter')" id="tab-converter" class="tab-btn">4. ממיר וסימולטור AND</button>
+                <button onclick="switchTab('quiz')" id="tab-quiz" class="tab-btn">5. בוחן ידע ותרגול (15 שאלות)</button>
             </nav>
         </div>
     </div>
@@ -370,7 +376,89 @@
             </div>
         </section>
 
-        <!-- Tab 2: Binary & Hex Theory + Interactive Toggle Box -->
+        <!-- Tab 2: IP Address Analysis & Special IPs -->
+        <section id="content-ip-analysis" class="tab-content">
+            <div class="card" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white;">
+                <h2 class="card-title" style="color: #38bdf8;"><span style="color: #ef4444;">🔴</span> ניתוח סוגי כתובות IP וכתובות מיוחדות</h2>
+                <p style="font-size: 14px; color: #94a3b8; margin-bottom: 20px;">
+                    בעולם הרשתות, לכל כתובת IP יש תפקיד מוגדר. חלקן מיועדות לתקשורת ברשת המקומית, חלקן לאינטרנט, וחלקן שמורות לתפקידים מערכתיים מיוחדים.
+                </p>
+
+                <div class="grid-cards">
+                    <!-- Card 1: Private vs Public with Class Ranges -->
+                    <div style="background-color: #020617; border: 1px solid #334155; border-radius: 12px; padding: 18px;">
+                        <h3 style="font-size: 16px; font-weight: 800; color: #34d399; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                            <span style="color: #ef4444;">🔴</span> כתובות פרטיות מול ציבוריות
+                        </h3>
+                        <ul style="font-size: 13px; color: #cbd5e1; list-style-type: disc; margin-right: 18px; display: flex; flex-direction: column; gap: 8px;">
+                            <li><strong>כתובת פרטית (Private IP):</strong> מיועדת לשימוש פנימי בתוך הבית או המשרד. לא ניתנת לניתוב באינטרנט הציבורי.</li>
+                            <li><strong>כתובת ציבורית (Public IP):</strong> כתובת ייחודית בעולם כולו, המוקצית על ידי ספק האינטרנט (ISP) ומאפשרת גישה ישירה לרשת הגלובלית.</li>
+                        </ul>
+
+                        <!-- Added Class Ranges Sub-card -->
+                        <div style="margin-top: 12px; background-color: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 10px; font-size: 11px;">
+                            <span style="color: #fbbf24; font-weight: 700; display: block; margin-bottom: 6px;">טווחי הכתובות הפרטיות לפי תקן RFC 1918:</span>
+                            <div style="display: flex; flex-direction: column; gap: 4px;" class="font-mono">
+                                <div><span style="color: #38bdf8; font-weight: 700;">Class A:</span> <span class="ltr-text">10.0.0.0 – 10.255.255.255</span> <span style="color: #64748b;">(/8)</span></div>
+                                <div><span style="color: #38bdf8; font-weight: 700;">Class B:</span> <span class="ltr-text">172.16.0.0 – 172.31.255.255</span> <span style="color: #64748b;">(/16)</span></div>
+                                <div><span style="color: #38bdf8; font-weight: 700;">Class C:</span> <span class="ltr-text">192.168.0.0 – 192.168.255.255</span> <span style="color: #64748b;">(/24)</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Network & Broadcast -->
+                    <div style="background-color: #020617; border: 1px solid #334155; border-radius: 12px; padding: 18px;">
+                        <h3 style="font-size: 16px; font-weight: 800; color: #fbbf24; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                            <span style="color: #ef4444;">🔴</span> כתובת רשת (Network) ושידור (Broadcast)
+                        </h3>
+                        <ul style="font-size: 13px; color: #cbd5e1; list-style-type: disc; margin-right: 18px; display: flex; flex-direction: column; gap: 8px;">
+                            <li><strong>כתובת רשת (Network ID):</strong> הכתובת הראשונה במתחם הרשת (כל ביטי ה-Host הם 0). מייצגת את הרשת כולה ולא ניתנת להקצאה למחשב.</li>
+                            <li><strong>כתובת ברודקאסט (Broadcast):</strong> הכתובת האחרונה במתחם (כל ביטי ה-Host הם 1). משמשת לשליחת הודעה לכל המכשירים ברשת בו-זמנית.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Card 3: APIPA -->
+                    <div style="background-color: #020617; border: 1px solid #334155; border-radius: 12px; padding: 18px;">
+                        <h3 style="font-size: 16px; font-weight: 800; color: #f87171; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                            <span style="color: #ef4444;">🔴</span> כתובת חירום APIPA
+                        </h3>
+                        <p style="font-size: 13px; color: #cbd5e1; margin-bottom: 8px;">
+                            כאשר מחשב מוגדר לקבל IP אוטומטית משרת DHCP אך השרת אינו זמין, מערכת ההפעלה מקצה לעצמה כתובת חירום אוטומטית.
+                        </p>
+                        <div style="background-color: #1e1b4b; border: 1px solid #6366f1; border-radius: 6px; padding: 8px 12px; text-align: center;">
+                            <span style="font-size: 11px; color: #a5b4fc; display: block;">טווח הכתובות השמור:</span>
+                            <span class="ltr-text font-mono font-bold" style="color: #67e8f9; font-size: 15px;">169.254.0.1 – 169.254.255.254</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Loopback -->
+                    <div style="background-color: #020617; border: 1px solid #334155; border-radius: 12px; padding: 18px;">
+                        <h3 style="font-size: 16px; font-weight: 800; color: #38bdf8; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                            <span style="color: #ef4444;">🔴</span> כתובת לולאה פנימית (Loopback)
+                        </h3>
+                        <p style="font-size: 13px; color: #cbd5e1; margin-bottom: 8px;">
+                            כתובת בדיקה עצמית פנימית של כרטיס הרשת (תקשורת Localhost). התנועה לא יוצאת לכבל הרשת אלא חוזרת חזרה לרכיבי התוכנה של המחשב.
+                        </p>
+                        <div style="background-color: #032b45; border: 1px solid #0284c7; border-radius: 6px; padding: 8px 12px; text-align: center;">
+                            <span style="font-size: 11px; color: #7dd3fc; display: block;">כתובת בדיקה נפוצה (טווח 127.0.0.0/8):</span>
+                            <span class="ltr-text font-mono font-bold" style="color: #38bdf8; font-size: 15px;">127.0.0.1 (Localhost)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Multicast section full width -->
+                <div style="margin-top: 16px; background-color: #020617; border: 1px solid #334155; border-radius: 12px; padding: 18px;">
+                    <h3 style="font-size: 16px; font-weight: 800; color: #c084fc; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                        <span style="color: #ef4444;">🔴</span> שידור קבוצתי (Multicast)
+                    </h3>
+                    <p style="font-size: 13px; color: #cbd5e1;">
+                        בשונה מ-Unicast (מכשיר מול מכשיר) או Broadcast (מכשיר מול כולם), כתובות <strong>Multicast</strong> מאפשרות לשלוח חבילת מידע בודדת מקור אחד אל <strong>קבוצת מנויים מוגדרת בלבד</strong> (כגון שידורי וידאו חי, פרוטוקולי ניתוב EIGRP/OSPF ועוד). הטווח השמור הוא מחלקה Class D: <span class="ltr-text font-mono font-bold text-purple-300">224.0.0.0 – 239.255.255.255</span>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 3: Binary & Hex Theory + Interactive Toggle Box -->
         <section id="content-binary-theory" class="tab-content">
             <div class="card">
                 <h2 class="card-title"><span style="color: var(--primary);">■</span> ייצוג בינארי ותיאוריית בסיסי הספירה</h2>
@@ -464,7 +552,7 @@
             </div>
         </section>
 
-        <!-- Tab 3: Converter & Bit Grid AND Simulator -->
+        <!-- Tab 4: Converter & Bit Grid AND Simulator -->
         <section id="content-converter" class="tab-content">
             <!-- Free Base Converter -->
             <div class="card">
@@ -489,7 +577,7 @@
             <div class="card" style="background-color: var(--dark); color: white;">
                 <h2 class="card-title" style="color: white;"><span style="color: #38bdf8;">■</span> סימולטור Bit Grid ופעולת AND לחישוב רשת</h2>
                 <p style="font-size: 13px; color: #94a3b8; margin-bottom: 20px;">
-                    כדי לחשב את כתובת הרשת (<span class="ltr-text font-mono">Network ID</span>), הנתב מצע פעולת <strong style="color: #38bdf8;">AND לוגי</strong> ברמת הביטים הבודדים בין כתובת ה-IP למסכת הרשת.
+                    כדי לחשב את כתובת הרשת (<span class="ltr-text font-mono">Network ID</span>), הנתב מבצע פעולת <strong style="color: #38bdf8;">AND לוגי</strong> ברמת הביטים הבודדים בין כתובת ה-IP למסכת הרשת.
                 </p>
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
@@ -528,17 +616,21 @@
             </div>
         </section>
 
-        <!-- Tab 4: Quiz & Practice Generator (10 Exercises) -->
+        <!-- Tab 5: Quiz & Practice Generator (15 Exercises) -->
         <section id="content-quiz" class="tab-content">
             <div class="generator-card">
                 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
                     <div>
-                        <h3 style="font-size: 20px; font-weight: 800; color: #0f3d37;">מחולל 10 תרגילי אימון מודרכים</h3>
+                        <h3 style="font-size: 20px; font-weight: 800; color: #0f3d37;">מחולל 15 תרגילי אימון מודרכים</h3>
                         <p style="font-size: 12px; color: #0d5e56;">תרגל את התרגילים, הקלד את תשובתך וקבל הסבר מעוצב צעד אחר צעד.</p>
                     </div>
-                    <!-- Exercise Selector Buttons (1 to 10) -->
-                    <div style="display: flex; gap: 6px; flex-wrap: wrap;" id="exercise-nav-btns"></div>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <button onclick="unlockTeacherAnswers()" class="btn btn-teacher" style="padding: 6px 14px; font-size: 12px;">🔑 מורה</button>
+                    </div>
                 </div>
+
+                <!-- Exercise Selector Buttons (1 to 15) -->
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;" id="exercise-nav-btns"></div>
 
                 <div style="background-color: white; padding: 20px; border-radius: 12px; border: 1px solid var(--primary-border); display: flex; flex-direction: column; gap: 16px;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -554,7 +646,7 @@
                     </div>
 
                     <div style="display: flex; gap: 12px; flex-direction: column;">
-                        <input type="text" id="practice-answer-input" placeholder="הקלד תשובה בלשונית מתאימה..." style="padding: 12px; border: 2px solid #cbd5e1; border-radius: 8px; text-align: center; font-weight: 700; font-family: monospace; font-size: 16px; outline: none;" dir="ltr">
+                        <input type="text" id="practice-answer-input" placeholder="הקלד תשובה..." style="padding: 12px; border: 2px solid #cbd5e1; border-radius: 8px; text-align: center; font-weight: 700; font-family: monospace; font-size: 16px; outline: none;" dir="ltr">
                         <button onclick="checkPracticeAnswer()" class="btn btn-dark">בדוק את תשובתי</button>
                     </div>
 
@@ -566,7 +658,7 @@
 
     </main>
 
-    <!-- Floating Crazy Bot Widget (+20% Size with Updated Rotating Avatar) -->
+    <!-- Floating Crazy Bot Widget -->
     <div class="floating-bot-container">
         <div id="bot-card" class="floating-bot-card">
             <div class="bot-header">
@@ -599,26 +691,23 @@
 
     <!-- JavaScript Logic -->
     <script>
-        // State for Tab 2 simulator
-        let bitState = [1, 1, 0, 0, 0, 0, 0, 0]; // default 192
+        let bitState = [1, 1, 0, 0, 0, 0, 0, 0];
         const bitWeights = [128, 64, 32, 16, 8, 4, 2, 1];
+        let teacherUnlocked = false;
 
-        // Crazy Bot Tips Array
         const botTips = [
             "זכור: כתובת Class C מתחילה תמיד בטווח של 192 עד 223!",
             "פעולת AND לוגי מחזירה 1 רק אם גם הביט ב-IP וגם הביט במסכה הם 1!",
             "כתובת IP פרטית של 192.168.x.x לעולם לא תצא לאינטרנט ללא NAT!",
             "מסכת 255.255.255.0 נקראת בקיצור CIDR כ- /24 כי יש בה 24 ביטים דלוקים ברצף.",
-            "הבסיס ההקסדצימלי משתמש באותיות A עד F כדי לייצג את המספרים 10 עד 15."
+            "הבסיס ההקסדצימלי משתמש באותיות A עד F כדי לייצג את המספרים 10 עד 15.",
+            "כתובת APIPA מתחילה תמיד ב-169.254 ומופיעה כשאין תקשורת לשרת DHCP!",
+            "כתובת Loopback 127.0.0.1 בודקת את תקינות רכיבי התוכנה של כרטיס הרשת בלבד."
         ];
 
         function toggleBotCard() {
             const card = document.getElementById('bot-card');
-            if (card.style.display === 'none') {
-                card.style.display = 'flex';
-            } else {
-                card.style.display = 'none';
-            }
+            card.style.display = card.style.display === 'none' ? 'flex' : 'none';
         }
 
         function generateBotTip() {
@@ -637,7 +726,6 @@
                 btn.classList.remove('active');
             }
 
-            // Calculate total decimal value
             let sum = 0;
             for (let i = 0; i < 8; i++) {
                 if (bitState[i] === 1) sum += bitWeights[i];
@@ -648,7 +736,6 @@
             document.getElementById('sim-hex').innerText = sum.toString(16).toUpperCase().padStart(2, '0');
         }
 
-        // Tab 3 Live Conversion
         function convertFrom(baseType) {
             const decInput = document.getElementById('input-dec');
             const binInput = document.getElementById('input-bin');
@@ -670,7 +757,6 @@
             }
         }
 
-        // Tab 3 Bit Grid AND Logic
         function updateBitGrid() {
             const ipStr = document.getElementById('and-ip-input').value.trim();
             const maskStr = document.getElementById('and-mask-input').value.trim();
@@ -714,7 +800,7 @@
             document.getElementById('and-result-text').innerText = netResultParts.join('.');
         }
 
-        // Tab 4 Structured Practice Bank
+        // Expanded 15 Practice Questions
         const practiceBank = [
             { id: 1, title: "המרת עשרוני לבינארי", q: "המר את המספר העשרוני <span dir='ltr' class='font-mono font-bold text-teal-600'>192</span> לבינארי (8 ביטים):", answer: "11000000", solution: "המספר 192 מורכב מ- 128 + 64. לכן הביטים במשקלים 128 ו-64 הופכים ל-1, ושאר הביטים כבויים (0)." },
             { id: 2, title: "המרת בינארי לעשרוני", q: "מהו הערך העשרוני של המספר הבינארי <span dir='ltr' class='font-mono font-bold text-teal-600'>10101000</span>?", answer: "168", solution: "סוכמים את הביטים שערכם 1: 128 + 32 + 8 = 168." },
@@ -725,7 +811,12 @@
             { id: 7, title: "חישוב כתובת רשת (Network ID)", q: "מהי כתובת הרשת עבור הכתובת <span dir='ltr' class='font-mono font-bold text-teal-600'>10.20.30.40/8</span>?", answer: "10.0.0.0", solution: "פרפיקס /8 מורה על כך שרק האוקטטה הראשונה שייכת למזהה הרשת, בעוד שאר 3 האוקטטות של המארח מתאפסות." },
             { id: 8, title: "מחלקה ייעודית Class D", q: "למה מיועדת מחלקת הכתובות <span dir='ltr' class='font-mono font-bold text-teal-600'>Class D</span> (טווח 224-239)? (רשום: מולטיקאסט / Multicast)", answer: "מולטיקאסט", solution: "Class D אינה מיועדת למארחים בודדים אלא לשידורי מולטיקאסט (Multicast) לקבוצות מכשירים מוגדרות." },
             { id: 9, title: "המרת הקסדצימלי לעשרוני", q: "מהו הערך העשרוני של הערך ההקסדצימלי <span dir='ltr' class='font-mono font-bold text-teal-600'>C0</span>?", answer: "192", solution: "התו C מייצג 12. מחשבים: (12 × 16) + 0 = 192." },
-            { id: 10, title: "חישוב משקל ביטים", q: "מהו הסכום העשרוני שמתקבל כאשר דולקים הביטים במשקלים <span dir='ltr' class='font-mono font-bold text-teal-600'>128 + 16 + 2</span>?", answer: "146", solution: "128 + 16 + 2 = 146. ייצוגו הבינארי באוקטטה הוא 10010010." }
+            { id: 10, title: "חישוב משקל ביטים", q: "מהו הסכום העשרוני שמתקבל כאשר דולקים הביטים במשקלים <span dir='ltr' class='font-mono font-bold text-teal-600'>128 + 16 + 2</span>?", answer: "146", solution: "128 + 16 + 2 = 146. ייצוגו הבינארי באוקטטה הוא 10010010." },
+            { id: 11, title: "זיהוי כתובת חירום APIPA", q: "מהו טווח הכתובות המיועד לכתובות חירום מסוג <span dir='ltr' class='font-mono font-bold text-teal-600'>APIPA</span>? (רשום את התחלת הכתובת, למשל: 169.254)", answer: "169.254", solution: "כתובות APIPA מוקצות אוטומטית במנעד 169.254.0.0/16 כאשר לא ניתן להשיג כתובת משרת DHCP." },
+            { id: 12, title: "כתובת לולאה פנימית Loopback", q: "מהי כתובת ה-Loopback הסטנדרטית לבדיקה עצמית של כרטיס הרשת (Localhost)?", answer: "127.0.0.1", solution: "כתובת 127.0.0.1 (ברשת 127.0.0.0/8) משמשת לבדיקת מחזור הפרוטוקול הפנימי בכרטיס הרשת ללא הוצאת תנועה לכבל." },
+            { id: 13, title: "חישוב כתובת ברודקאסט", q: "מהי כתובת השידור (Broadcast) עבור הרשת <span dir='ltr' class='font-mono font-bold text-teal-600'>192.168.1.0/24</span>?", answer: "192.168.1.255", solution: "במסכת /24, האוקטטה האחרונה שייכת למארחים. כתובת השידור מתקבלת כאשר כל 8 הביטים של המארח הם 1 (ערך 255)." },
+            { id: 14, title: "כתובת ציבורית מול פרטית", q: "האם הכתובת <span dir='ltr' class='font-mono font-bold text-teal-600'>8.8.8.8</span> היא פרטית או ציבורית?", answer: "ציבורית", solution: "כתובת זו אינה שייכת לאף אחד מטווחי RFC 1918 הפרטיים (10.x, 172.16-31.x, 192.168.x) ולכן היא כתובת IP ציבורית (שרת DNS של גוגל)." },
+            { id: 15, title: "שידור קבוצתי Multicast", q: "איזה סוג תקשורת שולח מידע ממקור אחד אל קבוצת מנויים מוגדרת בלבד? (Unicast / Broadcast / Multicast)", answer: "MULTICAST", solution: "תקשורת Multicast שולחת חבילת מידע יחידה המופצת במקביל רק לתחנות שנרשמו לקבוצה הספציפית הזו." }
         ];
 
         let currentExIndex = 0;
@@ -745,9 +836,11 @@
             currentExIndex = index;
             const ex = practiceBank[index];
             
-            document.getElementById('practice-cat-title').innerText = `תרגיל ${ex.id} מתוך 10: ${ex.title}`;
+            document.getElementById('practice-cat-title').innerText = `תרגיל ${ex.id} מתוך 15: ${ex.title}`;
             document.getElementById('practice-question-text').innerHTML = ex.q;
-            document.getElementById('practice-answer-input').value = '';
+            
+            const inputEl = document.getElementById('practice-answer-input');
+            inputEl.value = teacherUnlocked ? ex.answer : '';
             
             const feedbackEl = document.getElementById('practice-feedback');
             feedbackEl.style.display = 'none';
@@ -761,7 +854,7 @@
             let html = '';
             for (let i = 0; i < practiceBank.length; i++) {
                 const activeStyle = (i === currentExIndex) ? 'background-color: var(--primary); color: white;' : 'background-color: #e2e8f0; color: #334155;';
-                html += `<button onclick="loadExercise(${i})" style="${activeStyle} width: 28px; height: 28px; border-radius: 6px; border: none; font-weight: 800; font-size: 11px; cursor: pointer;">${i + 1}</button>`;
+                html += `<button onclick="loadExercise(${i})" style="${activeStyle} width: 30px; height: 30px; border-radius: 6px; border: none; font-weight: 800; font-size: 11px; cursor: pointer;">${i + 1}</button>`;
             }
             container.innerHTML = html;
         }
@@ -774,6 +867,17 @@
             if (currentExIndex < practiceBank.length - 1) loadExercise(currentExIndex + 1);
         }
 
+        function unlockTeacherAnswers() {
+            const pass = prompt("הזן סיסמת מורה:");
+            if (pass === "sahar") {
+                teacherUnlocked = true;
+                alert("מצב מורה הופעל בהצלחה! התשובות הוזנו לשאלות.");
+                loadExercise(currentExIndex);
+            } else if (pass !== null) {
+                alert("סיסמה שגויה!");
+            }
+        }
+
         function checkPracticeAnswer() {
             const ex = practiceBank[currentExIndex];
             const inputVal = document.getElementById('practice-answer-input').value.trim().toUpperCase();
@@ -784,6 +888,7 @@
             let isCorrect = (inputVal === ex.answer.toUpperCase() || inputVal.replace('/', '') === ex.answer.replace('/', ''));
             if (ex.answer === "מולטיקאסט" && (inputVal.includes("MULTICAST") || inputVal.includes("מולטי"))) isCorrect = true;
             if (ex.answer === "פרטית" && (inputVal.includes("PRIVATE") || inputVal.includes("פרטי"))) isCorrect = true;
+            if (ex.answer === "ציבורית" && (inputVal.includes("PUBLIC") || inputVal.includes("ציבורי"))) isCorrect = true;
 
             if (isCorrect) {
                 feedbackEl.innerHTML = `
