@@ -46,15 +46,18 @@
         .header-content { display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 16px; }
         @media (min-width: 768px) { .header-content { flex-direction: row; } }
 
-        .header-title-area { display: flex; align-items: center; gap: 12px; }
-        .header-logo-box {
-            background-color: white; color: #dc2626; padding: 10px; border-radius: 8px;
-            display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        .header-title-area { display: flex; align-items: center; gap: 16px; }
+
+        /* Rotating Header Avatar (10s) */
+        @keyframes spinHeaderAvatar {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .crazy-avatar {
-            width: 52px; height: 52px; border-radius: 50%; object-fit: cover;
-            transform: rotate(30deg); border: 2px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+            width: 56px; height: 56px; border-radius: 50%; object-fit: cover;
+            border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            animation: spinHeaderAvatar 10s linear infinite;
         }
 
         .header-badges { display: flex; gap: 8px; }
@@ -223,11 +226,6 @@
         <div class="container header-content">
             <div class="header-title-area">
                 <img src="https://lh3.googleusercontent.com/d/1BHxytxfATgrv3wpk_8slqpRX08p2Dzml" alt="אווטאר" class="crazy-avatar">
-                <div class="header-logo-box">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
-                    </svg>
-                </div>
                 <div>
                     <h1 style="font-size: 24px; font-weight: 800;">כתובות IP, בסיסי ספירה והמרות</h1>
                     <p style="font-size: 13px; opacity: 0.9;">המדריך האינטראקטיבי והעצמאי לחלוטין לתלמידים</p>
@@ -395,7 +393,7 @@
                             <li><strong>כתובת ציבורית (Public IP):</strong> כתובת ייחודית בעולם כולו, המוקצית על ידי ספק האינטרנט (ISP) ומאפשרת גישה ישירה לרשת הגלובלית.</li>
                         </ul>
 
-                        <!-- Added Class Ranges Sub-card -->
+                        <!-- Class Ranges Sub-card -->
                         <div style="margin-top: 12px; background-color: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 10px; font-size: 11px;">
                             <span style="color: #fbbf24; font-weight: 700; display: block; margin-bottom: 6px;">טווחי הכתובות הפרטיות לפי תקן RFC 1918:</span>
                             <div style="display: flex; flex-direction: column; gap: 4px;" class="font-mono">
@@ -650,7 +648,7 @@
                         <button onclick="checkPracticeAnswer()" class="btn btn-dark">בדוק את תשובתי</button>
                     </div>
 
-                    <!-- Beautiful Hebrew Explanation Card -->
+                    <!-- Hebrew Explanation Card -->
                     <div id="practice-feedback" style="display: none;"></div>
                 </div>
             </div>
