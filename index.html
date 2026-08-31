@@ -12,12 +12,13 @@
     <style>
         :root {
             --primary: #0f766e;
+            --primary-dark: #0d5e56;
             --primary-light: #f0fdfa;
             --primary-border: #99f6e4;
             --secondary: #0369a1;
             --dark: #0f172a;
             --light: #f8fafc;
-            --gray: #64748b;
+            --gray: #475569;
             --success: #10b981;
             --error: #ef4444;
             --warning: #f59e0b;
@@ -28,25 +29,26 @@
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
             background-color: #f1f5f9;
             color: #1e293b;
-            line-height: 1.6;
+            line-height: 1.7;
+            font-size: 17px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+        .container { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 20px; }
 
         header {
-            background: linear-gradient(135deg, #f87171 0%, #fca5a5 100%);
-            color: #7f1d1d;
-            padding: 24px 0;
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
+            background: linear-gradient(135deg, #f87171 0%, #dc2626 100%);
+            color: #ffffff;
+            padding: 28px 0;
+            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.25);
         }
 
-        .header-content { display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 16px; }
+        .header-content { display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 20px; }
         @media (min-width: 768px) { .header-content { flex-direction: row; } }
 
-        .header-title-area { display: flex; align-items: center; gap: 16px; }
+        .header-title-area { display: flex; align-items: center; gap: 20px; }
 
         /* Rotating Header Avatar (10s) */
         @keyframes spinHeaderAvatar {
@@ -55,91 +57,121 @@
         }
 
         .crazy-avatar {
-            width: 56px; height: 56px; border-radius: 50%; object-fit: cover;
-            border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            width: 68px; height: 68px; border-radius: 50%; object-fit: cover;
+            border: 3px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.25);
             animation: spinHeaderAvatar 10s linear infinite;
         }
 
-        .header-badges { display: flex; gap: 8px; }
+        .header-badges { display: flex; gap: 10px; flex-wrap: wrap; }
         .badge {
-            background-color: rgba(127, 29, 29, 0.15); border: 1px solid rgba(127, 29, 29, 0.3);
-            color: #7f1d1d; font-size: 11px; font-weight: 600; padding: 6px 12px; border-radius: 9999px;
+            background-color: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #ffffff; font-size: 13px; font-weight: 700; padding: 8px 16px; border-radius: 9999px;
+            backdrop-filter: blur(4px);
         }
-        .badge-success { background-color: rgba(16, 185, 129, 0.2); color: #065f46; }
+        .badge-success { background-color: rgba(16, 185, 129, 0.9); color: #ffffff; border: none; }
 
+        /* Modern Tabs Navigation Styling */
         .nav-tabs-container {
-            background-color: white; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 40;
+            background-color: #ffffff;
+            border-bottom: 2px solid #e2e8f0;
+            position: sticky; top: 0; z-index: 40;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            padding: 10px 0;
         }
-        nav { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0; }
+        nav { display: flex; gap: 10px; overflow-x: auto; padding: 4px; }
+        
         .tab-btn {
-            background: none; border: none; padding: 14px 16px; font-size: 13px; font-weight: 700;
-            color: var(--gray); cursor: pointer; white-space: nowrap; transition: all 0.2s; border-bottom: 3px solid transparent;
+            background: #f8fafc;
+            border: 2px solid #cbd5e1;
+            padding: 14px 22px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #475569;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.25s ease-in-out;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
-        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .tab-btn:hover {
+            background-color: #f1f5f9;
+            border-color: #94a3b8;
+            color: #0f172a;
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #0f766e 0%, #0d5e56 100%);
+            color: #ffffff;
+            border-color: #0f766e;
+            box-shadow: 0 6px 16px rgba(15, 118, 110, 0.35);
+            transform: translateY(-2px);
+        }
 
-        main { flex-grow: 1; padding: 32px 0; }
+        main { flex-grow: 1; padding: 36px 0; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
         .card {
-            background-color: white; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0; margin-bottom: 24px;
+            background-color: white; border-radius: 16px; padding: 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid #e2e8f0; margin-bottom: 28px;
         }
-        .card-title { font-size: 20px; font-weight: 800; color: #0f172a; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .card-title { font-size: 24px; font-weight: 800; color: #0f172a; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
 
-        .grid-2 { display: grid; grid-template-columns: 1fr; gap: 24px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr; gap: 28px; }
         @media (min-width: 992px) { .grid-2 { grid-template-columns: 1.2fr 1fr; } }
 
-        .grid-cards { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        .grid-cards { display: grid; grid-template-columns: 1fr; gap: 20px; }
         @media (min-width: 768px) { .grid-cards { grid-template-columns: repeat(2, 1fr); } }
 
-        .alert-info { background-color: var(--primary-light); border-right: 4px solid var(--primary); padding: 16px; border-radius: 0 8px 8px 0; font-size: 14px; color: #0f2d2a; }
-        .alert-warning { background-color: #fffbeb; border: 1px solid #fef3c7; padding: 16px; border-radius: 12px; color: #78350f; }
+        .alert-info { background-color: var(--primary-light); border-right: 5px solid var(--primary); padding: 18px 20px; border-radius: 0 12px 12px 0; font-size: 16px; color: #0f2d2a; }
+        .alert-warning { background-color: #fffbeb; border: 1px solid #fde68a; border-right: 5px solid var(--warning); padding: 20px; border-radius: 12px; color: #78350f; }
 
-        .visual-display-box { background-color: var(--dark); color: white; padding: 24px; border-radius: 12px; }
-        .octet-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; direction: ltr; }
-        .octet-item { background-color: #020617; padding: 12px; border-radius: 8px; text-align: center; border: 1px solid #334155; }
-        .octet-title { font-size: 10px; color: var(--gray); display: block; margin-bottom: 4px; }
-        .octet-num { font-size: 18px; font-weight: 800; color: #38bdf8; font-family: monospace; }
-        .octet-bin { font-size: 9px; color: #64748b; font-family: monospace; display: block; margin-top: 4px; }
+        .visual-display-box { background-color: var(--dark); color: white; padding: 28px; border-radius: 16px; }
+        .octet-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; direction: ltr; }
+        .octet-item { background-color: #020617; padding: 14px; border-radius: 10px; text-align: center; border: 1px solid #334155; }
+        .octet-title { font-size: 12px; color: #94a3b8; display: block; margin-bottom: 6px; font-weight: 600; }
+        .octet-num { font-size: 22px; font-weight: 800; color: #38bdf8; font-family: monospace; }
+        .octet-bin { font-size: 12px; color: #94a3b8; font-family: monospace; display: block; margin-top: 6px; }
 
-        .table-responsive { overflow-x: auto; width: 100%; }
-        table { width: 100%; border-collapse: collapse; text-align: right; font-size: 13px; }
-        th { background-color: var(--dark); color: white; padding: 12px; font-weight: 700; }
-        td { padding: 12px; border-bottom: 1px solid #e2e8f0; }
+        .table-responsive { overflow-x: auto; width: 100%; border-radius: 12px; }
+        table { width: 100%; border-collapse: collapse; text-align: right; font-size: 16px; }
+        th { background-color: var(--dark); color: white; padding: 16px; font-weight: 700; font-size: 16px; }
+        td { padding: 16px; border-bottom: 1px solid #e2e8f0; }
 
-        .rfc-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 12px; }
+        .rfc-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 14px; }
         @media (min-width: 768px) { .rfc-grid { grid-template-columns: repeat(3, 1fr); } }
-        .rfc-box { background-color: white; border: 1px solid #fde68a; padding: 12px; border-radius: 8px; text-align: center; }
+        .rfc-box { background-color: white; border: 1px solid #fde68a; padding: 14px; border-radius: 10px; text-align: center; }
 
         /* Bit Grid & Interactive elements */
-        .bit-container { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; text-align: center; direction: ltr; }
-        .bit-column { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-        .weight-label { font-size: 11px; color: #94a3b8; font-family: monospace; font-weight: 700; }
+        .bit-container { display: grid; grid-template-columns: repeat(8, 1fr); gap: 10px; text-align: center; direction: ltr; }
+        .bit-column { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .weight-label { font-size: 14px; color: #94a3b8; font-family: monospace; font-weight: 700; }
         .bit-btn {
-            background-color: #1e293b; border: 1px solid #334155; color: #94a3b8; width: 100%; height: 48px;
-            border-radius: 8px; font-size: 18px; font-weight: 800; cursor: pointer; transition: all 0.2s; outline: none;
+            background-color: #1e293b; border: 1px solid #334155; color: #94a3b8; width: 100%; height: 54px;
+            border-radius: 10px; font-size: 22px; font-weight: 800; cursor: pointer; transition: all 0.2s; outline: none;
         }
-        .bit-btn.active { background-color: var(--success); color: white; border-color: #059669; box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+        .bit-btn.active { background-color: var(--success); color: white; border-color: #059669; box-shadow: 0 0 14px rgba(16, 185, 129, 0.4); }
 
-        .bitgrid-row { display: flex; direction: ltr; align-items: center; gap: 3px; flex-wrap: wrap; margin-bottom: 6px; }
-        .bit-box { width: 22px; height: 26px; display: flex; align-items: center; justify-content: center; border-radius: 4px; font-weight: 800; font-family: monospace; font-size: 11px; color: white; background-color: #1e293b; border: 1px solid #334155; }
+        .bitgrid-row { display: flex; direction: ltr; align-items: center; gap: 4px; flex-wrap: wrap; margin-bottom: 8px; }
+        .bit-box { width: 26px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 6px; font-weight: 800; font-family: monospace; font-size: 13px; color: white; background-color: #1e293b; border: 1px solid #334155; }
         .bit-box.on { background-color: #059669; border-color: #10b981; }
         .bit-box.mask-on { background-color: #0284c7; border-color: #38bdf8; }
         .bit-box.and-on { background-color: #d97706; border-color: #fbbf24; }
-        .bit-sep { color: #64748b; font-weight: 800; font-size: 13px; margin: 0 2px; }
+        .bit-sep { color: #64748b; font-weight: 800; font-size: 16px; margin: 0 3px; }
 
-        .calc-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        .calc-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
         @media (min-width: 768px) { .calc-grid { grid-template-columns: repeat(3, 1fr); } }
-        .input-group { display: flex; flex-direction: column; gap: 6px; }
-        .input-group label { font-size: 12px; font-weight: 700; color: #475569; }
-        .input-group input { padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; font-weight: 700; font-family: monospace; }
+        .input-group { display: flex; flex-direction: column; gap: 8px; }
+        .input-group label { font-size: 15px; font-weight: 700; color: #334155; }
+        .input-group input { padding: 12px; border: 2px solid #cbd5e1; border-radius: 10px; font-size: 17px; font-weight: 700; font-family: monospace; }
 
-        .generator-card { background: linear-gradient(135deg, #f0fdfa 0%, #ecfeff 100%); border: 1px solid var(--primary-border); border-radius: 16px; padding: 24px; margin-bottom: 24px; }
-        .practice-question-box { background-color: white; border: 1px solid #cbd5e1; padding: 20px; border-radius: 8px; text-align: center; font-size: 16px; font-weight: 700; margin: 16px 0; }
+        .generator-card { background: linear-gradient(135deg, #f0fdfa 0%, #ecfeff 100%); border: 1px solid var(--primary-border); border-radius: 18px; padding: 28px; margin-bottom: 28px; }
+        .practice-question-box { background-color: white; border: 1px solid #cbd5e1; padding: 24px; border-radius: 12px; text-align: center; font-size: 19px; font-weight: 700; margin: 20px 0; color: #0f172a; line-height: 1.6; }
 
-        .btn { background-color: var(--primary); color: white; border: none; padding: 10px 20px; font-size: 13px; font-weight: 700; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
-        .btn:hover { background-color: #0d5e56; }
+        .btn { background-color: var(--primary); color: white; border: none; padding: 12px 24px; font-size: 15px; font-weight: 700; border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+        .btn:hover { background-color: var(--primary-dark); }
         .btn-dark { background-color: var(--dark); }
         .btn-dark:hover { background-color: #1e293b; }
         .btn-teacher { background-color: #4f46e5; color: white; }
@@ -163,30 +195,30 @@
         }
 
         .floating-bot-card {
-            width: 380px;
+            width: 400px;
             background-color: #0f172a;
             border: 2px solid #38bdf8;
-            border-radius: 16px;
-            padding: 20px;
+            border-radius: 18px;
+            padding: 22px;
             color: white;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 30px -5px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
             transition: all 0.3s ease;
         }
 
         .bot-header {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 16px;
             border-bottom: 1px solid #334155;
-            padding-bottom: 12px;
+            padding-bottom: 14px;
         }
 
         .bot-avatar-spinning {
-            width: 72px;
-            height: 72px;
+            width: 76px;
+            height: 76px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #38bdf8;
@@ -198,15 +230,15 @@
             background-color: #0f172a;
             border: 2px solid #38bdf8;
             color: white;
-            padding: 12px 20px;
+            padding: 14px 24px;
             border-radius: 9999px;
             font-weight: 800;
-            font-size: 15px;
+            font-size: 16px;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             transition: transform 0.2s;
         }
 
@@ -214,9 +246,35 @@
             transform: scale(1.05);
         }
 
-        footer { background-color: var(--dark); color: #94a3b8; padding: 24px 0; text-align: center; font-size: 12px; margin-top: auto; border-top: 1px solid #1e293b; }
-        .font-mono { font-family: monospace; }
+        footer { background-color: var(--dark); color: #94a3b8; padding: 28px 0; text-align: center; font-size: 14px; margin-top: auto; border-top: 1px solid #1e293b; }
+        
+        /* Typography & Alignment Utility Classes */
+        .font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
         .ltr-text { direction: ltr; display: inline-block; unicode-bidi: embed; }
+        .eng-badge {
+            direction: ltr;
+            display: inline-block;
+            font-family: monospace;
+            font-weight: 700;
+            background-color: #e2e8f0;
+            color: #0f172a;
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.9em;
+        }
+        .eng-badge-dark {
+            direction: ltr;
+            display: inline-block;
+            font-family: monospace;
+            font-weight: 700;
+            background-color: #1e293b;
+            color: #38bdf8;
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid #334155;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
@@ -227,12 +285,12 @@
             <div class="header-title-area">
                 <img src="https://lh3.googleusercontent.com/d/1BHxytxfATgrv3wpk_8slqpRX08p2Dzml" alt="אווטאר" class="crazy-avatar">
                 <div>
-                    <h1 style="font-size: 24px; font-weight: 800;">כתובות IP, בסיסי ספירה והמרות</h1>
-                    <p style="font-size: 13px; opacity: 0.9;">המדריך האינטראקטיבי והעצמאי לחלוטין לתלמידים</p>
+                    <h1 style="font-size: 28px; font-weight: 800; line-height: 1.2;">כתובות IP, בסיסי ספירה והמרות</h1>
+                    <p style="font-size: 16px; opacity: 0.95; margin-top: 4px;">המדריך האינטראקטיבי והעצמאי לחלוטין לתלמידים</p>
                 </div>
             </div>
             <div class="header-badges">
-                <span class="badge">CCNA / סייבר ותקשורת</span>
+                <span class="badge"><span class="ltr-text">CCNA</span> / סייבר ותקשורת</span>
                 <span class="badge badge-success">גרסה מורחבת</span>
             </div>
         </div>
@@ -242,11 +300,21 @@
     <div class="nav-tabs-container">
         <div class="container">
             <nav>
-                <button onclick="switchTab('ip-theory')" id="tab-ip-theory" class="tab-btn active">1. עולם כתובות ה-IP</button>
-                <button onclick="switchTab('ip-analysis')" id="tab-ip-analysis" class="tab-btn">2. ניתוח כתובות IP וכתובות מיוחדות</button>
-                <button onclick="switchTab('binary-theory')" id="tab-binary-theory" class="tab-btn">3. בינארי והקסדצימלי</button>
-                <button onclick="switchTab('converter')" id="tab-converter" class="tab-btn">4. ממיר וסימולטור AND</button>
-                <button onclick="switchTab('quiz')" id="tab-quiz" class="tab-btn">5. בוחן ידע ותרגול (15 שאלות)</button>
+                <button onclick="switchTab('ip-theory')" id="tab-ip-theory" class="tab-btn active">
+                    <span>🌐</span> 1. עולם כתובות ה-IP
+                </button>
+                <button onclick="switchTab('ip-analysis')" id="tab-ip-analysis" class="tab-btn">
+                    <span>🔍</span> 2. ניתוח כתובות IP וכתובות מיוחדות
+                </button>
+                <button onclick="switchTab('binary-theory')" id="tab-binary-theory" class="tab-btn">
+                    <span>🔢</span> 3. בינארי והקסדצימלי
+                </button>
+                <button onclick="switchTab('converter')" id="tab-converter" class="tab-btn">
+                    <span>⚡</span> 4. ממיר וסימולטור AND
+                </button>
+                <button onclick="switchTab('quiz')" id="tab-quiz" class="tab-btn">
+                    <span>🎯</span> 5. בוחן ידע ותרגול (15 שאלות)
+                </button>
             </nav>
         </div>
     </div>
@@ -257,24 +325,24 @@
         <!-- Tab 1: IP Theory -->
         <section id="content-ip-theory" class="tab-content active">
             <div class="card">
-                <h2 class="card-title"><span style="color: var(--primary);">■</span> מהי כתובת IP (גרסה 4)?</h2>
+                <h2 class="card-title"><span style="color: var(--primary);">■</span> מהי כתובת <span class="eng-badge">IP</span> (גרסה 4)?</h2>
                 <div class="grid-2">
-                    <div style="display: flex; flex-direction: column; gap: 16px;">
-                        <p style="font-size: 15px; color: #475569;">
-                            כתובת <strong class="ltr-text font-mono">IP (IPv4)</strong> היא מזהה ייחודי של מכשיר ברשת. היא מורכבת מ-32 סיביות (Bits) המחולקות ל-4 אוקטטות בנות 8 ביטים כל אחת.
+                    <div style="display: flex; flex-direction: column; gap: 18px;">
+                        <p style="font-size: 17px; color: #334155;">
+                            כתובת <span class="eng-badge">IP (IPv4)</span> היא מזהה ייחודי של מכשיר ברשת. היא מורכבת מ-32 סיביות (<span class="eng-badge">Bits</span>) המחולקות ל-4 אוקטטות בנות 8 ביטים כל אחת.
                         </p>
                         <div class="alert-info">
-                            <strong>חלוקת הכתובת לשני חלקים:</strong>
-                            <ul style="list-style-type: disc; margin-right: 20px; margin-top: 8px; font-size: 13px;">
-                                <li><strong>מזהה הרשת (<span class="ltr-text font-mono">Net ID</span>):</strong> מזהה את הרשת המקומית.</li>
-                                <li><strong>מזהה המארח (<span class="ltr-text font-mono">Host ID</span>):</strong> מזהה את המכשיר הספציפי ברשת.</li>
+                            <strong style="font-size: 17px;">חלוקת הכתובת לשני חלקים:</strong>
+                            <ul style="list-style-type: disc; margin-right: 22px; margin-top: 10px; font-size: 16px; display: flex; flex-direction: column; gap: 6px;">
+                                <li><strong>מזהה הרשת (<span class="eng-badge">Net ID</span>):</strong> מזהה את הרשת המקומית.</li>
+                                <li><strong>מזהה המארח (<span class="eng-badge">Host ID</span>):</strong> מזהה את המכשיר הספציפי ברשת.</li>
                             </ul>
                         </div>
                     </div>
                     
                     <div class="visual-display-box">
-                        <h4 style="font-size: 11px; text-transform: uppercase; color: #94a3b8; text-align: center; margin-bottom: 12px;">
-                            מבנה כתובת <span class="ltr-text font-mono">IPv4</span> (דוגמה עבור <span class="ltr-text font-mono">Class C</span> עם <span class="ltr-text font-mono">/24</span>)
+                        <h4 style="font-size: 13px; text-transform: uppercase; color: #94a3b8; text-align: center; margin-bottom: 14px; font-weight: 700;">
+                            מבנה כתובת <span class="eng-badge-dark">IPv4</span> (דוגמה עבור <span class="eng-badge-dark">Class C</span> עם <span class="eng-badge-dark">/24</span>)
                         </h4>
                         <div class="octet-grid">
                             <div class="octet-item" style="border-color: #38bdf8;">
@@ -298,7 +366,7 @@
                                 <span class="octet-bin">00001010</span>
                             </div>
                         </div>
-                        <div style="display: flex; justify-content: space-between; font-size: 11px; margin-top: 16px; border-top: 1px solid #1e293b; padding-top: 12px;" dir="ltr">
+                        <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; margin-top: 18px; border-top: 1px solid #1e293b; padding-top: 14px;" dir="ltr">
                             <span style="color: #38bdf8;">← Net ID (24 Bits)</span>
                             <span style="color: #fbbf24;">Host ID (8 Bits) →</span>
                         </div>
@@ -310,19 +378,19 @@
             <div class="card">
                 <h3 class="card-title"><span style="color: var(--primary);">■</span> כתובת IP ציבורית מול פרטית</h3>
                 <div class="alert-warning">
-                    <h4 style="font-weight: 700; font-size: 14px; margin-bottom: 4px;">טווחי הכתובות הפרטיות לפי תקן <span class="ltr-text font-mono">RFC 1918</span></h4>
+                    <h4 style="font-weight: 800; font-size: 17px; margin-bottom: 8px;">טווחי הכתובות הפרטיות לפי תקן <span class="eng-badge">RFC 1918</span></h4>
                     <div class="rfc-grid">
                         <div class="rfc-box">
-                            <span style="font-size: 10px; color: #64748b; display: block;">Class A</span>
-                            <span class="ltr-text font-mono font-bold">10.0.0.0 – 10.255.255.255</span>
+                            <span style="font-size: 12px; color: #64748b; display: block; font-weight: 700;">Class A</span>
+                            <span class="eng-badge" style="font-size: 15px; margin-top: 4px;">10.0.0.0 – 10.255.255.255</span>
                         </div>
                         <div class="rfc-box">
-                            <span style="font-size: 10px; color: #64748b; display: block;">Class B</span>
-                            <span class="ltr-text font-mono font-bold">172.16.0.0 – 172.31.255.255</span>
+                            <span style="font-size: 12px; color: #64748b; display: block; font-weight: 700;">Class B</span>
+                            <span class="eng-badge" style="font-size: 15px; margin-top: 4px;">172.16.0.0 – 172.31.255.255</span>
                         </div>
                         <div class="rfc-box">
-                            <span style="font-size: 10px; color: #64748b; display: block;">Class C</span>
-                            <span class="ltr-text font-mono font-bold">192.168.0.0 – 192.168.255.255</span>
+                            <span style="font-size: 12px; color: #64748b; display: block; font-weight: 700;">Class C</span>
+                            <span class="eng-badge" style="font-size: 15px; margin-top: 4px;">192.168.0.0 – 192.168.255.255</span>
                         </div>
                     </div>
                 </div>
@@ -330,8 +398,8 @@
 
             <!-- IP Classes Table -->
             <div class="card" style="overflow: hidden; padding: 0;">
-                <div style="background-color: var(--dark); color: white; padding: 20px;">
-                    <h3 style="font-size: 18px; font-weight: 800;">מחלקות של כתובות IP</h3>
+                <div style="background-color: var(--dark); color: white; padding: 22px 28px;">
+                    <h3 style="font-size: 20px; font-weight: 800;">מחלקות של כתובות IP</h3>
                 </div>
                 <div class="table-responsive">
                     <table>
@@ -345,28 +413,28 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="font-bold">Class A</td>
-                                <td><span class="ltr-text font-mono">1 – 127</span></td>
-                                <td><span class="ltr-text font-mono">255.0.0.0 (/8)</span></td>
+                                <td class="font-bold"><span class="eng-badge">Class A</span></td>
+                                <td><span class="eng-badge">1 – 127</span></td>
+                                <td><span class="eng-badge">255.0.0.0 (/8)</span></td>
                                 <td>ארגונים ענקיים</td>
                             </tr>
                             <tr>
-                                <td class="font-bold">Class B</td>
-                                <td><span class="ltr-text font-mono">128 – 191</span></td>
-                                <td><span class="ltr-text font-mono">255.255.0.0 (/16)</span></td>
+                                <td class="font-bold"><span class="eng-badge">Class B</span></td>
+                                <td><span class="eng-badge">128 – 191</span></td>
+                                <td><span class="eng-badge">255.255.0.0 (/16)</span></td>
                                 <td>ארגונים בינוניים</td>
                             </tr>
                             <tr>
-                                <td class="font-bold">Class C</td>
-                                <td><span class="ltr-text font-mono">192 – 223</span></td>
-                                <td><span class="ltr-text font-mono">255.255.255.0 (/24)</span></td>
+                                <td class="font-bold"><span class="eng-badge">Class C</span></td>
+                                <td><span class="eng-badge">192 – 223</span></td>
+                                <td><span class="eng-badge">255.255.255.0 (/24)</span></td>
                                 <td>רשתות קטנות וביתיות</td>
                             </tr>
                             <tr style="background-color: #f8fafc;">
-                                <td class="font-bold text-teal-700">Class D</td>
-                                <td><span class="ltr-text font-mono text-teal-700">224 – 239</span></td>
-                                <td><span class="ltr-text font-mono">—</span></td>
-                                <td class="font-bold">שידורי מולטיקאסט (Multicast)</td>
+                                <td class="font-bold text-teal-700"><span class="eng-badge">Class D</span></td>
+                                <td><span class="eng-badge">224 – 239</span></td>
+                                <td><span class="eng-badge">—</span></td>
+                                <td class="font-bold text-teal-800">שידורי מולטיקאסט (<span class="eng-badge">Multicast</span>)</td>
                             </tr>
                         </tbody>
                     </table>
@@ -378,79 +446,79 @@
         <section id="content-ip-analysis" class="tab-content">
             <div class="card" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white;">
                 <h2 class="card-title" style="color: #38bdf8;"><span style="color: #ef4444;">🔴</span> ניתוח סוגי כתובות IP וכתובות מיוחדות</h2>
-                <p style="font-size: 14px; color: #94a3b8; margin-bottom: 20px;">
-                    בעולם הרשתות, לכל כתובת IP יש תפקיד מוגדר. חלקן מיועדות לתקשורת ברשת המקומית, חלקן לאינטרנט, וחלקן שמורות לתפקידים מערכתיים מיוחדים.
+                <p style="font-size: 16px; color: #cbd5e1; margin-bottom: 24px;">
+                    בעולם הרשתות, לכל כתובת <span class="eng-badge-dark">IP</span> יש תפקיד מוגדר. חלקן מיועדות לתקשורת ברשת המקומית, חלקן לאינטרנט, וחלקן שמורות לתפקידים מערכתיים מיוחדים.
                 </p>
 
                 <div class="grid-cards">
                     <!-- Card 1: Private vs Public with Class Ranges -->
-                    <div style="background-color: #020617; border: 1px solid #334155; border-radius: 12px; padding: 18px;">
-                        <h3 style="font-size: 16px; font-weight: 800; color: #34d399; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <div style="background-color: #020617; border: 1px solid #334155; border-radius: 14px; padding: 22px;">
+                        <h3 style="font-size: 18px; font-weight: 800; color: #34d399; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
                             <span style="color: #ef4444;">🔴</span> כתובות פרטיות מול ציבוריות
                         </h3>
-                        <ul style="font-size: 13px; color: #cbd5e1; list-style-type: disc; margin-right: 18px; display: flex; flex-direction: column; gap: 8px;">
-                            <li><strong>כתובת פרטית (Private IP):</strong> מיועדת לשימוש פנימי בתוך הבית או המשרד. לא ניתנת לניתוב באינטרנט הציבורי.</li>
-                            <li><strong>כתובת ציבורית (Public IP):</strong> כתובת ייחודית בעולם כולו, המוקצית על ידי ספק האינטרנט (ISP) ומאפשרת גישה ישירה לרשת הגלובלית.</li>
+                        <ul style="font-size: 15px; color: #cbd5e1; list-style-type: disc; margin-right: 20px; display: flex; flex-direction: column; gap: 10px;">
+                            <li><strong>כתובת פרטית (<span class="eng-badge-dark">Private IP</span>):</strong> מיועדת לשימוש פנימי בתוך הבית או המשרד. לא ניתנת לניתוב באינטרנט הציבורי.</li>
+                            <li><strong>כתובת ציבורית (<span class="eng-badge-dark">Public IP</span>):</strong> כתובת ייחודית בעולם כולו, המוקצית על ידי ספק האינטרנט (<span class="eng-badge-dark">ISP</span>) ומאפשרת גישה ישירה לרשת הגלובלית.</li>
                         </ul>
 
                         <!-- Class Ranges Sub-card -->
-                        <div style="margin-top: 12px; background-color: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 10px; font-size: 11px;">
-                            <span style="color: #fbbf24; font-weight: 700; display: block; margin-bottom: 6px;">טווחי הכתובות הפרטיות לפי תקן RFC 1918:</span>
-                            <div style="display: flex; flex-direction: column; gap: 4px;" class="font-mono">
-                                <div><span style="color: #38bdf8; font-weight: 700;">Class A:</span> <span class="ltr-text">10.0.0.0 – 10.255.255.255</span> <span style="color: #64748b;">(/8)</span></div>
-                                <div><span style="color: #38bdf8; font-weight: 700;">Class B:</span> <span class="ltr-text">172.16.0.0 – 172.31.255.255</span> <span style="color: #64748b;">(/16)</span></div>
-                                <div><span style="color: #38bdf8; font-weight: 700;">Class C:</span> <span class="ltr-text">192.168.0.0 – 192.168.255.255</span> <span style="color: #64748b;">(/24)</span></div>
+                        <div style="margin-top: 14px; background-color: #0f172a; border: 1px solid #1e293b; border-radius: 10px; padding: 12px; font-size: 13px;">
+                            <span style="color: #fbbf24; font-weight: 700; display: block; margin-bottom: 8px;">טווחי הכתובות הפרטיות לפי תקן <span class="eng-badge-dark">RFC 1918</span>:</span>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <div><span style="color: #38bdf8; font-weight: 700;">Class A:</span> <span class="eng-badge-dark">10.0.0.0 – 10.255.255.255</span> <span style="color: #64748b;">(/8)</span></div>
+                                <div><span style="color: #38bdf8; font-weight: 700;">Class B:</span> <span class="eng-badge-dark">172.16.0.0 – 172.31.255.255</span> <span style="color: #64748b;">(/16)</span></div>
+                                <div><span style="color: #38bdf8; font-weight: 700;">Class C:</span> <span class="eng-badge-dark">192.168.0.0 – 192.168.255.255</span> <span style="color: #64748b;">(/24)</span></div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Card 2: Network & Broadcast -->
-                    <div style="background-color: #020617; border: 1px solid #334155; border-radius: 12px; padding: 18px;">
-                        <h3 style="font-size: 16px; font-weight: 800; color: #fbbf24; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-                            <span style="color: #ef4444;">🔴</span> כתובת רשת (Network) ושידור (Broadcast)
+                    <div style="background-color: #020617; border: 1px solid #334155; border-radius: 14px; padding: 22px;">
+                        <h3 style="font-size: 18px; font-weight: 800; color: #fbbf24; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            <span style="color: #ef4444;">🔴</span> כתובת רשת (<span class="eng-badge-dark">Network</span>) ושידור (<span class="eng-badge-dark">Broadcast</span>)
                         </h3>
-                        <ul style="font-size: 13px; color: #cbd5e1; list-style-type: disc; margin-right: 18px; display: flex; flex-direction: column; gap: 8px;">
-                            <li><strong>כתובת רשת (Network ID):</strong> הכתובת הראשונה במתחם הרשת (כל ביטי ה-Host הם 0). מייצגת את הרשת כולה ולא ניתנת להקצאה למחשב.</li>
-                            <li><strong>כתובת ברודקאסט (Broadcast):</strong> הכתובת האחרונה במתחם (כל ביטי ה-Host הם 1). משמשת לשליחת הודעה לכל המכשירים ברשת בו-זמנית.</li>
+                        <ul style="font-size: 15px; color: #cbd5e1; list-style-type: disc; margin-right: 20px; display: flex; flex-direction: column; gap: 10px;">
+                            <li><strong>כתובת רשת (<span class="eng-badge-dark">Network ID</span>):</strong> הכתובת הראשונה במתחם הרשת (כל ביטי ה-<span class="eng-badge-dark">Host</span> הם 0). מייצגת את הרשת כולה ולא ניתנת להקצאה למחשב.</li>
+                            <li><strong>כתובת ברודקאסט (<span class="eng-badge-dark">Broadcast</span>):</strong> הכתובת האחרונה במתחם (כל ביטי ה-<span class="eng-badge-dark">Host</span> הם 1). משמשת לשליחת הודעה לכל המכשירים ברשת בו-זמנית.</li>
                         </ul>
                     </div>
 
                     <!-- Card 3: APIPA -->
-                    <div style="background-color: #020617; border: 1px solid #334155; border-radius: 12px; padding: 18px;">
-                        <h3 style="font-size: 16px; font-weight: 800; color: #f87171; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-                            <span style="color: #ef4444;">🔴</span> כתובת חירום APIPA
+                    <div style="background-color: #020617; border: 1px solid #334155; border-radius: 14px; padding: 22px;">
+                        <h3 style="font-size: 18px; font-weight: 800; color: #f87171; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            <span style="color: #ef4444;">🔴</span> כתובת חירום <span class="eng-badge-dark">APIPA</span>
                         </h3>
-                        <p style="font-size: 13px; color: #cbd5e1; margin-bottom: 8px;">
-                            כאשר מחשב מוגדר לקבל IP אוטומטית משרת DHCP אך השרת אינו זמין, מערכת ההפעלה מקצה לעצמה כתובת חירום אוטומטית.
+                        <p style="font-size: 15px; color: #cbd5e1; margin-bottom: 12px;">
+                            כאשר מחשב מוגדר לקבל <span class="eng-badge-dark">IP</span> אוטומטית משרת <span class="eng-badge-dark">DHCP</span> אך השרת אינו זמין, מערכת ההפעלה מקצה לעצמה כתובת חירום אוטומטית.
                         </p>
-                        <div style="background-color: #1e1b4b; border: 1px solid #6366f1; border-radius: 6px; padding: 8px 12px; text-align: center;">
-                            <span style="font-size: 11px; color: #a5b4fc; display: block;">טווח הכתובות השמור:</span>
-                            <span class="ltr-text font-mono font-bold" style="color: #67e8f9; font-size: 15px;">169.254.0.1 – 169.254.255.254</span>
+                        <div style="background-color: #1e1b4b; border: 1px solid #6366f1; border-radius: 8px; padding: 12px; text-align: center;">
+                            <span style="font-size: 12px; color: #a5b4fc; display: block; margin-bottom: 4px;">טווח הכתובות השמור:</span>
+                            <span class="eng-badge-dark" style="color: #67e8f9; font-size: 17px;">169.254.0.1 – 169.254.255.254</span>
                         </div>
                     </div>
 
                     <!-- Card 4: Loopback -->
-                    <div style="background-color: #020617; border: 1px solid #334155; border-radius: 12px; padding: 18px;">
-                        <h3 style="font-size: 16px; font-weight: 800; color: #38bdf8; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-                            <span style="color: #ef4444;">🔴</span> כתובת לולאה פנימית (Loopback)
+                    <div style="background-color: #020617; border: 1px solid #334155; border-radius: 14px; padding: 22px;">
+                        <h3 style="font-size: 18px; font-weight: 800; color: #38bdf8; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            <span style="color: #ef4444;">🔴</span> כתובת לולאה פנימית (<span class="eng-badge-dark">Loopback</span>)
                         </h3>
-                        <p style="font-size: 13px; color: #cbd5e1; margin-bottom: 8px;">
-                            כתובת בדיקה עצמית פנימית של כרטיס הרשת (תקשורת Localhost). התנועה לא יוצאת לכבל הרשת אלא חוזרת חזרה לרכיבי התוכנה של המחשב.
+                        <p style="font-size: 15px; color: #cbd5e1; margin-bottom: 12px;">
+                            כתובת בדיקה עצמית פנימית של כרטיס הרשת (תקשורת <span class="eng-badge-dark">Localhost</span>). התנועה לא יוצאת לכבל הרשת אלא חוזרת חזרה לרכיבי התוכנה של המחשב.
                         </p>
-                        <div style="background-color: #032b45; border: 1px solid #0284c7; border-radius: 6px; padding: 8px 12px; text-align: center;">
-                            <span style="font-size: 11px; color: #7dd3fc; display: block;">כתובת בדיקה נפוצה (טווח 127.0.0.0/8):</span>
-                            <span class="ltr-text font-mono font-bold" style="color: #38bdf8; font-size: 15px;">127.0.0.1 (Localhost)</span>
+                        <div style="background-color: #032b45; border: 1px solid #0284c7; border-radius: 8px; padding: 12px; text-align: center;">
+                            <span style="font-size: 12px; color: #7dd3fc; display: block; margin-bottom: 4px;">כתובת בדיקה נפוצה (טווח <span class="eng-badge-dark">127.0.0.0/8</span>):</span>
+                            <span class="eng-badge-dark" style="color: #38bdf8; font-size: 17px;">127.0.0.1 (Localhost)</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Multicast section full width -->
-                <div style="margin-top: 16px; background-color: #020617; border: 1px solid #334155; border-radius: 12px; padding: 18px;">
-                    <h3 style="font-size: 16px; font-weight: 800; color: #c084fc; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-                        <span style="color: #ef4444;">🔴</span> שידור קבוצתי (Multicast)
+                <div style="margin-top: 20px; background-color: #020617; border: 1px solid #334155; border-radius: 14px; padding: 22px;">
+                    <h3 style="font-size: 18px; font-weight: 800; color: #c084fc; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                        <span style="color: #ef4444;">🔴</span> שידור קבוצתי (<span class="eng-badge-dark">Multicast</span>)
                     </h3>
-                    <p style="font-size: 13px; color: #cbd5e1;">
-                        בשונה מ-Unicast (מכשיר מול מכשיר) או Broadcast (מכשיר מול כולם), כתובות <strong>Multicast</strong> מאפשרות לשלוח חבילת מידע בודדת מקור אחד אל <strong>קבוצת מנויים מוגדרת בלבד</strong> (כגון שידורי וידאו חי, פרוטוקולי ניתוב EIGRP/OSPF ועוד). הטווח השמור הוא מחלקה Class D: <span class="ltr-text font-mono font-bold text-purple-300">224.0.0.0 – 239.255.255.255</span>.
+                    <p style="font-size: 15px; color: #cbd5e1;">
+                        בשונה מ-<span class="eng-badge-dark">Unicast</span> (מכשיר מול מכשיר) או <span class="eng-badge-dark">Broadcast</span> (מכשיר מול כולם), כתובות <strong>Multicast</strong> מאפשרות לשלוח חבילת מידע בודדת מקור אחד אל <strong>קבוצת מנויים מוגדרת בלבד</strong> (כגון שידורי וידאו חי, פרוטוקולי ניתוב <span class="eng-badge-dark">EIGRP/OSPF</span> ועוד). הטווח השמור הוא מחלקה Class D: <span class="eng-badge-dark" style="color: #d8b4fe;">224.0.0.0 – 239.255.255.255</span>.
                     </p>
                 </div>
             </div>
@@ -460,15 +528,15 @@
         <section id="content-binary-theory" class="tab-content">
             <div class="card">
                 <h2 class="card-title"><span style="color: var(--primary);">■</span> ייצוג בינארי ותיאוריית בסיסי הספירה</h2>
-                <p style="font-size: 14px; color: #475569; margin-bottom: 16px;">
-                    מחשבים ורכיבי תקשורת מעבדים נתונים בבסיס בינארי (בסיס 2) המורכב מהספרות <strong class="ltr-text font-mono">0</strong> ו-<strong class="ltr-text font-mono">1</strong> בלבד. כל אוקטטה מורכבת מ-8 ביטים, ומשקלם מוכפל ב-2 ככל שזזים שמאלה.
+                <p style="font-size: 16px; color: #334155; margin-bottom: 20px;">
+                    מחשבים ורכיבי תקשורת מעבדים נתונים בבסיס בינארי (בסיס 2) המורכב מהספרות <span class="eng-badge">0</span> ו-<span class="eng-badge">1</span> בלבד. כל אוקטטה מורכבת מ-8 ביטים, ומשקלם מוכפל ב-2 ככל שזזים שמאלה.
                 </p>
 
                 <!-- Interactive Bit Switch Simulator -->
-                <div style="background-color: var(--dark); color: white; padding: 24px; border-radius: 12px; margin-bottom: 24px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                        <h3 style="font-size: 16px; font-weight: 800; color: #38bdf8;">סימולטור 8-ביטים אינטראקטיבי</h3>
-                        <span style="font-size: 11px; color: #94a3b8;">לחץ על המקשים כדי להדליק/לכבות ביטים</span>
+                <div style="background-color: var(--dark); color: white; padding: 28px; border-radius: 16px; margin-bottom: 28px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                        <h3 style="font-size: 18px; font-weight: 800; color: #38bdf8;">סימולטור 8-ביטים אינטראקטיבי</h3>
+                        <span style="font-size: 13px; color: #94a3b8;">לחץ על המקשים כדי להדליק/לכבות ביטים</span>
                     </div>
 
                     <div class="bit-container">
@@ -507,18 +575,18 @@
                     </div>
 
                     <!-- Dynamic Live Calculation Bar -->
-                    <div style="margin-top: 20px; padding: 16px; background-color: #020617; border-radius: 8px; border: 1px solid #334155; display: flex; flex-wrap: wrap; justify-content: space-around; gap: 12px; text-align: center;">
+                    <div style="margin-top: 24px; padding: 20px; background-color: #020617; border-radius: 12px; border: 1px solid #334155; display: flex; flex-wrap: wrap; justify-content: space-around; gap: 16px; text-align: center;">
                         <div>
-                            <span style="font-size: 10px; color: #64748b; display: block;">תוצאה עשרונית (Dec)</span>
-                            <span id="sim-dec" style="font-size: 22px; font-weight: 800; color: #38bdf8;" class="font-mono">192</span>
+                            <span style="font-size: 12px; color: #94a3b8; display: block; margin-bottom: 4px;">תוצאה עשרונית (<span class="eng-badge-dark">Dec</span>)</span>
+                            <span id="sim-dec" style="font-size: 26px; font-weight: 800; color: #38bdf8;" class="font-mono">192</span>
                         </div>
                         <div>
-                            <span style="font-size: 10px; color: #64748b; display: block;">מחרוזת בינארית (Bin)</span>
-                            <span id="sim-bin" style="font-size: 22px; font-weight: 800; color: #10b981;" class="font-mono font-bold" dir="ltr">11000000</span>
+                            <span style="font-size: 12px; color: #94a3b8; display: block; margin-bottom: 4px;">מחרוזת בינארית (<span class="eng-badge-dark">Bin</span>)</span>
+                            <span id="sim-bin" style="font-size: 26px; font-weight: 800; color: #10b981;" class="font-mono" dir="ltr">11000000</span>
                         </div>
                         <div>
-                            <span style="font-size: 10px; color: #64748b; display: block;">ייצוג הקסדצימלי (Hex)</span>
-                            <span id="sim-hex" style="font-size: 22px; font-weight: 800; color: #f59e0b;" class="font-mono">C0</span>
+                            <span style="font-size: 12px; color: #94a3b8; display: block; margin-bottom: 4px;">ייצוג הקסדצימלי (<span class="eng-badge-dark">Hex</span>)</span>
+                            <span id="sim-hex" style="font-size: 26px; font-weight: 800; color: #f59e0b;" class="font-mono">C0</span>
                         </div>
                     </div>
                 </div>
@@ -526,21 +594,21 @@
 
             <!-- Hexadecimal Reference Table -->
             <div class="card">
-                <h3 class="card-title"><span style="color: var(--primary);">■</span> הבסיס ההקסדצימלי (Hexadecimal - Base 16)</h3>
-                <p style="font-size: 13px; color: #475569; margin-bottom: 12px;">
-                    בסיס 16 משמש בעיקר לייצוג מקוצר של כתובות <span class="ltr-text font-mono">MAC</span> וכתובות <span class="ltr-text font-mono">IPv6</span>. כל ספרה הקסדצימלית מייצגת בדיוק 4 ביטים (Nibble).
+                <h3 class="card-title"><span style="color: var(--primary);">■</span> הבסיס ההקסדצימלי (<span class="eng-badge">Hexadecimal - Base 16</span>)</h3>
+                <p style="font-size: 15px; color: #334155; margin-bottom: 16px;">
+                    בסיס 16 משמש בעיקר לייצוג מקוצר של כתובות <span class="eng-badge">MAC</span> וכתובות <span class="eng-badge">IPv6</span>. כל ספרה הקסדצימלית מייצגת בדיוק 4 ביטים (<span class="eng-badge">Nibble</span>).
                 </p>
                 <div class="table-responsive">
                     <table>
                         <thead>
                             <tr>
-                                <th>עשרוני (Decimal)</th>
+                                <th>עשרוני (<span class="eng-badge-dark">Decimal</span>)</th>
                                 <th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="font-bold">הקסדצימלי (Hex)</td>
+                                <td class="font-bold">הקסדצימלי (<span class="eng-badge">Hex</span>)</td>
                                 <td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td>
                                 <td class="font-bold text-teal-600">A</td><td class="font-bold text-teal-600">B</td><td class="font-bold text-teal-600">C</td><td class="font-bold text-teal-600">D</td><td class="font-bold text-teal-600">E</td><td class="font-bold text-teal-600">F</td>
                             </tr>
@@ -555,17 +623,17 @@
             <!-- Free Base Converter -->
             <div class="card">
                 <h2 class="card-title"><span style="color: var(--primary);">■</span> ממיר בסיסים בלייב</h2>
-                <div class="calc-grid" style="background-color: #f1f5f9; padding: 20px; border-radius: 12px;">
+                <div class="calc-grid" style="background-color: #f8fafc; padding: 24px; border-radius: 14px; border: 1px solid #e2e8f0;">
                     <div class="input-group">
-                        <label>עשרוני (Decimal: 0-255)</label>
+                        <label>עשרוני (<span class="eng-badge">Decimal: 0-255</span>)</label>
                         <input type="number" id="input-dec" value="192" min="0" max="255" oninput="convertFrom('dec')">
                     </div>
                     <div class="input-group">
-                        <label>בינארי (Binary: 8-bits)</label>
+                        <label>בינארי (<span class="eng-badge">Binary: 8-bits</span>)</label>
                         <input type="text" id="input-bin" value="11000000" maxlength="8" oninput="convertFrom('bin')" dir="ltr">
                     </div>
                     <div class="input-group">
-                        <label>הקסדצימלי (Hex: 00-FF)</label>
+                        <label>הקסדצימלי (<span class="eng-badge">Hex: 00-FF</span>)</label>
                         <input type="text" id="input-hex" value="C0" maxlength="2" oninput="convertFrom('hex')" dir="ltr">
                     </div>
                 </div>
@@ -573,43 +641,43 @@
 
             <!-- Bit Grid Interactive AND Logic Simulator -->
             <div class="card" style="background-color: var(--dark); color: white;">
-                <h2 class="card-title" style="color: white;"><span style="color: #38bdf8;">■</span> סימולטור Bit Grid ופעולת AND לחישוב רשת</h2>
-                <p style="font-size: 13px; color: #94a3b8; margin-bottom: 20px;">
-                    כדי לחשב את כתובת הרשת (<span class="ltr-text font-mono">Network ID</span>), הנתב מבצע פעולת <strong style="color: #38bdf8;">AND לוגי</strong> ברמת הביטים הבודדים בין כתובת ה-IP למסכת הרשת.
+                <h2 class="card-title" style="color: white;"><span style="color: #38bdf8;">■</span> סימולטור <span class="eng-badge-dark">Bit Grid</span> ופעולת <span class="eng-badge-dark">AND</span> לחישוב רשת</h2>
+                <p style="font-size: 15px; color: #cbd5e1; margin-bottom: 24px;">
+                    כדי לחשב את כתובת הרשת (<span class="eng-badge-dark">Network ID</span>), הנתב מבצע פעולת <strong style="color: #38bdf8;">AND לוגי</strong> ברמת הביטים הבודדים בין כתובת ה-<span class="eng-badge-dark">IP</span> למסכת הרשת.
                 </p>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
                     <div class="input-group">
-                        <label style="color: #94a3b8;">כתובת IPv4</label>
+                        <label style="color: #94a3b8;">כתובת <span class="eng-badge-dark">IPv4</span></label>
                         <input type="text" id="and-ip-input" value="192.168.1.50" oninput="updateBitGrid()" style="background-color: #020617; color: #38bdf8; border-color: #334155;" dir="ltr">
                     </div>
                     <div class="input-group">
-                        <label style="color: #94a3b8;">מסכת רשת (Subnet Mask)</label>
+                        <label style="color: #94a3b8;">מסכת רשת (<span class="eng-badge-dark">Subnet Mask</span>)</label>
                         <input type="text" id="and-mask-input" value="255.255.255.0" oninput="updateBitGrid()" style="background-color: #020617; color: #38bdf8; border-color: #334155;" dir="ltr">
                     </div>
                 </div>
 
                 <!-- Visual Bit Grid Rows -->
-                <div style="background-color: #020617; padding: 20px; border-radius: 12px; border: 1px solid #334155; overflow-x: auto;">
-                    <div style="margin-bottom: 12px;">
-                        <span style="font-size: 11px; color: #94a3b8; display: block; margin-bottom: 4px;">ביטים של כתובת IP:</span>
+                <div style="background-color: #020617; padding: 24px; border-radius: 14px; border: 1px solid #334155; overflow-x: auto;">
+                    <div style="margin-bottom: 14px;">
+                        <span style="font-size: 13px; color: #94a3b8; display: block; margin-bottom: 6px; font-weight: 700;">ביטים של כתובת IP:</span>
                         <div id="grid-ip-bits" class="bitgrid-row"></div>
                     </div>
-                    <div style="margin-bottom: 12px;">
-                        <span style="font-size: 11px; color: #94a3b8; display: block; margin-bottom: 4px;">ביטים של מסכת הרשת (Subnet Mask):</span>
+                    <div style="margin-bottom: 14px;">
+                        <span style="font-size: 13px; color: #94a3b8; display: block; margin-bottom: 6px; font-weight: 700;">ביטים של מסכת הרשת (Subnet Mask):</span>
                         <div id="grid-mask-bits" class="bitgrid-row"></div>
                     </div>
-                    <hr style="border-color: #334155; margin: 12px 0;">
+                    <hr style="border-color: #334155; margin: 16px 0;">
                     <div>
-                        <span style="font-size: 11px; color: #fbbf24; display: block; margin-bottom: 4px; font-weight: 700;">תוצאת AND לוגי (Network Address):</span>
+                        <span style="font-size: 13px; color: #fbbf24; display: block; margin-bottom: 6px; font-weight: 700;">תוצאת AND לוגי (Network Address):</span>
                         <div id="grid-and-bits" class="bitgrid-row"></div>
                     </div>
                 </div>
 
                 <!-- Result Box -->
-                <div style="margin-top: 16px; background-color: #0f2d2a; border: 1px solid var(--primary); padding: 14px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-                    <span style="font-size: 13px; font-weight: 700;">כתובת הרשת המתקבלת:</span>
-                    <span id="and-result-text" class="font-mono font-bold" style="font-size: 18px; color: #34d399;" dir="ltr">192.168.1.0</span>
+                <div style="margin-top: 20px; background-color: #0f2d2a; border: 1px solid var(--primary); padding: 18px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                    <span style="font-size: 16px; font-weight: 700;">כתובת הרשת המתקבלת:</span>
+                    <span id="and-result-text" class="eng-badge-dark" style="font-size: 20px; color: #34d399;" dir="ltr">192.168.1.0</span>
                 </div>
             </div>
         </section>
@@ -617,25 +685,25 @@
         <!-- Tab 5: Quiz & Practice Generator (15 Exercises) -->
         <section id="content-quiz" class="tab-content">
             <div class="generator-card">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 16px;">
                     <div>
-                        <h3 style="font-size: 20px; font-weight: 800; color: #0f3d37;">מחולל 15 תרגילי אימון מודרכים</h3>
-                        <p style="font-size: 12px; color: #0d5e56;">תרגל את התרגילים, הקלד את תשובתך וקבל הסבר מעוצב צעד אחר צעד.</p>
+                        <h3 style="font-size: 22px; font-weight: 800; color: #0f3d37;">מחולל 15 תרגילי אימון מודרכים</h3>
+                        <p style="font-size: 14px; color: #0d5e56;">תרגל את התרגילים, הקלד את תשובתך וקבל הסבר מעוצב צעד אחר צעד.</p>
                     </div>
-                    <div style="display: flex; gap: 8px; align-items: center;">
-                        <button onclick="unlockTeacherAnswers()" class="btn btn-teacher" style="padding: 6px 14px; font-size: 12px;">🔑 מורה</button>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <button onclick="unlockTeacherAnswers()" class="btn btn-teacher" style="padding: 8px 18px; font-size: 14px;">🔑 מורה</button>
                     </div>
                 </div>
 
                 <!-- Exercise Selector Buttons (1 to 15) -->
-                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;" id="exercise-nav-btns"></div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;" id="exercise-nav-btns"></div>
 
-                <div style="background-color: white; padding: 20px; border-radius: 12px; border: 1px solid var(--primary-border); display: flex; flex-direction: column; gap: 16px;">
+                <div style="background-color: white; padding: 28px; border-radius: 14px; border: 1px solid var(--primary-border); display: flex; flex-direction: column; gap: 20px;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-size: 12px; font-weight: 700; color: var(--primary);" id="practice-cat-title">תרגיל 1</span>
-                        <div style="display: flex; gap: 8px;">
-                            <button onclick="prevExercise()" class="btn btn-dark" style="padding: 6px 12px; font-size: 11px;">← הקודם</button>
-                            <button onclick="nextExercise()" class="btn" style="padding: 6px 12px; font-size: 11px;">הבא →</button>
+                        <span style="font-size: 15px; font-weight: 800; color: var(--primary);" id="practice-cat-title">תרגיל 1</span>
+                        <div style="display: flex; gap: 10px;">
+                            <button onclick="prevExercise()" class="btn btn-dark" style="padding: 8px 16px; font-size: 13px;">← הקודם</button>
+                            <button onclick="nextExercise()" class="btn" style="padding: 8px 16px; font-size: 13px;">הבא →</button>
                         </div>
                     </div>
 
@@ -643,9 +711,9 @@
                         טוען שאלה...
                     </div>
 
-                    <div style="display: flex; gap: 12px; flex-direction: column;">
-                        <input type="text" id="practice-answer-input" placeholder="הקלד תשובה..." style="padding: 12px; border: 2px solid #cbd5e1; border-radius: 8px; text-align: center; font-weight: 700; font-family: monospace; font-size: 16px; outline: none;" dir="ltr">
-                        <button onclick="checkPracticeAnswer()" class="btn btn-dark">בדוק את תשובתי</button>
+                    <div style="display: flex; gap: 14px; flex-direction: column;">
+                        <input type="text" id="practice-answer-input" placeholder="הקלד תשובה..." style="padding: 14px; border: 2px solid #cbd5e1; border-radius: 10px; text-align: center; font-weight: 700; font-family: monospace; font-size: 18px; outline: none;" dir="ltr">
+                        <button onclick="checkPracticeAnswer()" class="btn btn-dark" style="font-size: 16px; padding: 14px;">בדוק את תשובתי</button>
                     </div>
 
                     <!-- Hebrew Explanation Card -->
@@ -662,28 +730,28 @@
             <div class="bot-header">
                 <img src="https://lh3.googleusercontent.com/d/1t9QaPCKLvtAhWncetA83ALY8EIvpnFte" alt="Crazy Bot" class="bot-avatar-spinning">
                 <div>
-                    <h4 style="font-size: 16px; font-weight: 800; color: #38bdf8;">הבוט המטורלל של הרשתות</h4>
-                    <span style="font-size: 11px; color: #94a3b8;">עוזר לימודי אינטראקטיבי בלייב</span>
+                    <h4 style="font-size: 17px; font-weight: 800; color: #38bdf8;">הבוט המטורלל של הרשתות</h4>
+                    <span style="font-size: 12px; color: #94a3b8;">עוזר לימודי אינטראקטיבי בלייב</span>
                 </div>
             </div>
-            <p id="bot-tip-text" style="font-size: 13px; line-height: 1.5; color: #e2e8f0;">
+            <p id="bot-tip-text" style="font-size: 15px; line-height: 1.6; color: #e2e8f0;">
                 "טיפ של אלופים: תזכור שכל 1 בבינארית מוסיף את המשקל שלו! 128+64 זה תמיד 192, אל תתבלבל במבחן!"
             </p>
-            <div style="display: flex; gap: 8px;">
-                <button onclick="generateBotTip()" class="btn" style="font-size: 11px; padding: 6px 12px; flex-grow: 1;">תן לי עוד טיפ ⚡</button>
-                <button onclick="toggleBotCard()" class="btn btn-dark" style="font-size: 11px; padding: 6px 12px;">סגור</button>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="generateBotTip()" class="btn" style="font-size: 13px; padding: 8px 14px; flex-grow: 1;">תן לי עוד טיפ ⚡</button>
+                <button onclick="toggleBotCard()" class="btn btn-dark" style="font-size: 13px; padding: 8px 14px;">סגור</button>
             </div>
         </div>
 
         <button onclick="toggleBotCard()" class="bot-toggle-btn">
-            <span style="font-size: 20px;">🤖</span> הבוט המטורלל
+            <span style="font-size: 22px;">🤖</span> הבוט המטורלל
         </button>
     </div>
 
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>מדריך אינטראקטיבי ללימוד כתובות IP והמרת בסיסי ספירה - מותאם למסלולי סייבר ו-CCNA</p>
+            <p style="font-size: 14px;">מדריך אינטראקטיבי ללימוד כתובות IP והמרת בסיסי ספירה - מותאם למסלולי סייבר ו-CCNA</p>
         </div>
     </footer>
 
@@ -800,20 +868,20 @@
 
         // Expanded 15 Practice Questions
         const practiceBank = [
-            { id: 1, title: "המרת עשרוני לבינארי", q: "המר את המספר העשרוני <span dir='ltr' class='font-mono font-bold text-teal-600'>192</span> לבינארי (8 ביטים):", answer: "11000000", solution: "המספר 192 מורכב מ- 128 + 64. לכן הביטים במשקלים 128 ו-64 הופכים ל-1, ושאר הביטים כבויים (0)." },
-            { id: 2, title: "המרת בינארי לעשרוני", q: "מהו הערך העשרוני של המספר הבינארי <span dir='ltr' class='font-mono font-bold text-teal-600'>10101000</span>?", answer: "168", solution: "סוכמים את הביטים שערכם 1: 128 + 32 + 8 = 168." },
-            { id: 3, title: "זיהוי מחלקת IP", q: "לאיזו מחלקה (Class) שייכת הכתובת <span dir='ltr' class='font-mono font-bold text-teal-600'>172.16.10.1</span>?", answer: "CLASS B", solution: "האוקטטה הראשונה היא 172. טווח האוקטטה הראשונה של Class B הוא 128 עד 191." },
-            { id: 4, title: "זיהוי IP פרטי מול ציבורי", q: "האם הכתובת <span dir='ltr' class='font-mono font-bold text-teal-600'>192.168.1.50</span> היא פרטית (Private) או ציבורית (Public)?", answer: "פרטית", solution: "כתובת זו נמצאת בתוך טווח Class C הפרטי לפי תקן RFC 1918 (192.168.0.0 עד 192.168.255.255)." },
-            { id: 5, title: "המרת עשרוני להקסדצימלי", q: "המר את המספר העשרוני <span dir='ltr' class='font-mono font-bold text-teal-600'>255</span> לבסיס הקסדצימלי (Hex):", answer: "FF", solution: "255 מורכב מ-11111111 בבינארית. 4 הביטים הראשונים שווים 15 (F) ו-4 הביטים האחרונים שווים 15 (F), כלומר FF." },
-            { id: 6, title: "מסכת רשת ופרפיקס (CIDR)", q: "כמה ביטים של רשת מייצגת המסכה <span dir='ltr' class='font-mono font-bold text-teal-600'>255.255.255.0</span>? (רשום פרפיקס, לדוגמה: /24)", answer: "/24", solution: "המסכה 255.255.255.0 מכילה 24 ביטים ברצף של 1 (8 ביטים בכל אוקטטה), ולכן נרשמת בקיצור כ- /24." },
-            { id: 7, title: "חישוב כתובת רשת (Network ID)", q: "מהי כתובת הרשת עבור הכתובת <span dir='ltr' class='font-mono font-bold text-teal-600'>10.20.30.40/8</span>?", answer: "10.0.0.0", solution: "פרפיקס /8 מורה על כך שרק האוקטטה הראשונה שייכת למזהה הרשת, בעוד שאר 3 האוקטטות של המארח מתאפסות." },
-            { id: 8, title: "מחלקה ייעודית Class D", q: "למה מיועדת מחלקת הכתובות <span dir='ltr' class='font-mono font-bold text-teal-600'>Class D</span> (טווח 224-239)? (רשום: מולטיקאסט / Multicast)", answer: "מולטיקאסט", solution: "Class D אינה מיועדת למארחים בודדים אלא לשידורי מולטיקאסט (Multicast) לקבוצות מכשירים מוגדרות." },
-            { id: 9, title: "המרת הקסדצימלי לעשרוני", q: "מהו הערך העשרוני של הערך ההקסדצימלי <span dir='ltr' class='font-mono font-bold text-teal-600'>C0</span>?", answer: "192", solution: "התו C מייצג 12. מחשבים: (12 × 16) + 0 = 192." },
-            { id: 10, title: "חישוב משקל ביטים", q: "מהו הסכום העשרוני שמתקבל כאשר דולקים הביטים במשקלים <span dir='ltr' class='font-mono font-bold text-teal-600'>128 + 16 + 2</span>?", answer: "146", solution: "128 + 16 + 2 = 146. ייצוגו הבינארי באוקטטה הוא 10010010." },
-            { id: 11, title: "זיהוי כתובת חירום APIPA", q: "מהו טווח הכתובות המיועד לכתובות חירום מסוג <span dir='ltr' class='font-mono font-bold text-teal-600'>APIPA</span>? (רשום את התחלת הכתובת, למשל: 169.254)", answer: "169.254", solution: "כתובות APIPA מוקצות אוטומטית במנעד 169.254.0.0/16 כאשר לא ניתן להשיג כתובת משרת DHCP." },
+            { id: 1, title: "המרת עשרוני לבינארי", q: "המר את המספר העשרוני <span dir='ltr' class='eng-badge'>192</span> לבינארי (8 ביטים):", answer: "11000000", solution: "המספר 192 מורכב מ- 128 + 64. לכן הביטים במשקלים 128 ו-64 הופכים ל-1, ושאר הביטים כבויים (0)." },
+            { id: 2, title: "המרת בינארי לעשרוני", q: "מהו הערך העשרוני של המספר הבינארי <span dir='ltr' class='eng-badge'>10101000</span>?", answer: "168", solution: "סוכמים את הביטים שערכם 1: 128 + 32 + 8 = 168." },
+            { id: 3, title: "זיהוי מחלקת IP", q: "לאיזו מחלקה (Class) שייכת הכתובת <span dir='ltr' class='eng-badge'>172.16.10.1</span>?", answer: "CLASS B", solution: "האוקטטה הראשונה היא 172. טווח האוקטטה הראשונה של Class B הוא 128 עד 191." },
+            { id: 4, title: "זיהוי IP פרטי מול ציבורי", q: "האם הכתובת <span dir='ltr' class='eng-badge'>192.168.1.50</span> היא פרטית (Private) או ציבורית (Public)?", answer: "פרטית", solution: "כתובת זו נמצאת בתוך טווח Class C הפרטי לפי תקן RFC 1918 (192.168.0.0 עד 192.168.255.255)." },
+            { id: 5, title: "המרת עשרוני להקסדצימלי", q: "המר את המספר העשרוני <span dir='ltr' class='eng-badge'>255</span> לבסיס הקסדצימלי (Hex):", answer: "FF", solution: "255 מורכב מ-11111111 בבינארית. 4 הביטים הראשונים שווים 15 (F) ו-4 הביטים האחרונים שווים 15 (F), כלומר FF." },
+            { id: 6, title: "מסכת רשת ופרפיקס (CIDR)", q: "כמה ביטים של רשת מייצגת המסכה <span dir='ltr' class='eng-badge'>255.255.255.0</span>? (רשום פרפיקס, לדוגמה: /24)", answer: "/24", solution: "המסכה 255.255.255.0 מכילה 24 ביטים ברצף של 1 (8 ביטים בכל אוקטטה), ולכן נרשמת בקיצור כ- /24." },
+            { id: 7, title: "חישוב כתובת רשת (Network ID)", q: "מהי כתובת הרשת עבור הכתובת <span dir='ltr' class='eng-badge'>10.20.30.40/8</span>?", answer: "10.0.0.0", solution: "פרפיקס /8 מורה על כך שרק האוקטטה הראשונה שייכת למזהה הרשת, בעוד שאר 3 האוקטטות של המארח מתאפסות." },
+            { id: 8, title: "מחלקה ייעודית Class D", q: "למה מיועדת מחלקת הכתובות <span dir='ltr' class='eng-badge'>Class D</span> (טווח 224-239)? (רשום: מולטיקאסט / Multicast)", answer: "מולטיקאסט", solution: "Class D אינה מיועדת למארחים בודדים אלא לשידורי מולטיקאסט (Multicast) לקבוצות מכשירים מוגדרות." },
+            { id: 9, title: "המרת הקסדצימלי לעשרוני", q: "מהו הערך העשרוני של הערך ההקסדצימלי <span dir='ltr' class='eng-badge'>C0</span>?", answer: "192", solution: "התו C מייצג 12. מחשבים: (12 × 16) + 0 = 192." },
+            { id: 10, title: "חישוב משקל ביטים", q: "מהו הסכום העשרוני שמתקבל כאשר דולקים הביטים במשקלים <span dir='ltr' class='eng-badge'>128 + 16 + 2</span>?", answer: "146", solution: "128 + 16 + 2 = 146. ייצוגו הבינארי באוקטטה הוא 10010010." },
+            { id: 11, title: "זיהוי כתובת חירום APIPA", q: "מהו טווח הכתובות המיועד לכתובות חירום מסוג <span dir='ltr' class='eng-badge'>APIPA</span>? (רשום את התחלת הכתובת, למשל: 169.254)", answer: "169.254", solution: "כתובות APIPA מוקצות אוטומטית במנעד 169.254.0.0/16 כאשר לא ניתן להשיג כתובת משרת DHCP." },
             { id: 12, title: "כתובת לולאה פנימית Loopback", q: "מהי כתובת ה-Loopback הסטנדרטית לבדיקה עצמית של כרטיס הרשת (Localhost)?", answer: "127.0.0.1", solution: "כתובת 127.0.0.1 (ברשת 127.0.0.0/8) משמשת לבדיקת מחזור הפרוטוקול הפנימי בכרטיס הרשת ללא הוצאת תנועה לכבל." },
-            { id: 13, title: "חישוב כתובת ברודקאסט", q: "מהי כתובת השידור (Broadcast) עבור הרשת <span dir='ltr' class='font-mono font-bold text-teal-600'>192.168.1.0/24</span>?", answer: "192.168.1.255", solution: "במסכת /24, האוקטטה האחרונה שייכת למארחים. כתובת השידור מתקבלת כאשר כל 8 הביטים של המארח הם 1 (ערך 255)." },
-            { id: 14, title: "כתובת ציבורית מול פרטית", q: "האם הכתובת <span dir='ltr' class='font-mono font-bold text-teal-600'>8.8.8.8</span> היא פרטית או ציבורית?", answer: "ציבורית", solution: "כתובת זו אינה שייכת לאף אחד מטווחי RFC 1918 הפרטיים (10.x, 172.16-31.x, 192.168.x) ולכן היא כתובת IP ציבורית (שרת DNS של גוגל)." },
+            { id: 13, title: "חישוב כתובת ברודקאסט", q: "מהי כתובת השידור (Broadcast) עבור הרשת <span dir='ltr' class='eng-badge'>192.168.1.0/24</span>?", answer: "192.168.1.255", solution: "במסכת /24, האוקטטה האחרונה שייכת למארחים. כתובת השידור מתקבלת כאשר כל 8 הביטים של המארח הם 1 (ערך 255)." },
+            { id: 14, title: "כתובת ציבורית מול פרטית", q: "האם הכתובת <span dir='ltr' class='eng-badge'>8.8.8.8</span> היא פרטית או ציבורית?", answer: "ציבורית", solution: "כתובת זו אינה שייכת לאף אחד מטווחי RFC 1918 הפרטיים (10.x, 172.16-31.x, 192.168.x) ולכן היא כתובת IP ציבורית (שרת DNS של גוגל)." },
             { id: 15, title: "שידור קבוצתי Multicast", q: "איזה סוג תקשורת שולח מידע ממקור אחד אל קבוצת מנויים מוגדרת בלבד? (Unicast / Broadcast / Multicast)", answer: "MULTICAST", solution: "תקשורת Multicast שולחת חבילת מידע יחידה המופצת במקביל רק לתחנות שנרשמו לקבוצה הספציפית הזו." }
         ];
 
@@ -851,8 +919,8 @@
             const container = document.getElementById('exercise-nav-btns');
             let html = '';
             for (let i = 0; i < practiceBank.length; i++) {
-                const activeStyle = (i === currentExIndex) ? 'background-color: var(--primary); color: white;' : 'background-color: #e2e8f0; color: #334155;';
-                html += `<button onclick="loadExercise(${i})" style="${activeStyle} width: 30px; height: 30px; border-radius: 6px; border: none; font-weight: 800; font-size: 11px; cursor: pointer;">${i + 1}</button>`;
+                const activeStyle = (i === currentExIndex) ? 'background: linear-gradient(135deg, #0f766e 0%, #0d5e56 100%); color: white; border-color: #0f766e; box-shadow: 0 2px 6px rgba(15,118,110,0.3);' : 'background-color: #e2e8f0; color: #334155; border: 1px solid #cbd5e1;';
+                html += `<button onclick="loadExercise(${i})" style="${activeStyle} width: 36px; height: 36px; border-radius: 8px; font-weight: 800; font-size: 14px; cursor: pointer; transition: all 0.2s;">${i + 1}</button>`;
             }
             container.innerHTML = html;
         }
@@ -890,25 +958,25 @@
 
             if (isCorrect) {
                 feedbackEl.innerHTML = `
-                    <div style="background-color: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 12px; padding: 16px; margin-top: 12px;">
-                        <div style="display: flex; align-items: center; gap: 8px; color: #047857; font-weight: 800; font-size: 15px; margin-bottom: 6px;">
+                    <div style="background-color: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 12px; padding: 18px; margin-top: 14px;">
+                        <div style="display: flex; align-items: center; gap: 8px; color: #047857; font-weight: 800; font-size: 17px; margin-bottom: 8px;">
                             <span>✓</span> תשובה נכונה! כל הכבוד.
                         </div>
-                        <div style="font-size: 13px; color: #065f46; line-height: 1.5;">
+                        <div style="font-size: 15px; color: #065f46; line-height: 1.6;">
                             <strong>הסבר הנדסי:</strong> ${ex.solution}
                         </div>
                     </div>
                 `;
             } else {
                 feedbackEl.innerHTML = `
-                    <div style="background-color: #fff1f2; border: 1px solid #fecdd3; border-radius: 12px; padding: 16px; margin-top: 12px;">
-                        <div style="display: flex; align-items: center; gap: 8px; color: #be123c; font-weight: 800; font-size: 15px; margin-bottom: 6px;">
+                    <div style="background-color: #fff1f2; border: 1px solid #fecdd3; border-radius: 12px; padding: 18px; margin-top: 14px;">
+                        <div style="display: flex; align-items: center; gap: 8px; color: #be123c; font-weight: 800; font-size: 17px; margin-bottom: 8px;">
                             <span>✗</span> תשובה לא מדויקת
                         </div>
-                        <div style="font-size: 13px; color: #9f1239; margin-bottom: 8px;">
-                            התשובה שהזנת: <span dir="ltr" class="font-mono font-bold">${inputVal || 'ריק'}</span> | התשובה הצפויה: <span dir="ltr" class="font-mono font-bold">${ex.answer}</span>
+                        <div style="font-size: 15px; color: #9f1239; margin-bottom: 10px;">
+                            התשובה שהזנת: <span dir="ltr" class="eng-badge-dark">${inputVal || 'ריק'}</span> | התשובה הצפויה: <span dir="ltr" class="eng-badge-dark">${ex.answer}</span>
                         </div>
-                        <div style="background-color: white; border: 1px solid #ffe4e6; padding: 10px; border-radius: 8px; font-size: 12px; color: #881337;">
+                        <div style="background-color: white; border: 1px solid #ffe4e6; padding: 12px; border-radius: 8px; font-size: 14px; color: #881337;">
                             <strong>דרך הפתרון וההסבר:</strong> ${ex.solution}
                         </div>
                     </div>
